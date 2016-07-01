@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="SMDeployment.UserControls.FileCopier.ucFileDiff"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             ScrollViewer.CanContentScroll="True"
+             Margin="0,5,0,0"
+             d:DesignHeight="300"
+             d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25px" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid  Grid.Row="0"
+               Grid.Column="0">
+            <Grid.RowDefinitions>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="30px" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label x:Name="txtFromFolder"
+                   Background="#eeef"
+                   FontSize="14px"
+                   Grid.Column="0">
+            </Label>
+            <Label Grid.Row="0"
+                   Grid.Column="1"
+                   HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center"
+                   Content="To" />
+            <Label x:Name="txtToFolder"
+                   Background="#eeef"
+                   FontSize="14px"
+                   Grid.Column="2">
+            </Label>
+
+        </Grid>
+        <DataGrid x:Name="grdDiffFiles"
+                  FontSize="13"
+                  Margin="0,0,0,0"
+                  Grid.Row="1"
+                  CanUserAddRows="False"
+                  ColumnWidth="*"
+                  Grid.Column="0"></DataGrid>
+    </Grid>
+</UserControl>

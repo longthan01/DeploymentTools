@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SMTools.StepOutput" Collapsed="true">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StepOutput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SMTools.DeploymentProcess" Collapsed="true">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIACAQCQAAAAAAAAAAAIAAAAAFAAAAQAAAAAAAAI=</HashCode>
+      <FileName>DeploymentProcess.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ConfigurationItems" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SMTools.MSBuild" Collapsed="true">
+    <Position X="3.5" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAEAAAAAAAAAEAAAAAAAAAAAAAI=</HashCode>
+      <FileName>MSBuild.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SMTools.ProcessCompletedEventArgs" Collapsed="true">
+    <Position X="0.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Delegates\ProcessCompletedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SMTools.ConfigItem" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>ConfigItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SMTools.ConfigItemCollection" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConfigItemsCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SMTools.XmlLoader" Collapsed="true">
+    <Position X="9.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAIAAAAAAAAAIAAAAgAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>XmlLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SMTools.TFSTransporter" Collapsed="true">
+    <Position X="5.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAIAAAAAAABBAAAAIAAAAAAAAAMAAAAQAABAAAAAI=</HashCode>
+      <FileName>TFSTransporter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Delegate Name="SMTools.ProcessCompletedEventHandler" Collapsed="true">
+    <Position X="0.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Delegates\ProcessCompletedEventHandler.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
