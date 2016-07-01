@@ -40,8 +40,7 @@
     <Reference Include="Microsoft.TeamFoundation.VersionControl.Client">
       <HintPath>Libs\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
     </Reference>
-    <Reference Include="SMTools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="SMTools">
       <HintPath>..\SMTools\bin\Debug\SMTools.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -83,6 +82,9 @@
     <Compile Include="UserControls\TFS\ucTFSGetLastest.xaml.cs">
       <DependentUpon>ucTFSGetLastest.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ucTree.xaml.cs">
+      <DependentUpon>ucTree.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -112,6 +114,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\TFS\ucTFSGetLastest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

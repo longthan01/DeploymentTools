@@ -1,11 +1,12 @@
 ﻿using SMTools.DeploymentBase;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMTools.DeploymentBase
+namespace SMTools.Deployment.Utility
 {
     public class FileDirCollection : List<FileDirInfor>
     {

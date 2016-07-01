@@ -1,4 +1,5 @@
-﻿using SMTools.DeploymentBase;
+﻿using SMTools.Deployment.Utility;
+using SMTools.DeploymentBase;
 using SMTools.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,9 @@ namespace SMTools.FileCopier
         US_CSv100UAT,
         All
     }
-
+    /// <summary>
+    /// Copy a folder to another folder in accordance with the structure of destination folder
+    /// </summary>
     public class FileCopier : DeploymentProcessBase, IDeployment
     {
         #region fields, properties

@@ -60,12 +60,12 @@
     <Compile Include="DeploymentBase\ConfigItemsCollection.cs" />
     <Compile Include="DeploymentBase\DeploymentProcessBase.cs" />
     <Compile Include="DeploymentBase\DeploymentProcessBuilder.cs" />
-    <Compile Include="DeploymentBase\DeploymentUtility.cs" />
+    <Compile Include="Utility\DeploymentUtility.cs" />
     <Compile Include="FileCopier\SMExtensions.cs" />
     <Compile Include="FileCopier\FileCopier.cs" />
     <Compile Include="FileCopier\FileCopierOutput.cs" />
     <Compile Include="FileCopier\FileCopierOutputItem.cs" />
-    <Compile Include="DeploymentBase\FileDirInfor.cs" />
+    <Compile Include="Utility\FileDirInfor.cs" />
     <Compile Include="FileCopier\CopierFileDirErrorInfor.cs" />
     <Compile Include="Interfaces\IDeployment.cs" />
     <Compile Include="MSBuilder\BuildOutput.cs" />
@@ -80,7 +80,8 @@
     <Compile Include="TFSTransporter\TFSGetLastest.cs" />
     <Compile Include="TFSTransporter\TFSTransporterBase.cs" />
     <Compile Include="DeploymentBase\XmlLoader.cs" />
-    <Compile Include="DeploymentBase\FileDirCollection.cs" />
+    <Compile Include="Utility\FileDirCollection.cs" />
+    <Compile Include="Utility\DirInfor.cs" />
     <Compile Include="Utility\ProcessUtility.cs" />
   </ItemGroup>
   <ItemGroup>
