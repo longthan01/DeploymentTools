@@ -22,6 +22,7 @@ namespace SMTools.Deployment.Utility
             string shortPath = tks.Length == 0 ? string.Empty : tks[tks.Length - 2] + "\\" + tks[tks.Length - 1];
             FileInfor fi = new FileInfor()
             {
+                FileName = Path.GetFileName(file),
                 FullPath = file,
                 ShortPath = shortPath,
                 ModifiedDate = modifedDate,

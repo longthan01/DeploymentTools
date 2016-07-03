@@ -8,6 +8,7 @@ namespace SMTools.Deployment.Utility
 {
     public class FileInfor
     {
+        public string FileName { get; set; }
         public string FullPath
         {
             get;
