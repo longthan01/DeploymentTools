@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SMTools.FileCopier
 {
-    public class CopierFileDirErrorInfor : FileDirInfor
+    public class CopierFileErrorInfor : FileInfor
     {
         public string Error
         {
@@ -16,13 +16,12 @@ namespace SMTools.FileCopier
             set;
         }
        
-        public CopierFileDirErrorInfor(string error, bool isEmptyDir, string fullPath, string shortPath, DateTime modifiedDate)
+        public CopierFileErrorInfor(string error, FileInfor file)
         {
             this.Error = error;
-            this.FullPath = fullPath;
-            this.IsEmptyDirectory = isEmptyDir;
-            this.ShortPath = shortPath;
-            this.ModifiedDate = modifiedDate;
+            this.FullPath = file.FullPath;
+            this.ShortPath = file.ShortPath;
+            this.ModifiedDate = file.ModifiedDate;
         }
     }
 }

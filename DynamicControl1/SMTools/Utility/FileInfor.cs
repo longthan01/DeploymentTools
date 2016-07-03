@@ -6,17 +6,8 @@ using System.Threading.Tasks;
 
 namespace SMTools.Deployment.Utility
 {
-    public class FileDirInfor
+    public class FileInfor
     {
-        /// <summary>
-        /// Check if folder is empty or just contain sub folders.
-        /// </summary>
-
-        public bool IsEmptyDirectory
-        {
-            get;
-            set;
-        }
         public string FullPath
         {
             get;

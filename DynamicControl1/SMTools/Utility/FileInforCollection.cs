@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace SMTools.Deployment.Utility
 {
-    public class FileDirCollection : List<FileDirInfor>
+    public class FileInforCollection : List<FileInfor>
     {
-        public FileDirCollection Add(string filePath)
+        public FileInforCollection Add(string filePath)
         {
-            FileDirInfor fdi = DeploymentUtility.GetInfor(filePath);
+            FileInfor fdi = DeploymentUtility.GetFileInfor(filePath);
             this.Add(fdi);
             return this;
         }

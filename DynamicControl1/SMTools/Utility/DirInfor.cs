@@ -11,13 +11,12 @@ namespace SMTools.Deployment.Utility
     /// </summary>
     public class DirInfor
     {
-        public string Current { get; set; }
-        public bool IsDirectory { get; set; }
-        public List<string> Files { get; set; }
+        public string RelativeRoot { get; set; }
+        public List<FileInfor> Files { get; set; }
         public List<DirInfor> SubDirectories { get; set; }
         public DirInfor()
         {
-            Files = new List<string>();
+            Files = new List<FileInfor>();
             SubDirectories = new List<DirInfor>();
         }
     }

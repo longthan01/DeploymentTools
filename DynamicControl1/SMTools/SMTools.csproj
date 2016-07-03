@@ -65,8 +65,9 @@
     <Compile Include="FileCopier\FileCopier.cs" />
     <Compile Include="FileCopier\FileCopierOutput.cs" />
     <Compile Include="FileCopier\FileCopierOutputItem.cs" />
-    <Compile Include="Utility\FileDirInfor.cs" />
-    <Compile Include="FileCopier\CopierFileDirErrorInfor.cs" />
+    <Compile Include="Utility\Enum.cs" />
+    <Compile Include="Utility\FileInfor.cs" />
+    <Compile Include="FileCopier\CopierFileErrorInfor.cs" />
     <Compile Include="Interfaces\IDeployment.cs" />
     <Compile Include="MSBuilder\BuildOutput.cs" />
     <Compile Include="MSBuilder\MSBuilder.cs" />
@@ -80,7 +81,7 @@
     <Compile Include="TFSTransporter\TFSGetLastest.cs" />
     <Compile Include="TFSTransporter\TFSTransporterBase.cs" />
     <Compile Include="DeploymentBase\XmlLoader.cs" />
-    <Compile Include="Utility\FileDirCollection.cs" />
+    <Compile Include="Utility\FileInforCollection.cs" />
     <Compile Include="Utility\DirInfor.cs" />
     <Compile Include="Utility\ProcessUtility.cs" />
   </ItemGroup>

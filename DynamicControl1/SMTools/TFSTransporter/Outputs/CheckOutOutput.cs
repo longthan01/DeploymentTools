@@ -5,12 +5,12 @@ namespace SMTools.TFSTransporter
 {
     public class CheckOutOutput : StepOutputBase
     {
-        public FileDirCollection AffectedFiles
+        public FileInforCollection AffectedFiles
         {
             get;
             set;
         }
-        public FileDirCollection ErrorFiles
+        public FileInforCollection ErrorFiles
         {
             get;
             set;
@@ -18,8 +18,8 @@ namespace SMTools.TFSTransporter
        
         public CheckOutOutput()
         {
-            ErrorFiles = new FileDirCollection();
-            AffectedFiles = new FileDirCollection();
+            ErrorFiles = new FileInforCollection();
+            AffectedFiles = new FileInforCollection();
         }
     }
 }
