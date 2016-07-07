@@ -6,76 +6,72 @@
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="300">
-    <Grid>
-        <Grid x:Name="grdMain">
+    <Grid x:Name="grdMain">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="3" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <GridSplitter Grid.Row="0"
+                      Grid.Column="1"
+                      ResizeDirection="Columns"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      ResizeBehavior="PreviousAndNext" />
+        <Grid Grid.Row="0"
+              Grid.Column="0">
+            <ListView x:Name="lstProject"
+                      SelectionChanged="lstProject_SelectionChanged"
+                      Background="Transparent">
+                <ListView.Resources>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="FontSize"
+                                Value="18"></Setter>
+                    </Style>
+                </ListView.Resources>
+            </ListView>
+        </Grid>
+        <Grid Grid.Column="2"
+              x:Name="gridDetails"
+              Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBox x:Name="txtFolderPath"
+                     Style="{StaticResource placeholder}"
+                     Tag="Path to source folder"
+                     FontSize="17"
+                     KeyDown="txtFolderPath_KeyDown"></TextBox>
+            <Grid Grid.Row="1"
+                  x:Name="stkGridDetails"
+                  FlowDirection="LeftToRight">
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1"
+              Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition />
-                <RowDefinition Height="50" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition Width="5" />
+                <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <GridSplitter Grid.Row="0"
-                          Grid.Column="1"
-                          Background="LightBlue"
-                          ResizeDirection="Columns"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Stretch"
-                          ResizeBehavior="PreviousAndNext" />
-            <Grid Grid.Row="0"
-                  Grid.Column="0">
-                <ListView x:Name="lstProject"
-                          SelectionChanged="lstProject_SelectionChanged"
-                          Background="Transparent">
-                    <ListView.Resources>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="FontSize"
-                                    Value="18"></Setter>
-                        </Style>
-                    </ListView.Resources>
-                </ListView>
-            </Grid>
-            <Grid Grid.Column="2"
-                  x:Name="gridDetails"
-                  Grid.Row="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="35" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBox x:Name="txtFolderPath"
-                         Background="Transparent"
-                         FontSize="17"
-                         KeyDown="txtFolderPath_KeyDown"></TextBox>
-                <StackPanel Grid.Row="1"
-                            x:Name="stkGridDetails"
-                            Orientation="Vertical"
-                            FlowDirection="LeftToRight">
-
-                </StackPanel>
-            </Grid>
-            <Grid Grid.Row="1"
-                  Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Button x:Name="btnRun"
-                        Click="btnRun_Click"
-                        Grid.Row="0"
-                        Content="Checkout"
-                        FontSize="17"
-                        Grid.Column="2"></Button>
-            </Grid>
-            <Label x:Name="lblErrMsg"
-                   Grid.Row="1"
-                   Foreground="Red"
-                   Grid.Column="0"></Label>
+            <Button x:Name="btnRun"
+                    Click="btnRun_Click"
+                    Grid.Row="0"
+                    Content="Checkout"
+                    FontSize="17"
+                    Grid.Column="2"></Button>
         </Grid>
+        <Label x:Name="lblErrMsg"
+               Grid.Row="1"
+               Foreground="Red"
+               Grid.Column="0"></Label>
     </Grid>
 </UserControl>

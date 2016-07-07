@@ -12,6 +12,11 @@ namespace SMTools.Deployment.Utility
     public class DirInfor
     {
         public string RelativeRoot { get; set; }
+        public DateTime ModifiedDate
+        {
+            get;
+            set;
+        }
         public List<FileInfor> Files { get; set; }
         public List<DirInfor> SubDirectories { get; set; }
         public DirInfor()

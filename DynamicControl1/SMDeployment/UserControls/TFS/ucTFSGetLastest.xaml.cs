@@ -16,6 +16,7 @@ using SMTools.TFSTransporter;
 using SMDeployment.AppCodes;
 using SMTools.DeploymentBase;
 using SMDeployment.UIModels.TFSTransport;
+using SMTools.Deployment.Utility;
 
 namespace SMDeployment.UserControls.TFS
 {
@@ -24,21 +25,23 @@ namespace SMDeployment.UserControls.TFS
     /// </summary>
     public partial class ucTFSTransport : UserControl
     {
-        public ProjectConfigInfor ConfigInfor
+        private ProjectConfigInfor _ConfigInfor
         {
             get;
             set;
         }
+
+        private TFSGetLastest _TFSTransporter
+        {
+            get;
+            set;
+        }
+
         public ucTFSTransport()
         {
             InitializeComponent();
-            ConfigInfor = new ProjectConfigInfor();
-            List<string> lstViewItems = new List<string>()
-            {
-                ConfigKey.DevTFSConfig.ToString(),
-                ConfigKey.QATFSConfig.ToString(),
-                ConfigKey.USTFSConfig.ToString()
-            };
+            _ConfigInfor = new ProjectConfigInfor();
+            var lstViewItems = Extensions.GetEnumList(typeof(DeployEnvironment));
             this.lstProject.ItemsSource = lstViewItems;
         }
 
@@ -47,23 +50,10 @@ namespace SMDeployment.UserControls.TFS
             lblErrMsg.Content = msg;
             lblErrMsg.Visibility = Visibility.Visible;
         }
-        private void SetConfigInfor()
-        {
-            string item = this.lstProject.SelectedItem as string;
-            if (item == null)
-            {
-                return;
-            }
-            ConfigInfor.ConfigPath = DeploymentConfiguration.GetAppSettingValue(item.ToConfigKey());
-            ConfigInfor.ProjectPath = DeploymentConfiguration.GetProjectPath(item.ToConfigKey());
-        }
-
+        
         private void txtFolderPath_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
-            {
-                this.grdFilesDetails.ItemsSource = DeploymentUtility.GetFileDirInfor(this.txtFolderPath.Text);
-            }
+
         }
 
         private void btnRun_Click(object sender, RoutedEventArgs e)
@@ -75,33 +65,32 @@ namespace SMDeployment.UserControls.TFS
                 return;
             }
 
-            DeploymentProcessBuilder builder = new DeploymentProcessBuilder(new TFSGetLastest(ConfigInfor.ConfigPath));
+            DeploymentProcessBuilder builder = new DeploymentProcessBuilder(_TFSTransporter);
             builder.OnProcessCompleted += (o, ev) =>
             {
-                if (ev.ProcessOutput is CheckOutOutput)
+                GetLastestOutput output = ev.ProcessOutput as GetLastestOutput;
+                UIThreadHelper.RunWorker(this, delegate
                 {
-                    CheckOutOutput output = ev.ProcessOutput as CheckOutOutput;
-                    this.Dispatcher.Invoke(new Action(() =>
-                    {
-                        this.grdFilesDetails.ItemsSource = output.ErrorFiles;
-                    }));
-                }
-                if (ev.ProcessOutput is GetLastestOutput)
-                {
-                    GetLastestOutput output = ev.ProcessOutput as GetLastestOutput;
-                    this.Dispatcher.Invoke(new Action(() =>
-                    {
-                        this.grdFilesDetails.ItemsSource = output.Failures.Select(x => x.LocalItem);
-                    }));
-                }
+                   UIHelper.AddChild(
+                       this.stckGetLastestDetails.Children,
+                       UIHelper.CreateScrollDataGrid(output.Failures.Select(x => x.LocalItem)));
+
+                });
             };
             builder.StartAsync();
         }
 
         private void lstProject_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SetConfigInfor();
-            this.txtFolderPath.Text = ConfigInfor.ProjectPath;
+            string item = this.lstProject.SelectedItem as string;
+            if (item == null)
+            {
+                return;
+            }
+            _TFSTransporter = DeployToolFactory.GetProcess<TFSGetLastest>(ConfigFolder.TFS, item.ToDeployEnvironment());
+            _ConfigInfor.ConfigPath = _TFSTransporter.ConfigurationFile;
+            _ConfigInfor.ProjectPath = _TFSTransporter.GetProjectPath();
+            this.txtFolderPath.Text = _ConfigInfor.ProjectPath;
         }
     }
 }

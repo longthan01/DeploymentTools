@@ -1,4 +1,4 @@
-﻿using SMTools.Interfaces;
+﻿using SMTools.DeploymentBase;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -39,10 +39,19 @@ namespace SMTools.DeploymentBase
             this.ConfigurationFile = configFile;
             this.ConfigurationItems = XmlLoader.GetConfig(configFile);
         }
-
+        public DeploymentProcessBase()
+        {
+        }
         #endregion
 
         #region public methods
+        public void LoadConfiguration()
+        {
+            if (this.ConfigurationFile != null)
+            {
+                this.ConfigurationItems = XmlLoader.GetConfig(this.ConfigurationFile);
+            }
+        }
 
         public void SaveConfiguration()
         {
@@ -61,9 +70,9 @@ namespace SMTools.DeploymentBase
             return this.ConfigurationItems == null ? null : this.ConfigurationItems.GetConfigItem(name);
         }
 
-        protected string GetConfigItemValue(string itemName)
+        protected string GetConfigItemValue(string nodeName)
         {
-            return this.ConfigurationItems == null ? null : this.ConfigurationItems.GetConfigItemValue(itemName);
+            return this.ConfigurationItems == null ? null : this.ConfigurationItems.GetConfigItemValue(nodeName);
         }
         protected ConfigItem GetConfigAttribute(string nodeName, string attributeName)
         {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.TeamFoundation.VersionControl.Client;
 using SMTools.DeploymentBase;
-using SMTools.Interfaces;
+using SMTools.DeploymentBase;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,7 +23,7 @@ namespace SMTools.TFSTransporter
 
         public void Run()
         {
-            Workspace wp = this.VersionControl.GetWorkspace(WorkspaceMapping);
+            Workspace wp = this.VersionControlServer.GetWorkspace(WorkspaceMapping);
             if (wp != null)
             {
                 string dir = Path.GetDirectoryName(WorkspaceMapping);

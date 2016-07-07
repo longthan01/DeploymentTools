@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace SMTools.Deployment.Utility
 {
+    /// <summary>
+    /// Utility class, provide methods to get File, Dir information...
+    /// </summary>
     public static class DeploymentUtility
     {
         ///// <summary>
@@ -36,6 +39,7 @@ namespace SMTools.Deployment.Utility
             res.RelativeRoot = folder;
             try
             {
+                res.ModifiedDate = Directory.GetLastWriteTime(folder);
                 string[] files = Directory.GetFiles(res.RelativeRoot);
                 string[] directories = Directory.GetDirectories(res.RelativeRoot);
                 foreach (string file in files)

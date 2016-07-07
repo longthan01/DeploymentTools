@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="300">
-    <Grid x:Name="mainGrid">
+    <Grid x:Name="grdMain">
         <MediaElement Source="loading.gif"
                       x:Name="imgLoading"
                       Panel.ZIndex="1000"
@@ -36,16 +36,18 @@
         <Grid x:Name="gridContent">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30px" />
-                <RowDefinition Height="2*" />
-                <RowDefinition Height="0.01*" />
                 <RowDefinition />
-                <RowDefinition Height="30px" />
+                <RowDefinition Height="3" />
+                <RowDefinition />
+                <RowDefinition Height="50px" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*" />
             </Grid.ColumnDefinitions>
             <TextBox Grid.Row="0"
                      Grid.Column="0"
+                     Style="{StaticResource placeholder}"
+                     Tag="Path to source folder"
                      ToolTip="Path to source folder"
                      x:Name="txtSourceFolder"
                      FontSize="15"
@@ -57,23 +59,17 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
-                    <ColumnDefinition Width="0.005*" />
+                    <ColumnDefinition Width="3" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <GridSplitter Grid.Row="0"
                               Grid.Column="1"
-                              Background="LightBlue"
                               ResizeDirection="Columns"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch"
                               ResizeBehavior="PreviousAndNext" />
-                <DataGrid Grid.Row="0"
-                          Background="Transparent"
-                          Grid.Column="0"
-                          Visibility="Hidden"
-                          CanUserAddRows="False"
-                          ScrollViewer.VerticalScrollBarVisibility="Auto"
-                          Name="gridFromFile" />
+                <Grid Grid.Row="0"
+                      Name="gridFromFile"></Grid>
                 <Grid Grid.Row="0"
                       Grid.Column="2">
                     <Grid.RowDefinitions>
@@ -84,8 +80,10 @@
                            Content="Files or Folders is failed in copy process:"
                            FontStyle="Italic"
                            FontSize="15" />
-                    <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                        <StackPanel x:Name="sckPnlDiff" Orientation="Vertical"
+                    <ScrollViewer  Grid.Row="1"
+                                   VerticalScrollBarVisibility="Auto">
+                        <StackPanel x:Name="sckPnlDiff"
+                                    Orientation="Vertical"
                                     OverridesDefaultStyle="False"
                                     Background="Transparent">
                         </StackPanel>
@@ -94,7 +92,6 @@
             </Grid>
             <GridSplitter Grid.Row="2"
                           Grid.Column="0"
-                          Background="LightBlue"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Stretch"
                           ResizeBehavior="PreviousAndNext"
@@ -135,10 +132,6 @@
                 <Button Grid.Column="2"
                         Name="btnCopy"
                         Content="Copy"
-                        FontStyle="Oblique"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Width="100px"
                         ToolTip="Copy all file from Right Grid to Left Grid"
                         Click="btnCopy_Click" />
             </Grid>

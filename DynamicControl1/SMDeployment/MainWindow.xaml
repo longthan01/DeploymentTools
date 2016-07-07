@@ -6,7 +6,6 @@
         Width="525">
 
     <Grid x:Name="grdMain">
-
         <DockPanel>
             <Menu Height="30"
                   DockPanel.Dock="Top"
@@ -17,26 +16,7 @@
                         <Setter Property="FontSize"
                                 Value="18" />
                     </Style>
-                    <Style TargetType="Menu">
-                        <Setter Property="Background">
-                            <Setter.Value>
-                                <LinearGradientBrush>
-                                    <GradientStop Color="LightGreen"
-                                                  Offset="0">
-                                        
-                                    </GradientStop>
-                                    <GradientStop Color="LightCyan"
-                                                  Offset="0.5">
-
-                                    </GradientStop>
-                                    <GradientStop Color="LightYellow"
-                                                  Offset="1">
-
-                                    </GradientStop>
-                                </LinearGradientBrush>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
+                    
                 </Menu.Resources>
                 <MenuItem Header="Build"
                           Click="MenuItemBuild_Click"></MenuItem>
@@ -46,10 +26,11 @@
                           Click="MenuItemGL_Click"></MenuItem>
                 <MenuItem Header="Checkout"
                           Click="MenuItem_Click"></MenuItem>
+                <MenuItem Header="Boarding"
+                          Click="MenuItem_Click"></MenuItem>
             </Menu>
             <DockPanel x:Name="docPnlMain"
                        DockPanel.Dock="Bottom"></DockPanel>
-
         </DockPanel>
     </Grid>
 </Window>

@@ -1,4 +1,4 @@
-﻿using SMTools.DeploymentBase;
+﻿using SMTools.Deployment.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,17 +14,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SMDeployment.UserControls
+namespace SMDeployment.UserControls.TFS
 {
     /// <summary>
-    /// Interaction logic for ucTree.xaml
+    /// Interaction logic for ucTFSCheckoutResult.xaml
     /// </summary>
-    public partial class ucTree : UserControl
+    public partial class ucTFSCheckoutResult : UserControl
     {
-        public ucTree()
+        public ucTFSCheckoutResult(List<FileInfor> affectedFiles, List<FileInfor> errorFiles)
         {
             InitializeComponent();
-           this.tvTree.ItemsSource =  DeploymentUtility.GetAllFiles(@"D:\Software\unikey32");
+            this.dgrAffectedFiles.ItemsSource = affectedFiles;
+            this.dgrErrorFiles.ItemsSource = errorFiles;
         }
     }
 }

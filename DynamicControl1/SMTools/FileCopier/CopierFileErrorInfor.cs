@@ -16,12 +16,13 @@ namespace SMTools.FileCopier
             set;
         }
        
-        public CopierFileErrorInfor(string error, FileInfor file)
+        public CopierFileErrorInfor(string error, FileInfor fi)
         {
             this.Error = error;
-            this.FullPath = file.FullPath;
-            this.ShortPath = file.ShortPath;
-            this.ModifiedDate = file.ModifiedDate;
+            this.FileName = fi.FileName;
+            this.FullPath = fi.FullPath;
+            this.ShortPath = fi.ShortPath;
+            this.ModifiedDate = fi.ModifiedDate;
         }
     }
 }

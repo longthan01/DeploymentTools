@@ -13,12 +13,11 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="3" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <GridSplitter Grid.Row="0"
                       Grid.Column="1"
-                      Background="LightBlue"
                       ResizeDirection="Columns"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
@@ -44,16 +43,13 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBox x:Name="txtFolderPath"
-                     Background="Transparent"
+                     Style="{StaticResource placeholder}"
+                     Tag="Path to source folder"
                      FontSize="17"
                      KeyDown="txtFolderPath_KeyDown"></TextBox>
-            <DataGrid x:Name="grdFilesDetails"
-                      ColumnWidth="*"
-                      Grid.Row="1"
-                      CanUserAddRows="False"
-                      Background="Transparent"></DataGrid>
+            <StackPanel Grid.Row="1" Name="stckGetLastestDetails"></StackPanel>
         </Grid>
-        <Grid Grid.Row="1"
+        <Grid Grid.Row="1" 
               Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition />

@@ -31,16 +31,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.TeamFoundation.Client">
-      <HintPath>..\SMDeployment\Libs\Microsoft.TeamFoundation.Client.dll</HintPath>
+      <HintPath>..\SMDeployment\libraries\Microsoft.TeamFoundation.Client.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.TeamFoundation.Common">
-      <HintPath>..\SMDeployment\Libs\Microsoft.TeamFoundation.Common.dll</HintPath>
+      <HintPath>..\SMDeployment\libraries\Microsoft.TeamFoundation.Common.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.TeamFoundation.VersionControl.Client">
-      <HintPath>..\SMDeployment\Libs\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
+      <HintPath>..\SMDeployment\libraries\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.TeamFoundation.VersionControl.Common">
-      <HintPath>..\SMDeployment\Libs\Microsoft.TeamFoundation.VersionControl.Common.dll</HintPath>
+      <HintPath>..\SMDeployment\libraries\Microsoft.TeamFoundation.VersionControl.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,29 +60,33 @@
     <Compile Include="DeploymentBase\ConfigItemsCollection.cs" />
     <Compile Include="DeploymentBase\DeploymentProcessBase.cs" />
     <Compile Include="DeploymentBase\DeploymentProcessBuilder.cs" />
-    <Compile Include="Utility\DeploymentUtility.cs" />
-    <Compile Include="FileCopier\SMExtensions.cs" />
     <Compile Include="FileCopier\FileCopier.cs" />
+    <Compile Include="DeploymentBase\SMExtensions.cs" />
     <Compile Include="FileCopier\FileCopierOutput.cs" />
     <Compile Include="FileCopier\FileCopierOutputItem.cs" />
-    <Compile Include="Utility\Enum.cs" />
-    <Compile Include="Utility\FileInfor.cs" />
     <Compile Include="FileCopier\CopierFileErrorInfor.cs" />
     <Compile Include="Interfaces\IDeployment.cs" />
     <Compile Include="MSBuilder\BuildOutput.cs" />
+    <Compile Include="MSBuilder\Deploymenter.cs" />
     <Compile Include="MSBuilder\MSBuilder.cs" />
     <Compile Include="Delegates\ProcessCompletedEventArgs.cs" />
     <Compile Include="Delegates\ProcessCompletedEventHandler.cs" />
+    <Compile Include="MSBuilder\Builder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DeploymentBase\StepOutputBase.cs" />
+    <Compile Include="TFSTransporter\TFSSearchItem\ISearchItemFilter.cs" />
+    <Compile Include="TFSTransporter\TFSSearchItem\TFSSearchItem.cs" />
+    <Compile Include="TFSTransporter\TFSTeamProjectInstance.cs" />
     <Compile Include="TFSTransporter\Outputs\GetLastestOutput.cs" />
     <Compile Include="TFSTransporter\Outputs\CheckOutOutput.cs" />
     <Compile Include="TFSTransporter\TFSCheckOut.cs" />
     <Compile Include="TFSTransporter\TFSGetLastest.cs" />
     <Compile Include="TFSTransporter\TFSTransporterBase.cs" />
     <Compile Include="DeploymentBase\XmlLoader.cs" />
-    <Compile Include="Utility\FileInforCollection.cs" />
+    <Compile Include="Utility\DeploymentUtility.cs" />
     <Compile Include="Utility\DirInfor.cs" />
+    <Compile Include="Utility\FileInfor.cs" />
+    <Compile Include="Utility\FileInforCollection.cs" />
     <Compile Include="Utility\ProcessUtility.cs" />
   </ItemGroup>
   <ItemGroup>

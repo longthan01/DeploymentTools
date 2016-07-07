@@ -22,7 +22,6 @@ using SMTools.MSBuilder;
 using SMDeployment.UserControls.Build;
 using Microsoft.TeamFoundation.VersionControl.Client;
 using SMDeployment.UserControls.TFS;
-using SMDeployment.UserControls;
 
 namespace SMDeployment
 {
@@ -34,7 +33,6 @@ namespace SMDeployment
         public MainWindow()
         {
             InitializeComponent();
-            this.grdMain.Children.Add(new ucTree());
         }
 
         private void AddFileCopier()

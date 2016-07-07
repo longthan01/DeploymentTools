@@ -6,102 +6,89 @@
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="300">
-    <Grid>
-        <Grid.Resources>
-            <Style TargetType="Grid">
-                <Setter 
-                        Property="Margin" 
-                        Value="5,0,5,0"/>
-            </Style>
-        </Grid.Resources>
-            <Grid x:Name="grdMain">
+    <Grid x:Name="grdMain">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="3" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0"
+              Grid.Column="0">
+            <ListView x:Name="lstViewSolutions"
+                      SelectionChanged="lstViewSolutions_SelectionChanged"
+                      Background="Transparent">
+                <ListView.Resources>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="FontSize"
+                                Value="20" />
+                    </Style>
+                </ListView.Resources>
+                <ListViewItem Name="Dev_Build"
+                              Content="Dev">
+                </ListViewItem>
+                <!--<ListViewItem Name="itemQA"
+                                  Content="QA">
+                    </ListViewItem>
+                    <ListViewItem Name="itemUS"
+                                  Content="US">
+                    </ListViewItem>-->
+            </ListView>
+        </Grid>
+        <GridSplitter Grid.Row="0"
+                      Grid.Column="1"
+                      ResizeDirection="Columns"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      ResizeBehavior="PreviousAndNext" />
+        <ScrollViewer Grid.Row="0"
+                      FlowDirection="LeftToRight"
+                      CanContentScroll="True"
+                      HorizontalScrollBarVisibility="Visible"
+                      Grid.Column="2">
+            <DataGrid x:Name="grdBuildInfor"
+                      CanUserAddRows="False"
+                      Background="Transparent"></DataGrid>
+        </ScrollViewer>
+        <Grid Grid.Row="1"
+              Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="50" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="5px" />
+            </Grid.ColumnDefinitions>
+            <Label x:Name="lblErrorMsg"
+                   VerticalAlignment="Center"
+                   VerticalContentAlignment="Center"
+                   FontSize="17"
+                   Foreground="Red" />
+        </Grid>
+        <Grid Grid.Row="1"
+              Grid.Column="2">
+            <Grid.RowDefinitions>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid Grid.Row="0"
                   Grid.Column="0">
-                <ListView x:Name="lstViewSolutions"
-                          SelectionChanged="lstViewSolutions_SelectionChanged"
-                          Background="Transparent">
-                    <ListView.Resources>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="FontSize"
-                                    Value="20" />
-                            <Setter Property="Margin"
-                                    Value="10,0,0,0" />
-                        </Style>
-                    </ListView.Resources>
-                    <ListViewItem Name="DevBuilderConfig"
-                                  Content="Dev">
-                    </ListViewItem>
-                    <ListViewItem Name="QABuilderConfig"
-                                  Content="QA">
-                    </ListViewItem>
-                    <ListViewItem Name="USBuilderConfig"
-                                  Content="US">
-                    </ListViewItem>
-                </ListView>
-            </Grid>
-            <GridSplitter Grid.Row="0"
-                          Grid.Column="1"
-                          Background="LightBlue"
-                          ResizeDirection="Columns"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Stretch"
-                          ResizeBehavior="PreviousAndNext" />
-            <Grid Grid.Row="0"
-                  Grid.Column="2">
-                <DataGrid x:Name="grdBuildInfor"
-                          CanUserAddRows="False"
-                          ColumnWidth="*"
-                          Background="Transparent"></DataGrid>
-            </Grid>
-            <Grid Grid.Row="1"
-                  Grid.Column="0">
-                <Grid.RowDefinitions>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                </Grid.ColumnDefinitions>
-                <Label x:Name="lblErrorMsg"
-                       VerticalAlignment="Center"
-                       VerticalContentAlignment="Center"
-                       FontSize="17"
-                       Foreground="Red" />
-            </Grid>
-            <Grid Grid.Row="1"
-                  Grid.Column="2">
                 <Grid.RowDefinitions>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
-                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Row="0"
-                      Grid.Column="1">
-                    <Grid.RowDefinitions>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="10" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Button HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Grid.Column="0"
-                            Content="Build solution"
-                            Click="Button_Click" />
-                    <Button HorizontalAlignment="Center"
-                            Grid.Column="2"
-                            VerticalAlignment="Center"
-                            Content="Deploy website"
-                            Click="Button_Click" />
-                </Grid>
+                <Button 
+                        Grid.Column="0"
+                        Content="Build solution"
+                        Click="btnBuild_Click" />
+                <Button Grid.Column="2"
+                        Name="btnDeploy"
+                        Click="btnDeploy_Click"
+                        Content="Deploy website" />
             </Grid>
         </Grid>
     </Grid>

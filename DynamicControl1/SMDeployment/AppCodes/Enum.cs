@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMTools.Utility
+namespace SMDeployment.AppCodes
 {
     public enum DestinationFolderType
     {
@@ -18,5 +18,23 @@ namespace SMTools.Utility
         US_CSv100,
         US_CSv100UAT,
         All
+    }
+
+    public enum ConfigFolder
+    {
+        MSBuild,
+        FileCopier,
+        TFS
+    }
+    public enum SharedConfigFolder
+    {
+        FileCopier
+    }
+
+    public enum DeployEnvironment
+    {
+        Dev,
+        QA,
+        US
     }
 }

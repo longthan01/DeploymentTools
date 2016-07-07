@@ -21,7 +21,7 @@ namespace SMDeployment.UserControls.FileCopier
     /// </summary>
     public partial class ucFileDiff : UserControl
     {
-        public ucFileDiff(string fromFolder, string toFolder, List<CopierFileDirErrorInfor> diffFiles)
+        public ucFileDiff(string fromFolder, string toFolder, List<CopierFileErrorInfor> diffFiles)
         {
             InitializeComponent();
             this.txtFromFolder.Content = fromFolder;

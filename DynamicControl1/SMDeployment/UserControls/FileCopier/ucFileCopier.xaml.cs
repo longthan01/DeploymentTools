@@ -1,4 +1,5 @@
 ﻿using SMDeployment.AppCodes;
+using SMTools.Deployment.Utility;
 using SMTools.DeploymentBase;
 using SMTools.FileCopier;
 using SMTools.Utility;
@@ -39,7 +40,7 @@ namespace SMDeployment.UserControls.FileCopier
         public ucFileCopier()
         {
             InitializeComponent();
-            Copier = new SMTools.FileCopier.FileCopier(DeploymentConfiguration.GetAppSettingValue(ConfigKey.FileCopierConfig));
+            Copier = DeployToolFactory.GetGeneralProcess<SMTools.FileCopier.FileCopier>(SharedConfigFolder.FileCopier);
             // create checkbox based on this config items
             foreach (var item in Copier.ConfigurationItems)
             {
@@ -57,20 +58,21 @@ namespace SMDeployment.UserControls.FileCopier
         }
         #endregion
 
-        private void RunWorker(Action dowork, Action complete)
+        #region utilities
+        private void ShowError(FileCopierOutput output)
         {
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += (o, e) =>
+            this.sckPnlDiff.Children.Clear();
+            foreach (FileCopierOutputItem op in output.OutputItems)
             {
-                dowork();
-            };
-            worker.RunWorkerCompleted += (o1, e1) =>
-            {
-                this.Dispatcher.Invoke(complete);
-            };
-            worker.RunWorkerAsync();
-        }
-
+                string srcFold = op.SourceFolder;
+                string destFold = op.DestinationFolder;
+                List<CopierFileErrorInfor> errs = op.ErrorFiles;
+                ucFileDiff fd = new ucFileDiff(srcFold, destFold, errs);
+                this.sckPnlDiff.Children.Add(fd);
+            }
+        } 
+        #endregion
+        
         #region Event handles
 
         private void chkInclude_Checked(object sender, RoutedEventArgs e)
@@ -94,8 +96,8 @@ namespace SMDeployment.UserControls.FileCopier
             {
                 imgLoading.Visibility = System.Windows.Visibility.Visible;
                 Copier.SourceFolder = this.txtSourceFolder.Text;
-                Copier.ExcludeDestination(_ExcludeFolders.ToArray());
-                RunWorker(new Action(() =>
+                Copier.ExcludeDestination(_ExcludeFolders.ToArrayString());
+                UIThreadHelper.RunWorker(this,new Action(() =>
                 {
                     DeploymentProcessBuilder Builder = new DeploymentProcessBuilder(Copier);
                     Builder.OnProcessCompleted += (o, ev) =>
@@ -110,32 +112,15 @@ namespace SMDeployment.UserControls.FileCopier
                 {
                     imgLoading.Visibility = System.Windows.Visibility.Hidden;
                 }));
-               
             }
-            
         }
 
-        private void ShowError(FileCopierOutput output)
-        {
-            this.sckPnlDiff.Children.Clear();
-            foreach (FileCopierOutputItem op in output.OutputItems)
-            {
-                string srcFold = op.SourceFolder;
-                string destFold = op.DestinationFolder;
-                List<CopierFileDirErrorInfor> errs = op.ErrorFiles;
-                ucFileDiff fd = new ucFileDiff(srcFold, destFold, errs);
-                this.sckPnlDiff.Children.Add(fd);
-            }
-        }
         private void txtSourceFolder_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                TextBox txt = sender as TextBox;
-                var fdinfors = Copier.GetFileDirInfor(txt.Text);
-                this.gridFromFile.ItemsSource = fdinfors;
-                this.gridFromFile.Visibility = fdinfors.Count > 0 ?
-                    System.Windows.Visibility.Visible : System.Windows.Visibility.Visible;
+                var tree = UIHelper.CreateScrollTree(DeploymentUtility.GetDirInfor(this.txtSourceFolder.Text));
+                UIHelper.AddChild(this.gridFromFile.Children, tree);
             }
         }
 
@@ -151,6 +136,7 @@ namespace SMDeployment.UserControls.FileCopier
                 }
             }
         }
+
         #endregion
     }
 }

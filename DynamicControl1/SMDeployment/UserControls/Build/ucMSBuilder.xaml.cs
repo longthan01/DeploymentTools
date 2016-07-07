@@ -24,51 +24,61 @@ namespace SMDeployment.UserControls.Build
     /// </summary>
     public partial class ucMSBuilder : UserControl
     {
-        public MSBuilder MSBuilder
+        private MSBuilder MSBuilder
         {
             get;
             set;
         }
+
         public ucMSBuilder()
         {
             InitializeComponent();
         }
-        private List<BuildConfigInfor> GetList(params BuildConfigInfor[] items)
-        {
-            return new List<BuildConfigInfor>(items);
-        }
-
-        private void DevBuilderConfig_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-           
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        
+        private void btnBuild_Click(object sender, RoutedEventArgs e)
         {
             if (this.MSBuilder == null)
             {
                 this.lblErrorMsg.Content = Properties.Resources.PROJECT_NOT_FOUND;
                 return;
             }
-            DeploymentProcessBuilder Builder = new DeploymentProcessBuilder(MSBuilder);
+            DeploymentProcessBuilder Builder = new DeploymentProcessBuilder(new Builder(MSBuilder));
             Builder.OnProcessCompleted += (o, ev) =>
             {
                 var op = ev.ProcessOutput as BuildOutput;
-                MessageBox.Show(op.BuildOutMessage);
+                UIThreadHelper.RunWorker(this,delegate{this.grdBuildInfor.ItemsSource = CollectionHelper.GetList(op);});
+            };
+            Builder.StartAsync();
+        }
+
+        private void btnDeploy_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.MSBuilder == null)
+            {
+                this.lblErrorMsg.Content = Properties.Resources.PROJECT_NOT_FOUND;
+                return;
+            }
+            DeploymentProcessBuilder Builder = new DeploymentProcessBuilder(new Deploymenter(MSBuilder));
+            Builder.OnProcessCompleted += (o, ev) =>
+            {
+                var op = ev.ProcessOutput as BuildOutput;
+                UIThreadHelper.RunWorker(this, delegate
+                {
+                    this.grdBuildInfor.ItemsSource = CollectionHelper.GetList(op);
+                });
             };
             Builder.StartAsync();
         }
 
         private void lstViewSolutions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListViewItem item = this.lstViewSolutions.SelectedItem as ListViewItem;
-            ConfigKey key = (ConfigKey)Enum.Parse(typeof(ConfigKey), item.Name);
-            this.MSBuilder = new MSBuilder(DeploymentConfiguration.GetAppSettingValue(key));
-
-            this.grdBuildInfor.ItemsSource = GetList(new BuildConfigInfor()
+            var item = this.lstViewSolutions.SelectedItem as ListViewItem;
+            MSBuilder = DeployToolFactory.GetProcess<MSBuilder>(ConfigFolder.MSBuild, item.Content.ToDeployEnvironment());
+            grdBuildInfor.ItemsSource = CollectionHelper.GetList(new BuildConfigInfor()
             {
-                DeploymentOutput = MSBuilder.GetDeploymentPath(),
-                PathToProject = MSBuilder.GetProjectPath()
+                SolutionPath = MSBuilder.GetSolutionPath(),
+                ProjectPath = MSBuilder.GetProjectPath(),
+                DeploymentOutputFolder = MSBuilder.GetDeploymentOutputFolder()
             });
         }
     }

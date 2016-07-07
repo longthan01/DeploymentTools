@@ -10,14 +10,6 @@ using System.Threading.Tasks;
 
 namespace SMTools.TFSTransporter
 {
-    public enum TFSType
-    {
-        Unknown,
-        Checkout,
-        Checkin,
-        GetLastest
-    }
-
     public class TFSTransporterBase : DeploymentProcessBase
     {
         #region properties, fields
@@ -34,23 +26,18 @@ namespace SMTools.TFSTransporter
         protected string _TfsServerUrl;
         protected string _Domain;
         protected string _Port;
-        protected TeamFoundationServer TFSServer
+        protected TfsTeamProjectCollection TeamProjectCollection
         {
             get;
             set;
         }
-        protected VersionControlServer VersionControl
+        protected VersionControlServer VersionControlServer
         {
             get;
             set;
         }
 
         public string WorkspaceMapping
-        {
-            get;
-            set;
-        }
-        public TFSType Type
         {
             get;
             set;
@@ -72,16 +59,24 @@ namespace SMTools.TFSTransporter
             if (authenticate)
             {
                 NetworkCredential cred = new NetworkCredential(this._UserName, this._Password, this._Domain);
-                this.TFSServer = new TeamFoundationServer(_TfsServerUrl, cred);
-                this.TFSServer.Authenticate();
+                this.TeamProjectCollection = TFSInstance.GetTfsTeamProjectCollection(_TfsServerUrl,cred);
+                if (!this.TeamProjectCollection.HasAuthenticated)
+                {
+                    this.TeamProjectCollection.Authenticate();
+                }
             }
             else
             {
-                this.TFSServer = new TeamFoundationServer(_TfsServerUrl);
+                this.TeamProjectCollection = new TfsTeamProjectCollection(new Uri(_TfsServerUrl));
             }
-            this.VersionControl = (VersionControlServer)TFSServer.GetService(typeof(VersionControlServer));
+            this.VersionControlServer = (VersionControlServer)TeamProjectCollection.GetService(typeof(VersionControlServer));
+        }
+        #endregion
+
+        public string GetProjectPath()
+        {
+            return this.GetConfigItemValue(_WORKSPACE_MAPPING);
         }
 
-        #endregion
     }
 }

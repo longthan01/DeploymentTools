@@ -1,5 +1,6 @@
 ﻿using SMDeployment.AppCodes;
 using SMDeployment.UIModels.TFSTransport;
+using SMTools.Deployment.Utility;
 using SMTools.DeploymentBase;
 using SMTools.TFSTransporter;
 using System;
@@ -24,64 +25,44 @@ namespace SMDeployment.UserControls.TFS
     /// </summary>
     public partial class ucTFSCheckout : UserControl
     {
-        public ProjectConfigInfor ConfigInfor
+        private ProjectConfigInfor ConfigInfor
         {
             get;
             set;
         }
+        private TFSCheckOut TFSTransporter
+        {
+            get;
+            set;
+        }
+
         public ucTFSCheckout()
         {
             InitializeComponent();
             ConfigInfor = new ProjectConfigInfor();
-            List<string> lstViewItems = new List<string>()
-            {
-                ConfigKey.DevTFSConfig.ToString(),
-                ConfigKey.QATFSConfig.ToString(),
-                ConfigKey.USTFSConfig.ToString()
-            };
+            var lstViewItems =
+                CollectionHelper.GetList(
+                DeployEnvironment.Dev,
+                DeployEnvironment.QA,
+                DeployEnvironment.US);
             this.lstProject.ItemsSource = lstViewItems;
         }
+
         private void ShowMsg(string msg)
         {
             lblErrMsg.Content = msg;
             lblErrMsg.Visibility = Visibility.Visible;
         }
-        private DataGrid CreateGrid()
-        {
-            DataGrid grid = new DataGrid()
-            {
-                CanUserAddRows = false,
-                ColumnWidth = new DataGridLength(1, DataGridLengthUnitType.Star),
-                Background = Brushes.Transparent
-            };
-            return grid;
-        }
-        private void CreateStackGrid(params List<FileDirInfor>[] sources)
-        {
-            this.stkGridDetails.Children.Clear();
-            foreach (List<FileDirInfor> item in sources)
-            {
-                var grid = CreateGrid();
-                grid.ItemsSource = item;
-                this.stkGridDetails.Children.Add(grid);
-            }
-        }
-        private void SetConfigInfor()
-        {
-            string item = this.lstProject.SelectedItem as string;
-            if (item == null)
-            {
-                return;
-            }
-            ConfigInfor.ConfigPath = DeploymentConfiguration.GetAppSettingValue(item.ToConfigKey());
-            ConfigInfor.ProjectPath = DeploymentConfiguration.GetProjectPath(item.ToConfigKey());
-        }
+
         private void txtFolderPath_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                var list = DeploymentUtility.GetFileDirInfor(this.txtFolderPath.Text);
-                CreateStackGrid(list);
+                UIThreadHelper.RunWorker(this,
+                    delegate
+                    {
+                        UIHelper.AddChild(this.stkGridDetails.Children, UIHelper.CreateScrollTree(DeploymentUtility.GetDirInfor(this.txtFolderPath.Text)));
+                    });
             }
         }
 
@@ -97,24 +78,35 @@ namespace SMDeployment.UserControls.TFS
                 ShowMsg("Locate to folder first.");
                 return;
             }
-            DeploymentProcessBuilder builder =
-                new DeploymentProcessBuilder(
-                    new TFSCheckOut(ConfigInfor.ConfigPath, this.txtFolderPath.Text));
+            TFSTransporter.SourceFolder = this.txtFolderPath.Text;
+            DeploymentProcessBuilder builder = new DeploymentProcessBuilder(TFSTransporter);
             builder.OnProcessCompleted += (obj, ev) =>
             {
                 CheckOutOutput output = ev.ProcessOutput as CheckOutOutput;
-                this.Dispatcher.Invoke(new Action(() =>
-                {
-                    CreateStackGrid(output.AffectedFiles, output.ErrorFiles);
-                }));
+                UIThreadHelper.RunWorker(this,
+                   delegate
+                   {
+                       UIHelper.AddChild(this.stkGridDetails.Children,
+                           new ucTFSCheckoutResult(output.AffectedFiles, output.ErrorFiles));
+                   });
             };
-            builder.StartAsync();
+            builder.Start();
         }
 
         private void lstProject_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            SetConfigInfor();
-            this.txtFolderPath.Text = ConfigInfor.ProjectPath;
+            var item = this.lstProject.SelectedItem;
+            if (item == null)
+            {
+                return;
+            }
+            TFSTransporter = DeployToolFactory.GetProcess<TFSCheckOut>(ConfigFolder.TFS, item.ToDeployEnvironment());
+            ConfigInfor.ConfigPath = TFSTransporter.ConfigurationFile;
+            ConfigInfor.ProjectPath = TFSTransporter.GetProjectPath();
+            UIHelper.AddChild(
+                this.stkGridDetails.Children,
+                    UIHelper.CreateScrollDataGrid(
+                        CollectionHelper.GetList(ConfigInfor)));
         }
     }
 }

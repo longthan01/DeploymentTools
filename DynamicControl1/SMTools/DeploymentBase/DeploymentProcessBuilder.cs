@@ -1,4 +1,4 @@
-﻿using SMTools.Interfaces;
+﻿using SMTools.DeploymentBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,8 +43,17 @@ namespace SMTools.DeploymentBase
 
         public async Task StartAsync()
         {
-            Action a = new Action(this.Start);
-            await Task.Run(a);
+            this.DeploymentProcess.ApplyConfiguration();
+            if (OnProcessBegining != null)
+            {
+                OnProcessBegining(this, null);
+            }
+            Action ac = new Action(DeploymentProcess.Run);
+            await Task.Run(ac);
+            if (OnProcessCompleted != null)
+            {
+                OnProcessCompleted(this, new ProcessCompletedEventArgs(this.DeploymentProcess.GetOutput()));
+            }
         }
     }
 }

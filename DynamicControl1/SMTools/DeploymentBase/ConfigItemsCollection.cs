@@ -26,5 +26,13 @@ namespace SMTools.DeploymentBase
             }
             return res;
         }
+        public void SetItemValue(string nodeName, string value)
+        {
+            ConfigItem item = GetConfigItem(nodeName);
+            if (item != null)
+            {
+                item.Value = value;
+            }
+        }
     }
 }

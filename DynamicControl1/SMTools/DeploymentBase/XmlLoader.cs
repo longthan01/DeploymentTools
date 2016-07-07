@@ -53,8 +53,8 @@ namespace SMTools.DeploymentBase
                 {
                     foreach (XmlNode att in attrs)
                     {
-                        XmlNode an = node.SelectSingleNode("name");
-                        XmlNode av = node.SelectSingleNode("value");
+                        XmlNode an = att.SelectSingleNode("name");
+                        XmlNode av = att.SelectSingleNode("value");
                         ConfigItem attributeItem = new ConfigItem()
                         {
                             Name = an.InnerText,

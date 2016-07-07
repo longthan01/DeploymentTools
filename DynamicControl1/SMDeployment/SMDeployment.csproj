@@ -33,15 +33,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Dragon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.TeamFoundation.Common">
-      <HintPath>Libs\Microsoft.TeamFoundation.Common.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.TeamFoundation.VersionControl.Client">
-      <HintPath>Libs\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="SMTools">
-      <HintPath>..\SMTools\bin\Debug\SMTools.dll</HintPath>
+      <HintPath>libraries\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -63,8 +60,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppCodes\CollectionHelper.cs" />
     <Compile Include="AppCodes\DeploymentConfiguration.cs" />
-    <Compile Include="AppCodes\Utility.cs" />
+    <Compile Include="AppCodes\DeployToolFactory.cs" />
+    <Compile Include="AppCodes\Enum.cs" />
+    <Compile Include="AppCodes\UIHelper.cs" />
+    <Compile Include="AppCodes\UIThreadHelper.cs" />
+    <Compile Include="AppCodes\Extensions.cs" />
     <Compile Include="UIModels\MSBuilder\BuildConfigInfor.cs" />
     <Compile Include="UIModels\TFSTransport\ProjectConfigInfor.cs" />
     <Compile Include="UserControls\Build\ucMSBuilder.xaml.cs">
@@ -79,11 +81,11 @@
     <Compile Include="UserControls\TFS\ucTFSCheckout.xaml.cs">
       <DependentUpon>ucTFSCheckout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TFS\ucTFSCheckoutResult.xaml.cs">
+      <DependentUpon>ucTFSCheckoutResult.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TFS\ucTFSGetLastest.xaml.cs">
       <DependentUpon>ucTFSGetLastest.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ucTree.xaml.cs">
-      <DependentUpon>ucTree.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -113,11 +115,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\TFS\ucTFSGetLastest.xaml">
+    <Page Include="UserControls\TFS\ucTFSCheckoutResult.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ucTree.xaml">
+    <Page Include="UserControls\TFS\ucTFSGetLastest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -154,25 +156,31 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="bin\Debug\App_Data\MSBuild\DevBuild.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="bin\Debug\App_Data\TFS\DevTFSConfig.xml" />
+    <Resource Include="bin\Debug\App_Data\TFS\Dev.xml" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="bin\Debug\App_Data\FileCopier\FileCopier.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="bin\Debug\App_Data\MSBuild\QABuild.xml" />
+    <ProjectReference Include="..\SMTools\SMTools.csproj">
+      <Project>{69c5f07b-cee3-4edf-803f-9fa2a74b864f}</Project>
+      <Name>SMTools</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="bin\Debug\App_Data\MSBuild\USBuild.xml" />
+    <Resource Include="bin\Debug\App_Data\TFS\QA.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="bin\Debug\App_Data\TFS\QATFSConfig.xml" />
+    <Resource Include="bin\Debug\App_Data\TFS\US.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="bin\Debug\App_Data\TFS\USTFSConfig.xml" />
+    <Resource Include="bin\Debug\App_Data\MSBuild\Dev.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bin\Debug\App_Data\TFS\Boarding_Dev.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Dragon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
