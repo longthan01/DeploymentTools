@@ -25,9 +25,9 @@
                 <MenuItem Header="Get lastest code"
                           Click="MenuItemGL_Click"></MenuItem>
                 <MenuItem Header="Checkout"
-                          Click="MenuItem_Click"></MenuItem>
-                <MenuItem Header="Boarding"
-                          Click="MenuItem_Click"></MenuItem>
+                          Click="MenuItemCheckout_Click"></MenuItem>
+                <MenuItem Header="Search History" Name="itemSearch"
+                          Click="itemSearch_Click"></MenuItem>
             </Menu>
             <DockPanel x:Name="docPnlMain"
                        DockPanel.Dock="Bottom"></DockPanel>

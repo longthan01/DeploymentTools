@@ -1,12 +1,8 @@
 ﻿using Microsoft.TeamFoundation.VersionControl.Client;
-using SMTools.DeploymentBase;
-using SMTools.DeploymentBase;
-using System;
+using SMTools.Deployment.Base;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SMTools.TFSTransporter
 {

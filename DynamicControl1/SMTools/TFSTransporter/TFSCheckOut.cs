@@ -1,14 +1,13 @@
 ﻿using Microsoft.TeamFoundation.VersionControl.Client;
 using SMTools.Deployment.Utility;
-using SMTools.DeploymentBase;
-using SMTools.DeploymentBase;
+using SMTools.Deployment.Base;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using SMTools.Extensions;
 namespace SMTools.TFSTransporter
 {
     public class TFSCheckOut : TFSTransporterBase, IDeployment

@@ -3,6 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Background"
+                    Value="Transparent"></Setter>
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="FontSize"
+                    Value="18"></Setter>
+        </Style>
         <Style TargetType="Grid">
             <Setter Property="Background">
                 <Setter.Value>
@@ -22,10 +30,23 @@
         </Style>
         <Style TargetType="GridSplitter">
             <Setter Property="Background" Value="Black"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"></Setter>
+            <Setter Property="ResizeBehavior"
+                    Value="PreviousAndNext"></Setter>
+            <Setter Property="VerticalAlignment"
+                    Value="Stretch" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Stretch" />
         </Style>
         <Style TargetType="DataGrid">
             <Setter Property="FontSize"
                     Value="15"></Setter>
+            <Setter Property="Background"
+                    Value="Transparent"></Setter>
+            <Setter Property="CanUserAddRows"
+                    Value="False"></Setter>
         </Style>
         <Style TargetType="DockPanel">
             <Setter Property="Background">

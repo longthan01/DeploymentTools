@@ -1,4 +1,4 @@
-﻿using SMTools.DeploymentBase;
+﻿using SMTools.Deployment.Base;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SMDeployment.AppCodes
 {
-    public static class DeploymentConfiguration
+    public static class FileConfigManager
     {
         private static string ExecuteLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         /// <summary>
@@ -32,7 +32,7 @@ namespace SMDeployment.AppCodes
         /// TFS/QA.xml
         /// </param>
         /// <returns></returns>
-        public static string GetPath(ConfigFolder folder, DeployEnvironment environment)
+        public static string GetPath(ConfigFolder folder, ConfigFile environment)
         {
             return Path.Combine(GetConfigFolder(folder.ToString()), environment.ToString() + ".xml");
         }

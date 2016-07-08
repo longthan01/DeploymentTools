@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using SMTools.Extensions;
 
-namespace SMTools.DeploymentBase
+namespace SMTools.Deployment.Base
 {
     public static class XmlLoader
     {

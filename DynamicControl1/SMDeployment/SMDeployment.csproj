@@ -61,9 +61,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppCodes\CollectionHelper.cs" />
-    <Compile Include="AppCodes\DeploymentConfiguration.cs" />
+    <Compile Include="AppCodes\FileConfigManager.cs" />
     <Compile Include="AppCodes\DeployToolFactory.cs" />
     <Compile Include="AppCodes\Enum.cs" />
+    <Compile Include="AppCodes\TFS\SearchFilter.cs" />
+    <Compile Include="AppCodes\UIConfigManager.cs" />
     <Compile Include="AppCodes\UIHelper.cs" />
     <Compile Include="AppCodes\UIThreadHelper.cs" />
     <Compile Include="AppCodes\Extensions.cs" />
@@ -78,6 +80,9 @@
     <Compile Include="UserControls\FileCopier\ucFileDiff.xaml.cs">
       <DependentUpon>ucFileDiff.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TFS\ucSearchFilter.xaml.cs">
+      <DependentUpon>ucSearchFilter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TFS\ucTFSCheckout.xaml.cs">
       <DependentUpon>ucTFSCheckout.xaml</DependentUpon>
     </Compile>
@@ -86,6 +91,9 @@
     </Compile>
     <Compile Include="UserControls\TFS\ucTFSGetLastest.xaml.cs">
       <DependentUpon>ucTFSGetLastest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TFS\ucTFSSearcher.xaml.cs">
+      <DependentUpon>ucTFSSearcher.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -111,6 +119,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\TFS\ucSearchFilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\TFS\ucTFSCheckout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -120,6 +132,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\TFS\ucTFSGetLastest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TFS\ucTFSSearcher.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -181,6 +197,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Dragon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="UIConfigs\TfsSeachConfig.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

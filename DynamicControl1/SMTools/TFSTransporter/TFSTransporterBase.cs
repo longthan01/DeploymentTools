@@ -1,6 +1,6 @@
 ﻿using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.VersionControl.Client;
-using SMTools.DeploymentBase;
+using SMTools.Deployment.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +10,14 @@ using System.Threading.Tasks;
 
 namespace SMTools.TFSTransporter
 {
+    public enum TFSType
+    {
+        Unknown,
+        Checkout,
+        Checkin,
+        GetLastest
+    }
+
     public class TFSTransporterBase : DeploymentProcessBase
     {
         #region properties, fields
@@ -38,6 +46,11 @@ namespace SMTools.TFSTransporter
         }
 
         public string WorkspaceMapping
+        {
+            get;
+            set;
+        }
+        public TFSType Type
         {
             get;
             set;

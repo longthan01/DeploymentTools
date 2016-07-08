@@ -1,6 +1,6 @@
 ﻿using SMDeployment.AppCodes;
 using SMTools.Deployment.Utility;
-using SMTools.DeploymentBase;
+using SMTools.Deployment.Base;
 using SMTools.FileCopier;
 using SMTools.Utility;
 using System;
@@ -70,9 +70,9 @@ namespace SMDeployment.UserControls.FileCopier
                 ucFileDiff fd = new ucFileDiff(srcFold, destFold, errs);
                 this.sckPnlDiff.Children.Add(fd);
             }
-        } 
+        }
         #endregion
-        
+
         #region Event handles
 
         private void chkInclude_Checked(object sender, RoutedEventArgs e)
@@ -97,21 +97,16 @@ namespace SMDeployment.UserControls.FileCopier
                 imgLoading.Visibility = System.Windows.Visibility.Visible;
                 Copier.SourceFolder = this.txtSourceFolder.Text;
                 Copier.ExcludeDestination(_ExcludeFolders.ToArrayString());
-                UIThreadHelper.RunWorker(this,new Action(() =>
+                DeploymentProcessBuilder Builder = new DeploymentProcessBuilder(Copier);
+                Builder.OnProcessCompleted += (o, ev) =>
                 {
-                    DeploymentProcessBuilder Builder = new DeploymentProcessBuilder(Copier);
-                    Builder.OnProcessCompleted += (o, ev) =>
+                    UIThreadHelper.RunWorker(this, new Action(() =>
                     {
-                        this.Dispatcher.Invoke(new Action(() =>
-                        {
-                            ShowError(ev.ProcessOutput as FileCopierOutput);
-                        }));
-                    };
-                    Builder.StartAsync().Wait();
-                }), new Action(() =>
-                {
-                    imgLoading.Visibility = System.Windows.Visibility.Hidden;
-                }));
+                        ShowError(ev.ProcessOutput as FileCopierOutput);
+                        imgLoading.Visibility = System.Windows.Visibility.Hidden;
+                    }));
+                };
+                Builder.StartAsync();
             }
         }
 

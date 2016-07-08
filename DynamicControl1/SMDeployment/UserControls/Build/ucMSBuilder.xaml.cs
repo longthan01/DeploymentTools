@@ -1,6 +1,6 @@
 ﻿using SMDeployment.AppCodes;
 using SMDeployment.UIModels.MSBuilder;
-using SMTools.DeploymentBase;
+using SMTools.Deployment.Base;
 using SMTools.MSBuilder;
 using System;
 using System.Collections.Generic;

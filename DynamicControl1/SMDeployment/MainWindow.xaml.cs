@@ -1,5 +1,5 @@
 ﻿using SMDeployment.UserControls.FileCopier;
-using SMTools;
+using SMTools.Extensions;
 using SMTools.FileCopier;
 using SMTools.TFSTransporter;
 using System;
@@ -55,6 +55,11 @@ namespace SMDeployment
             docPnlMain.Children.Clear();
             docPnlMain.Children.Add(new ucTFSCheckout());
         }
+        private void AddSearch()
+        {
+            docPnlMain.Children.Clear();
+            docPnlMain.Children.Add(new ucTFSSearcher());
+        }
 
         private void MenuItemBuild_Click(object sender, RoutedEventArgs e)
         {
@@ -71,10 +76,15 @@ namespace SMDeployment
             AddTFSTransport();
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void MenuItemCheckout_Click(object sender, RoutedEventArgs e)
         {
             // checkout
             AddTFSCheckout();
+        }
+
+        private void itemSearch_Click(object sender, RoutedEventArgs e)
+        {
+            AddSearch();
         }
     }
 }

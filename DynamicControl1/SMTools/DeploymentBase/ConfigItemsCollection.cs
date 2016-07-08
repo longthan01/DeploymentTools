@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SMTools.Extensions;
 
-namespace SMTools.DeploymentBase
+namespace SMTools.Deployment.Base
 {
     public class ConfigItemCollection : List<ConfigItem>
     {

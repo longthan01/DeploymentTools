@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SMTools.TFSTransporter;
 using SMDeployment.AppCodes;
-using SMTools.DeploymentBase;
+using SMTools.Deployment.Base;
 using SMDeployment.UIModels.TFSTransport;
 using SMTools.Deployment.Utility;
 
@@ -41,7 +41,7 @@ namespace SMDeployment.UserControls.TFS
         {
             InitializeComponent();
             _ConfigInfor = new ProjectConfigInfor();
-            var lstViewItems = Extensions.GetEnumList(typeof(DeployEnvironment));
+            var lstViewItems = Extensions.GetEnumList(typeof(ConfigFile));
             this.lstProject.ItemsSource = lstViewItems;
         }
 

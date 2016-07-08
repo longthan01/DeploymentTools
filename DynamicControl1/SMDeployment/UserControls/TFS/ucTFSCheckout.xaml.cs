@@ -1,7 +1,7 @@
 ﻿using SMDeployment.AppCodes;
 using SMDeployment.UIModels.TFSTransport;
 using SMTools.Deployment.Utility;
-using SMTools.DeploymentBase;
+using SMTools.Deployment.Base;
 using SMTools.TFSTransporter;
 using System;
 using System.Collections.Generic;
@@ -42,9 +42,9 @@ namespace SMDeployment.UserControls.TFS
             ConfigInfor = new ProjectConfigInfor();
             var lstViewItems =
                 CollectionHelper.GetList(
-                DeployEnvironment.Dev,
-                DeployEnvironment.QA,
-                DeployEnvironment.US);
+                ConfigFile.Dev,
+                ConfigFile.QA,
+                ConfigFile.US);
             this.lstProject.ItemsSource = lstViewItems;
         }
 

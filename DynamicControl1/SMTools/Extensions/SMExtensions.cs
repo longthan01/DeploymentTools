@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMTools
+namespace SMTools.Extensions
 {
     public static class SMExtensions
     {

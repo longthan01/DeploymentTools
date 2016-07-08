@@ -1,5 +1,5 @@
 ﻿using Microsoft.TeamFoundation.VersionControl.Client;
-using SMTools.DeploymentBase;
+using SMTools.Deployment.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -19,19 +19,26 @@ namespace SMDeployment.AppCodes
         US_CSv100UAT,
         All
     }
-
+    /// <summary>
+    /// Config folder name which config file is located
+    /// </summary>
     public enum ConfigFolder
     {
         MSBuild,
         FileCopier,
         TFS
     }
+    /// <summary>
+    /// Config folder name which config file is located
+    /// </summary>
     public enum SharedConfigFolder
     {
         FileCopier
     }
-
-    public enum DeployEnvironment
+    /// <summary>
+    /// Config file name (xml)
+    /// </summary>
+    public enum ConfigFile
     {
         Dev,
         QA,

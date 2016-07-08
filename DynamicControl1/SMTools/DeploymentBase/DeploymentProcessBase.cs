@@ -1,4 +1,4 @@
-﻿using SMTools.DeploymentBase;
+﻿using SMTools.Deployment.Base;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace SMTools.DeploymentBase
+namespace SMTools.Deployment.Base
 {
     public abstract class DeploymentProcessBase
     {

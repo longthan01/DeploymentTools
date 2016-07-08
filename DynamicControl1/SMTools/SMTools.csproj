@@ -7,7 +7,7 @@
     <ProjectGuid>{69C5F07B-CEE3-4EDF-803F-9FA2A74B864F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SMTools</RootNamespace>
+    <RootNamespace>SMTools.DeploymentBase</RootNamespace>
     <AssemblyName>SMTools</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -61,7 +61,7 @@
     <Compile Include="DeploymentBase\DeploymentProcessBase.cs" />
     <Compile Include="DeploymentBase\DeploymentProcessBuilder.cs" />
     <Compile Include="FileCopier\FileCopier.cs" />
-    <Compile Include="DeploymentBase\SMExtensions.cs" />
+    <Compile Include="Extensions\SMExtensions.cs" />
     <Compile Include="FileCopier\FileCopierOutput.cs" />
     <Compile Include="FileCopier\FileCopierOutputItem.cs" />
     <Compile Include="FileCopier\CopierFileErrorInfor.cs" />
@@ -74,8 +74,9 @@
     <Compile Include="MSBuilder\Builder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DeploymentBase\StepOutputBase.cs" />
-    <Compile Include="TFSTransporter\TFSSearchItem\ISearchItemFilter.cs" />
-    <Compile Include="TFSTransporter\TFSSearchItem\TFSSearchItem.cs" />
+    <Compile Include="TFSTransporter\Searcher\ISearchFilter.cs" />
+    <Compile Include="TFSTransporter\Searcher\SearchItemOutput.cs" />
+    <Compile Include="TFSTransporter\Searcher\TFSSearcher.cs" />
     <Compile Include="TFSTransporter\TFSTeamProjectInstance.cs" />
     <Compile Include="TFSTransporter\Outputs\GetLastestOutput.cs" />
     <Compile Include="TFSTransporter\Outputs\CheckOutOutput.cs" />
@@ -92,9 +93,7 @@
   <ItemGroup>
     <None Include="SMDeploymentPattern.cd" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
