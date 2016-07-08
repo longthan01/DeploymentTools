@@ -11,6 +11,6 @@ namespace SMTools.Deployment.Base
     {
         void ApplyConfiguration();
         void Run();
-        StepOutputBase GetOutput();
+        StepOutput GetOutput();
     }
 }

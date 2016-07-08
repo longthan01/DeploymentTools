@@ -65,7 +65,7 @@ namespace SMDeployment.UserControls.TFS
                 return;
             }
 
-            DeploymentProcessBuilder builder = new DeploymentProcessBuilder(_TFSTransporter);
+            ProcessBuilder builder = new ProcessBuilder(_TFSTransporter);
             builder.OnProcessCompleted += (o, ev) =>
             {
                 GetLastestOutput output = ev.ProcessOutput as GetLastestOutput;

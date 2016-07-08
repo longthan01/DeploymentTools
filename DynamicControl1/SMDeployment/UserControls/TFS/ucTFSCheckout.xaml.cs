@@ -79,7 +79,7 @@ namespace SMDeployment.UserControls.TFS
                 return;
             }
             TFSTransporter.SourceFolder = this.txtFolderPath.Text;
-            DeploymentProcessBuilder builder = new DeploymentProcessBuilder(TFSTransporter);
+            ProcessBuilder builder = new ProcessBuilder(TFSTransporter);
             builder.OnProcessCompleted += (obj, ev) =>
             {
                 CheckOutOutput output = ev.ProcessOutput as CheckOutOutput;

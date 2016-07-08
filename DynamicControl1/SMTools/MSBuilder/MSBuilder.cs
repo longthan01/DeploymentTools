@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SMTools.MSBuilder
 {
-    public class MSBuilder : DeploymentProcessBase, IDeployment
+    public class MSBuilder : ProcessBase, IDeployment
     {
         protected const string _PublishProfile = "/p:PublishProfile=";
         protected const string _PublishUrl = "publishUrl";
@@ -86,7 +86,7 @@ namespace SMTools.MSBuilder
             p.WaitForExit();
         }
 
-        public StepOutputBase GetOutput()
+        public StepOutput GetOutput()
         {
             string path = this.GetConfigItemValue(_LogFile);
             BuildOutput o = new BuildOutput();

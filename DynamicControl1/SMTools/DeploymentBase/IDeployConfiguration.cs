@@ -5,14 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMTools.MSBuilder
+namespace SMTools.DeploymentBase
 {
-    public class BuildOutput : StepOutput
+    public interface IDeployConfiguration
     {
-        public string BuildOutMessage
-        {
-            get;
-            set;
-        }
+        void ApplyConfig(ProcessBase process);
     }
 }

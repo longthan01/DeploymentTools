@@ -1,4 +1,5 @@
 ﻿using SMTools.Deployment.Base;
+using SMTools.DeploymentBase;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,12 +10,16 @@ using System.Xml;
 
 namespace SMTools.Deployment.Base
 {
-    public abstract class DeploymentProcessBase
+    public abstract class ProcessBase
     {
         #region properties, fields
+        /// <summary>
+        ///  Extension configuration
+        /// </summary>
+        public IDeployConfiguration Configurator { get; set; }
 
         /// <summary>
-        /// Collection of configuration items in file xml.
+        /// Collection of configuration items in xml.
         /// </summary>
         public ConfigItemCollection ConfigurationItems
         {
@@ -33,26 +38,41 @@ namespace SMTools.Deployment.Base
         #endregion
 
         #region constructors
-
-        public DeploymentProcessBase(string configFile)
+        public ProcessBase(string configFile)
         {
             this.ConfigurationFile = configFile;
             this.ConfigurationItems = XmlLoader.GetConfig(configFile);
         }
-        public DeploymentProcessBase()
+        public ProcessBase()
         {
+            LoadDefaultConfiguration();
         }
         #endregion
 
         #region public methods
-        public void LoadConfiguration()
+        /// <summary>
+        /// Load default configuration for process
+        /// </summary>
+        public virtual void LoadDefaultConfiguration()
         {
-            if (this.ConfigurationFile != null)
+            if (!string.IsNullOrEmpty(this.ConfigurationFile))
             {
                 this.ConfigurationItems = XmlLoader.GetConfig(this.ConfigurationFile);
             }
         }
-
+        /// <summary>
+        /// Manually load configuration
+        /// </summary>
+        public virtual void ApplyExtesionConfiguration()
+        {
+            if (Configurator != null)
+            {
+                Configurator.ApplyConfig(this);
+            }
+        }
+        /// <summary>
+        /// Save configuration back to xml
+        /// </summary>
         public void SaveConfiguration()
         {
             if (string.IsNullOrEmpty(this.ConfigurationFile))
@@ -80,6 +100,5 @@ namespace SMTools.Deployment.Base
         }
 
         #endregion
-
     }
 }

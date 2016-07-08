@@ -18,7 +18,7 @@ namespace SMTools.TFSTransporter
         GetLastest
     }
 
-    public class TFSTransporterBase : DeploymentProcessBase
+    public class TFSTransporterBase : ProcessBase
     {
         #region properties, fields
         private const string _USERNAME = "username";

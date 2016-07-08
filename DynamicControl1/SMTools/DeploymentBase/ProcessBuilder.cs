@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SMTools.Deployment.Base
 {
-    public class DeploymentProcessBuilder
+    public class ProcessBuilder
     {
         /// <summary>
         /// Raise when begining process.
@@ -23,7 +23,7 @@ namespace SMTools.Deployment.Base
             get;
             set;
         }
-        public DeploymentProcessBuilder(IDeployment process)
+        public ProcessBuilder(IDeployment process)
         {
             this.DeploymentProcess = process;
         }

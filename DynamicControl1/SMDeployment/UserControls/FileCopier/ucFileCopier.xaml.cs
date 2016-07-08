@@ -97,13 +97,13 @@ namespace SMDeployment.UserControls.FileCopier
                 imgLoading.Visibility = System.Windows.Visibility.Visible;
                 Copier.SourceFolder = this.txtSourceFolder.Text;
                 Copier.ExcludeDestination(_ExcludeFolders.ToArrayString());
-                DeploymentProcessBuilder Builder = new DeploymentProcessBuilder(Copier);
+                ProcessBuilder Builder = new ProcessBuilder(Copier);
                 Builder.OnProcessCompleted += (o, ev) =>
                 {
                     UIThreadHelper.RunWorker(this, new Action(() =>
                     {
                         ShowError(ev.ProcessOutput as FileCopierOutput);
-                        imgLoading.Visibility = System.Windows.Visibility.Hidden;
+                        imgLoading.Visibility = Visibility.Hidden;
                     }));
                 };
                 Builder.StartAsync();

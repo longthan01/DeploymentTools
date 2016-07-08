@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SMTools.Deployment.Base
 {
-    public class StepOutputBase
+    public class StepOutput
     {
         
     }

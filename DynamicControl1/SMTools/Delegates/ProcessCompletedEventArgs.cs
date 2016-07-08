@@ -7,12 +7,12 @@ namespace SMTools.Deployment.Base
 {
     public class ProcessCompletedEventArgs : EventArgs
     {
-        public StepOutputBase ProcessOutput
+        public StepOutput ProcessOutput
         {
             get;
             set;
         }
-        public ProcessCompletedEventArgs(StepOutputBase output)
+        public ProcessCompletedEventArgs(StepOutput output)
         {
             this.ProcessOutput = output;
         }

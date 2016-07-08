@@ -42,7 +42,7 @@ namespace SMDeployment.UserControls.Build
                 this.lblErrorMsg.Content = Properties.Resources.PROJECT_NOT_FOUND;
                 return;
             }
-            DeploymentProcessBuilder Builder = new DeploymentProcessBuilder(new Builder(MSBuilder));
+            ProcessBuilder Builder = new ProcessBuilder(new Builder(MSBuilder));
             Builder.OnProcessCompleted += (o, ev) =>
             {
                 var op = ev.ProcessOutput as BuildOutput;
@@ -58,7 +58,7 @@ namespace SMDeployment.UserControls.Build
                 this.lblErrorMsg.Content = Properties.Resources.PROJECT_NOT_FOUND;
                 return;
             }
-            DeploymentProcessBuilder Builder = new DeploymentProcessBuilder(new Deploymenter(MSBuilder));
+            ProcessBuilder Builder = new ProcessBuilder(new Deploymenter(MSBuilder));
             Builder.OnProcessCompleted += (o, ev) =>
             {
                 var op = ev.ProcessOutput as BuildOutput;

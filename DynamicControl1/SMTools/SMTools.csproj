@@ -58,8 +58,10 @@
   <ItemGroup>
     <Compile Include="DeploymentBase\ConfigItem.cs" />
     <Compile Include="DeploymentBase\ConfigItemsCollection.cs" />
-    <Compile Include="DeploymentBase\DeploymentProcessBase.cs" />
-    <Compile Include="DeploymentBase\DeploymentProcessBuilder.cs" />
+    <Compile Include="DeploymentBase\ProcessBase.cs" />
+    <Compile Include="DeploymentBase\ProcessBuilder.cs" />
+    <Compile Include="DeploymentBase\IDeployConfiguration.cs" />
+    <Compile Include="DeploymentBase\IDeployProcess.cs" />
     <Compile Include="FileCopier\FileCopier.cs" />
     <Compile Include="Extensions\SMExtensions.cs" />
     <Compile Include="FileCopier\FileCopierOutput.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="Utility\FileInfor.cs" />
     <Compile Include="Utility\FileInforCollection.cs" />
     <Compile Include="Utility\ProcessUtility.cs" />
+    <Compile Include="Utility\StringCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SMDeploymentPattern.cd" />

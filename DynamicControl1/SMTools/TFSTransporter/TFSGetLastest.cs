@@ -29,7 +29,7 @@ namespace SMTools.TFSTransporter
             }
         }
 
-        public StepOutputBase GetOutput()
+        public StepOutput GetOutput()
         {
             return this._Output;
         }

@@ -2,32 +2,39 @@
 using SMTools.Deployment.Base;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Collections.Specialized;
 
 namespace SMTools.FileCopier
 {
     /// <summary>
     /// Copy a folder to another folder in accordance with the structure of destination folder
     /// </summary>
-    public class FileCopier : DeploymentProcessBase, IDeployment
+    public class FileCopier : ProcessBase, IDeployment
     {
         #region fields, properties
         private const string _SEPERATOR = "__";
-        private const string _FILE_DIR_INFOR_SEPERATOR = "___";
-        private const string _BACKUP_ATTRIBUTE = "backup";
-        private string _BackupPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\FileCopierBackup\\";
-
-        private List<ConfigItem> _DestinationFoldersConfig;
-        private List<string> _BackupFolders;
-        private List<string> _ExcludeFolders;
+        private StringCollection _BackupFolders;
         private List<FileCopierOutputItem> _CopierOutputs;
 
+        public bool NeedBackup { get; set; }
+        /// <summary>
+        /// The path to backup folder
+        /// </summary>
+        public string BackupFolder { get; set; }
+        /// <summary>
+        /// Destination folder which process will copy file to
+        /// </summary>
+        public StringCollection DestinationFolders
+        {
+            get; set;
+        }
+        /// <summary>
+        /// Exclude one or many folder configured in xml
+        /// </summary>
+        public List<string> DestinationExcludedFolders { get; set; }
         /// <summary>
         /// Source folder to copy, can not be empty
         /// </summary>
@@ -70,7 +77,7 @@ namespace SMTools.FileCopier
             {
                 fol = tokens[tokens.Length - 1];
             }
-            return _BackupPath + fol + _SEPERATOR + now; //ex:  ...\\Folder__27_06_2016 01 AM
+            return BackupFolder + fol + _SEPERATOR + now; //ex:  ...\\Folder__27_06_2016 01 AM
         }
 
         private FileCopierOutputItem Copy(DirInfor sourceFolder, string destinationFolder)
@@ -134,7 +141,7 @@ namespace SMTools.FileCopier
         /// <param name="dests"></param>
         public void ExcludeDestination(params string[] dests)
         {
-            _ExcludeFolders = new List<string>();
+            DestinationExcludedFolders = new List<string>();
             foreach (string folder in dests)
             {
                 ConfigItem item = this
@@ -142,7 +149,7 @@ namespace SMTools.FileCopier
                     .FirstOrDefault(x => x.Name.Equals(folder, StringComparison.OrdinalIgnoreCase));
                 if (item != null)
                 {
-                    this._ExcludeFolders.Add(item.Value);
+                    this.DestinationExcludedFolders.Add(item.Value);
                 }
             }
         }
@@ -161,7 +168,7 @@ namespace SMTools.FileCopier
             {
                 throw new ArgumentNullException("SourceFolder", "Source folder is null, nothing is copied");
             }
-            foreach (ConfigItem item in _DestinationFoldersConfig)
+            foreach (string folder in DestinationFolders)
             {
                 ConfigItem att = item.Attributes.FirstOrDefault(x => x.Name == _BACKUP_ATTRIBUTE);
                 if (att != null && att.Value == "true")
@@ -173,7 +180,7 @@ namespace SMTools.FileCopier
             }
         }
 
-        public StepOutputBase GetOutput()
+        public StepOutput GetOutput()
         {
             FileCopierOutput o = new FileCopierOutput();
             o.OutputItems = _CopierOutputs;
@@ -184,7 +191,7 @@ namespace SMTools.FileCopier
         {
             _BackupFolders = new List<string>();
             _CopierOutputs = new List<FileCopierOutputItem>();
-            _DestinationFoldersConfig = this.ConfigurationItems.FindAll(x => !this._ExcludeFolders.Contains(x.Value));
+            DestinationFolders = this.ConfigurationItems.FindAll(x => !this.DestinationExcludedFolders.Contains(x.Value));
         }
         #endregion
     }
