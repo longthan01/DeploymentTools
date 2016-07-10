@@ -1,5 +1,4 @@
-﻿using SMTools.Deployment.Utility;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,10 +53,6 @@ namespace WpfApplication1
         public MainWindow()
         {
             InitializeComponent();
-            Prop p = new Prop() { P = "sdfsdf" };
-            Base b = new Base() { Prop =  p};
-            p.P = "changed";
-            MessageBox.Show(b.Prop.P);
         }
     }
 }

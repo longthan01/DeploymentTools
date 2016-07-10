@@ -7,6 +7,179 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid x:Name="grdMain">
-        
+        <Grid x:Name="grdLoading">
+            <Rectangle
+            Width="30" Height="30" Fill="Red" RadiusX="15" RadiusY="15">
+                <Rectangle.RenderTransform>
+                    <RotateTransform Angle="45"></RotateTransform>
+                </Rectangle.RenderTransform>
+                <Rectangle.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:2" 
+                                             Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)"
+                                             To="-315"
+                                             RepeatBehavior="Forever">
+
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Rectangle.Triggers>
+            </Rectangle>
+            <Rectangle Width="30" Height="30" Fill="Green" RadiusX="15" RadiusY="15">
+                <Rectangle.RenderTransform>
+                    <RotateTransform Angle="90"></RotateTransform>
+                </Rectangle.RenderTransform>
+                <Rectangle.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:2" 
+                                             Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)"
+                                             To="-270"
+                                             RepeatBehavior="Forever">
+
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Rectangle.Triggers>
+            </Rectangle>
+            <Rectangle Width="30" Height="30" Fill="Yellow" RadiusX="15" RadiusY="15">
+                <Rectangle.RenderTransform>
+                    <RotateTransform Angle="135"></RotateTransform>
+                </Rectangle.RenderTransform>
+                <Rectangle.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:2" 
+                                             Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)"
+                                             To="-225"
+                                             RepeatBehavior="Forever">
+
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Rectangle.Triggers>
+            </Rectangle>
+            <Rectangle Width="30" Height="30" Fill="Blue" RadiusX="15" RadiusY="15">
+                <Rectangle.RenderTransform>
+                    <RotateTransform Angle="180"></RotateTransform>
+                </Rectangle.RenderTransform>
+                <Rectangle.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:2" 
+                                             Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)"
+                                             To="-180"
+                                             RepeatBehavior="Forever">
+
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Rectangle.Triggers>
+            </Rectangle>
+            <Rectangle Width="30" Height="30" Fill="Orange" RadiusX="15" RadiusY="15">
+                <Rectangle.RenderTransform>
+                    <RotateTransform Angle="225"></RotateTransform>
+                </Rectangle.RenderTransform>
+                <Rectangle.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:2" 
+                                             Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)"
+                                             To="-135"
+                                             RepeatBehavior="Forever">
+
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Rectangle.Triggers>
+            </Rectangle>
+            <Rectangle Width="30" Height="30" Fill="LightBlue" RadiusX="15" RadiusY="15">
+                <Rectangle.RenderTransform>
+                    <RotateTransform Angle="270"></RotateTransform>
+                </Rectangle.RenderTransform>
+                <Rectangle.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:2" 
+                                             Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)"
+                                             To="-90"
+                                             RepeatBehavior="Forever">
+
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Rectangle.Triggers>
+            </Rectangle>
+            <Rectangle Width="30" Height="30" Fill="LightGray" RadiusX="15" RadiusY="15">
+                <Rectangle.RenderTransform>
+                    <RotateTransform Angle="315"></RotateTransform>
+                </Rectangle.RenderTransform>
+                <Rectangle.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:2" 
+                                             Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)"
+                                             To="-45"
+                                             RepeatBehavior="Forever">
+
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Rectangle.Triggers>
+            </Rectangle>
+            <Rectangle Width="30" Height="30" Fill="YellowGreen" RadiusX="15" RadiusY="15">
+                <Rectangle.RenderTransform>
+                    <RotateTransform Angle="360"></RotateTransform>
+                </Rectangle.RenderTransform>
+                <Rectangle.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:2" 
+                                             Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)"
+                                             To="0"
+                                             RepeatBehavior="Forever">
+
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Rectangle.Triggers>
+            </Rectangle>
+            <Rectangle Width="30" Height="30" Fill="White" RadiusX="15" RadiusY="15">
+                <Rectangle.RenderTransform>
+                    <RotateTransform Angle="360"></RotateTransform>
+                </Rectangle.RenderTransform>
+                <Rectangle.Triggers>
+                    <EventTrigger RoutedEvent="Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Duration="0:0:2" 
+                                             Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)"
+                                             To="-360"
+                                             RepeatBehavior="Forever">
+
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Rectangle.Triggers>
+            </Rectangle>
+        </Grid>
     </Grid>
 </Window>
