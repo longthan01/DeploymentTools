@@ -34,7 +34,7 @@ namespace SMTools.Deployment.Configurator
 
         public virtual void SaveConfiguration(ProcessBase process)
         {
-            throw new NotImplementedException();
+           
         }
     }
 }

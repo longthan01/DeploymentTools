@@ -57,51 +57,74 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Build\BuildDeployConfigurator.cs" />
-    <Compile Include="Build\Builder\BuildConfigurator.cs" />
-    <Compile Include="Deployment\ConfiguratorBase.cs" />
-    <Compile Include="FileCopier\DestinationFolder.cs" />
-    <Compile Include="FileCopier\FileCopierConfigurator.cs" />
-    <Compile Include="TfsTransporter\TfsConfigurator.cs" />
-    <Compile Include="Utility\ConfigItem.cs" />
-    <Compile Include="Utility\ConfigItemsCollection.cs" />
-    <Compile Include="Deployment\ProcessBase.cs" />
-    <Compile Include="Deployment\ProcessBuilder.cs" />
-    <Compile Include="Deployment\IDeployConfigurator.cs" />
-    <Compile Include="Deployment\IDeployProcess.cs" />
-    <Compile Include="FileCopier\FileCopier.cs" />
-    <Compile Include="Extensions\SMExtensions.cs" />
-    <Compile Include="FileCopier\Output\FileCopierOutput.cs" />
-    <Compile Include="FileCopier\Output\FileCopierOutputItem.cs" />
-    <Compile Include="FileCopier\Output\CopierFileErrorInfor.cs" />
-    <Compile Include="Interfaces\IDeployment.cs" />
     <Compile Include="Build\BuildDeployOutput.cs" />
-    <Compile Include="Build\Deploy\Deploymenter.cs" />
     <Compile Include="Build\BuildDeployProcess.cs" />
+    <Compile Include="Build\Builder\BuildConfigurator.cs" />
+    <Compile Include="Build\Builder\Builder.cs" />
+    <Compile Include="Build\Deploy\DeployConfigurator.cs" />
+    <Compile Include="Build\Deploy\Deploymenter.cs" />
     <Compile Include="Delegates\ProcessCompletedEventArgs.cs" />
     <Compile Include="Delegates\ProcessCompletedEventHandler.cs" />
-    <Compile Include="Build\Builder\Builder.cs" />
+    <Compile Include="DeploymentBase\ConfiguratorBase.cs" />
+    <Compile Include="DeploymentBase\IDeployConfigurator.cs" />
+    <Compile Include="DeploymentBase\IDeployProcess.cs" />
+    <Compile Include="DeploymentBase\ProcessBase.cs" />
+    <Compile Include="DeploymentBase\ProcessBuilder.cs" />
+    <Compile Include="DeploymentBase\ProcessOutputBase.cs" />
+    <Compile Include="Extensions\SMExtensions.cs" />
+    <Compile Include="FileCopier\DestinationFolder.cs" />
+    <Compile Include="FileCopier\FileCopier.cs" />
+    <Compile Include="FileCopier\FileCopierConfigurator.cs" />
+    <Compile Include="FileCopier\Output\CopierFileErrorInfor.cs" />
+    <Compile Include="FileCopier\Output\FileCopierOutput.cs" />
+    <Compile Include="FileCopier\Output\FileCopierOutputItem.cs" />
+    <Compile Include="Interfaces\IDeployment.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Deployment\ProcessOutputBase.cs" />
+    <Compile Include="TfsTransporter\Checkout\TfsCheckOut.cs" />
+    <Compile Include="TfsTransporter\GetLastest\TfsGetLastest.cs" />
+    <Compile Include="TfsTransporter\Outputs\CheckOutOutput.cs" />
+    <Compile Include="TfsTransporter\Outputs\GetLastestOutput.cs" />
     <Compile Include="TfsTransporter\Searcher\ISearchFilter.cs" />
     <Compile Include="TfsTransporter\Searcher\SearchResult.cs" />
     <Compile Include="TfsTransporter\Searcher\TfsSearcher.cs" />
+    <Compile Include="TfsTransporter\TfsConfigurator.cs" />
     <Compile Include="TfsTransporter\TfsTeamProjectInstance.cs" />
-    <Compile Include="TfsTransporter\Outputs\GetLastestOutput.cs" />
-    <Compile Include="TfsTransporter\Outputs\CheckOutOutput.cs" />
-    <Compile Include="TfsTransporter\Checkout\TfsCheckOut.cs" />
-    <Compile Include="TfsTransporter\GetLastest\TfsGetLastest.cs" />
     <Compile Include="TfsTransporter\TfsTransporter.cs" />
-    <Compile Include="Utility\XmlLoader.cs" />
+    <Compile Include="Utility\ConfigItem.cs" />
+    <Compile Include="Utility\ConfigItemsCollection.cs" />
     <Compile Include="Utility\DeploymentUtility.cs" />
     <Compile Include="Utility\DirInfor.cs" />
     <Compile Include="Utility\FileInfor.cs" />
     <Compile Include="Utility\FileInforCollection.cs" />
     <Compile Include="Utility\ProcessUtility.cs" />
+    <Compile Include="Utility\XmlLoader.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\SMTools.csprojResolveAssemblyReference.cache" />
+    <None Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Release\SMTools.csprojResolveAssemblyReference.cache" />
     <None Include="SMDeploymentPattern.cd" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="obj\Debug\SMTools.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\SMTools.dll" />
+    <Content Include="obj\Debug\SMTools.pdb" />
+    <Content Include="obj\Release\SMTools.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\SMTools.dll" />
+    <Content Include="obj\Release\SMTools.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="obj\Release\TempPE\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
