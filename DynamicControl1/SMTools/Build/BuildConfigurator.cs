@@ -23,7 +23,7 @@ namespace SMTools.Deployment.Build
             
         }
 
-        public override void SaveConfiguration(ProcessBase process, string file)
+        public override void SaveConfiguration(ProcessBase process)
         {
             throw new NotImplementedException();
         }

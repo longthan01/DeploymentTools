@@ -18,14 +18,14 @@ namespace SMTools.FileCopier.Output
             get;
             set;
         }
-        public List<CopierFileErrorInfor> ErrorFiles
+        public List<FileErrorInfor> ErrorFiles
         {
             get;
             set;
         }
         public FileCopierOutputItem()
         {
-            this.ErrorFiles = new List<CopierFileErrorInfor>();
+            this.ErrorFiles = new List<FileErrorInfor>();
         }
     }
 }

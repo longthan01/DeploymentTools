@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SMTools.FileCopier.Output
 {
-    public class CopierFileErrorInfor : FileInfor
+    public class FileErrorInfor : FileInfor
     {
         public string Error
         {
@@ -16,7 +16,7 @@ namespace SMTools.FileCopier.Output
             set;
         }
        
-        public CopierFileErrorInfor(string error, FileInfor fi)
+        public FileErrorInfor(string error, FileInfor fi)
         {
             this.Error = error;
             this.FileName = fi.FileName;

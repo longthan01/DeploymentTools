@@ -106,7 +106,7 @@ namespace SMTools.FileCopier
                     catch (Exception ex)
                     {
                         Thread.Sleep(10);
-                        CopierFileErrorInfor fde = new CopierFileErrorInfor(ex.Message, file);
+                        FileErrorInfor fde = new FileErrorInfor(ex.Message, file);
                         output.ErrorFiles.Add(fde);
                     }
                 }
