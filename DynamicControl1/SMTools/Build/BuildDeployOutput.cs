@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMTools.Build
+namespace SMTools.Build.Base
 {
-    public class BuildOutput : DeployOutputBase
+    public class BuildDeployOutput : DeployOutputBase
     {
         public string BuildOutMessage
         {

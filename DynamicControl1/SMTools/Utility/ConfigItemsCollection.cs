@@ -17,9 +17,9 @@ namespace SMTools.Deployment.Base
             var item = this.GetConfigItem(itemName);
             return item != null ? item.Value : string.Empty;
         }
-        public ConfigItem GetConfigAttribute(string nodeName, string attributeName)
+        public ConfigItem GetConfigAttribute(string parent, string attributeName)
         {
-            ConfigItem item = GetConfigItem(nodeName);
+            ConfigItem item = GetConfigItem(parent);
             ConfigItem res = null;
             if (item != null)
             {

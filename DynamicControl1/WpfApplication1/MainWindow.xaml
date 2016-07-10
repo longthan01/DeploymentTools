@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid x:Name="grdMain">
-        <Grid x:Name="grdLoading">
+        <DataGrid x:Name="datagrid"></DataGrid>
+        <!--<ListView x:Name="dgr1"></ListView>-->
+        <!--<Grid x:Name="grdLoading">
             <Rectangle
             Width="30" Height="30" Fill="Red" RadiusX="15" RadiusY="15">
                 <Rectangle.RenderTransform>
@@ -142,7 +144,7 @@
                     </EventTrigger>
                 </Rectangle.Triggers>
             </Rectangle>
-            <Rectangle Width="30" Height="30" Fill="YellowGreen" RadiusX="15" RadiusY="15">
+            <Rectangle Width="30" Height="30" Fill="Turquoise" RadiusX="15" RadiusY="15">
                 <Rectangle.RenderTransform>
                     <RotateTransform Angle="360"></RotateTransform>
                 </Rectangle.RenderTransform>
@@ -180,6 +182,6 @@
                     </EventTrigger>
                 </Rectangle.Triggers>
             </Rectangle>
-        </Grid>
+        </Grid>-->
     </Grid>
 </Window>

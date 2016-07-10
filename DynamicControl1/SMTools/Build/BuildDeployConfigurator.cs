@@ -1,15 +1,10 @@
-﻿using SMTools.Build;
-using SMTools.Deployment.Base;
+﻿using SMTools.Deployment.Base;
 using SMTools.Deployment.Configurator;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SMTools.Deployment.Build
+namespace SMTools.Build.Base
 {
-    public class BuildConfigurator : ConfiguratorBase
+    public class BuildDeployConfigurator : ConfiguratorBase
     {
         protected const string _PublishProfile = "/p:PublishProfile=";
         protected const string _PublishUrl = "publishUrl";
@@ -17,10 +12,16 @@ namespace SMTools.Deployment.Build
         protected const string _LogFile = "/flp:LogFile=";
         protected const string _SolutionPath = "SolutionPath";
 
+        public BuildDeployConfigurator(string configFile, string configType) : base(configFile, configType) { }
+
         public override void ApplyConfig(ProcessBase process)
         {
-            BuildProcess buildProcess = process as BuildProcess;
-            
+            BuildDeployProcess buildProcess = process as BuildDeployProcess;
+            foreach (var item in this.ConfigItems)
+            {
+                buildProcess.BuildCommand.Append(item.Name + item.Value);
+                buildProcess.BuildCommand.Append(" ");
+            }
         }
 
         public override void SaveConfiguration(ProcessBase process)

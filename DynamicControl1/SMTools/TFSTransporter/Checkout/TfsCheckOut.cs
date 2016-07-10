@@ -21,11 +21,6 @@ namespace SMTools.Tfs.Checkout
             set;
         }
         #region constructors
-        public TfsCheckOut()
-            : base()
-        {
-            this.Configurator = new TfsConfigurator();
-        }
         public TfsCheckOut(IDeployConfigurator configurator, string sourceFolder)
             : base(configurator)
         {

@@ -19,6 +19,8 @@ namespace SMTools.DeploymentBase.TFSTransporter
         protected const string _NEED_AUTHENTICATE = "NeedAuthenticate";
         protected const string _WORKSPACE_MAPPING = "ProjectPath";
 
+        public TfsConfigurator(string configFile, string configType) : base(configFile, configType) { }
+
         public override void ApplyConfig(ProcessBase process)
         {
             TfsTransporter tfs = process as TfsTransporter;

@@ -19,10 +19,7 @@ namespace SMTools.Tfs.Searcher
         }
 
         private TfsSearchOutput _Result;
-        public TfsSearcher()
-        {
-            this.Configurator = new TfsConfigurator();
-        }
+       
         public TfsSearcher(IDeployConfigurator configurator)
             : base(configurator)
         {

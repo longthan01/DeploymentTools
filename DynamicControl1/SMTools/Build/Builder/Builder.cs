@@ -1,11 +1,9 @@
 ﻿using SMTools.Deployment.Base;
-using System.Linq;
-using SMTools.Extensions;
-using SMTools.Build;
+using SMTools.Build.Base;
 
-namespace SMTools.MSBuilder
+namespace SMTools.Build.Build
 {
-    public class Builder : BuildProcess, IDeployment
+    public class Builder : BuildDeployProcess
     {
         protected const string _DeployOnBuild = "/p:DeployOnBuild=";
 

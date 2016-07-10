@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMTools.Deployment.FileCopier
+namespace SMTools.FileCopier
 {
     public class DestinationFolder
     {

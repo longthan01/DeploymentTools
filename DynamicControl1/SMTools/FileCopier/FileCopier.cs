@@ -2,11 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Collections.Specialized;
 using SMTools.Deployment.Base;
-using SMTools.Deployment.FileCopier;
 using SMTools.FileCopier.Output;
 
 namespace SMTools.FileCopier
@@ -26,17 +24,6 @@ namespace SMTools.FileCopier
         /// </summary>
         public string BackupFolder { get; set; }
         /// <summary>
-        /// Destination folder which process will copy file to
-        /// </summary>
-        public List<DestinationFolder> DestinationFolders
-        {
-            get; set;
-        }
-        /// <summary>
-        /// Exclude one or many folder configured in xml
-        /// </summary>
-        public List<DestinationFolder> DestinationExcludedFolders { get; set; }
-        /// <summary>
         /// Source folder to copy, can not be empty
         /// </summary>
         public string SourceFolder
@@ -44,19 +31,22 @@ namespace SMTools.FileCopier
             get;
             set;
         }
+        /// <summary>
+        /// Destination folder which process will copy file to
+        /// </summary>
+        public List<DestinationFolder> DestinationFolders
+        {
+            get; set;
+        }
         #endregion
 
         #region constructor
-        public FileCopier(string sourceFolder, IDeployConfigurator configurator)
+        public FileCopier(IDeployConfigurator configurator, string sourceFolder)
             : base(configurator)
         {
             this.SourceFolder = sourceFolder;
         }
-        public FileCopier(string sourceFolder)
-            : base()
-        {
-            this.SourceFolder = sourceFolder;
-        }
+        
         public FileCopier(IDeployConfigurator configurator)
             : base(configurator)
         {

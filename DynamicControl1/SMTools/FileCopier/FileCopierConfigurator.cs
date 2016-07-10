@@ -1,15 +1,11 @@
 ﻿using SMTools.Deployment.Base;
 using SMTools.Deployment.Configurator;
-using SMTools.Deployment.FileCopier;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SMTools.Extensions;
 using System.Reflection;
 
-namespace SMTools.DeploymentBase.FileCopier
+namespace SMTools.FileCopier
 {
     public class FileCopierConfigurator : ConfiguratorBase
     {
@@ -18,16 +14,11 @@ namespace SMTools.DeploymentBase.FileCopier
         protected string BackupFolder = System.IO.Path.Combine(Assembly.GetExecutingAssembly().Location, _BACKUP_FOLDER);
 
         public List<string> ExcludeFolders { get; set; }
-
-        public FileCopierConfigurator()
+        public List<DestinationFolder> DestinationFolders { get; set; }
+        public FileCopierConfigurator(string configFile, string configType) : base(configFile, configType)
         {
-            this.ExcludeFolders = new List<string>();
-        }
-
-        public override void ApplyConfig(ProcessBase process)
-        {
-            SMTools.FileCopier.FileCopier copier = process as SMTools.FileCopier.FileCopier;
-            List<DestinationFolder> desFolders = new List<DestinationFolder>();
+            ExcludeFolders = new List<string>();
+            DestinationFolders = new List<SMTools.FileCopier.DestinationFolder>();
             foreach (var item in this.ConfigItems)
             {
                 var attNB = this.ConfigItems.GetConfigAttribute(item.Name, _NEED_BACKUP);
@@ -37,10 +28,14 @@ namespace SMTools.DeploymentBase.FileCopier
                     Path = item.Value,
                     NeedBackup = attNB != null && attNB.Value.SuperEquals("true")
                 };
-                desFolders.Add(f);
+                DestinationFolders.Add(f);
             }
-            desFolders = desFolders.FindAll(x => !this.ExcludeFolders.Contains(x.FolderName));
-            copier.DestinationFolders = desFolders;
+        }
+
+        public override void ApplyConfig(ProcessBase process)
+        {
+            FileCopier copier = process as FileCopier;
+            copier.DestinationFolders = DestinationFolders.FindAll(x => !this.ExcludeFolders.Contains(x.FolderName));
             copier.BackupFolder = BackupFolder;
         }
 

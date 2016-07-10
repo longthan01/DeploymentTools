@@ -7,13 +7,18 @@ namespace SMTools.Deployment.Configurator
     public abstract class ConfiguratorBase : IDeployConfigurator
     {
         public string ConfigurationFile { get; set; }
+        /// <summary>
+        /// Type of config, can be TfsDev, TfsQA, BuildDev, BuildQA..., matching section in config file
+        /// </summary>
+        public string ConfigType { get; set; }
+
         public ConfigItemCollection ConfigItems { get; set; }
 
-        public ConfiguratorBase() {  }
-
-        public ConfiguratorBase(string configFile)
+        public ConfiguratorBase(string configFile, string configType)
         {
             this.ConfigurationFile = configFile;
+            this.ConfigType = configType;
+            ConfigItems = XmlLoader.GetConfig(this.ConfigurationFile, this.ConfigType);
         }
 
         /// <summary>
@@ -25,7 +30,6 @@ namespace SMTools.Deployment.Configurator
         public virtual void ApplyConfig(ProcessBase process)
         {
             XmlRoot = XmlLoader.GetRoot(this.ConfigurationFile);
-            ConfigItems = XmlLoader.GetConfig(this.ConfigurationFile, process.GetProcessName());
         }
 
         public virtual void SaveConfiguration(ProcessBase process)

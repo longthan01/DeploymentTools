@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMTools.Build
+namespace SMTools.Build.Base
 {
-    public class BuildProcess : ProcessBase
+    public class BuildDeployProcess : ProcessBase
     {
         public string LogFile { get; set; }
 
@@ -21,11 +21,11 @@ namespace SMTools.Build
             set;
         }
 
-        public BuildProcess() : base()
+        public BuildDeployProcess() : base()
         {
         }
 
-        public BuildProcess(IDeployConfigurator configurator) : base (configurator) { }
+        public BuildDeployProcess(IDeployConfigurator configurator) : base (configurator) { }
 
         public override void ApplyConfiguration()
         {
@@ -48,7 +48,7 @@ namespace SMTools.Build
 
         public override DeployOutputBase GetOutput()
         {
-            BuildOutput o = new BuildOutput();
+            BuildDeployOutput o = new BuildDeployOutput();
             StreamReader stream = new StreamReader(LogFile);
             o.BuildOutMessage = stream.ReadToEnd();
             stream.Close();
