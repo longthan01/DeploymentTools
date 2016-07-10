@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace SMTools.TFSTransporter.GetLastest
+namespace SMTools.Tfs.GetLastest
 {
     public class TfsGetLastest : TfsTransporter
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SMTools.Deployment.Base;
-using SMTools.TFSTransporter;
+using SMTools.Tfs;
 
 namespace SMTools.DeploymentBase.TFSTransporter
 {

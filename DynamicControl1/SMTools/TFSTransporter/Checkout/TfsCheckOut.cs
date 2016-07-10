@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using SMTools.Extensions;
 using SMTools.DeploymentBase.TFSTransporter;
 
-namespace SMTools.TFSTransporter.Checkout
+namespace SMTools.Tfs.Checkout
 {
     public class TfsCheckOut : TfsTransporter
     {

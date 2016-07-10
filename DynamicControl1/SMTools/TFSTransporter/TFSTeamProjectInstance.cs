@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SMTools.Extensions;
 
-namespace SMTools.TFSTransporter
+namespace SMTools.Tfs
 {
     /// <summary>
     /// Hold an instance of TfsTeamProjectCollection

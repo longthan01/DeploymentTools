@@ -86,21 +86,21 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="SMTools.TFSTransporter.CheckOutOutput" Collapsed="true">
+  <Class Name="SMTools.Tfs.CheckOutOutput" Collapsed="true">
     <Position X="5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>TFSTransporter\Outputs\CheckOutOutput.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SMTools.TFSTransporter.GetLastestOutput" Collapsed="true">
+  <Class Name="SMTools.Tfs.GetLastestOutput" Collapsed="true">
     <Position X="7.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
       <FileName>TFSTransporter\Outputs\GetLastestOutput.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SMTools.TFSTransporter.TFSCheckOut" Collapsed="true">
+  <Class Name="SMTools.Tfs.TFSCheckOut" Collapsed="true">
     <Position X="5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAIABI=</HashCode>
@@ -108,7 +108,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="SMTools.TFSTransporter.TFSGetLastest" Collapsed="true">
+  <Class Name="SMTools.Tfs.TFSGetLastest" Collapsed="true">
     <Position X="2.75" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABI=</HashCode>
@@ -116,7 +116,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="SMTools.TFSTransporter.TFSTransporterBase" Collapsed="true">
+  <Class Name="SMTools.Tfs.TFSTransporterBase" Collapsed="true">
     <Position X="3.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAREAiAAYIAAAAAIAAAAAAgQCAABAACAA=</HashCode>
@@ -137,7 +137,7 @@
       <FileName>Interfaces\IDeployment.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Enum Name="SMTools.TFSTransporter.TFSType" Collapsed="true">
+  <Enum Name="SMTools.Tfs.TFSType" Collapsed="true">
     <Position X="9.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABABAAAIAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>

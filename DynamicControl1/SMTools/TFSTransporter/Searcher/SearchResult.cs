@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMTools.TFSTransporter.Searcher
+namespace SMTools.Tfs.Searcher
 {
     public class TfsSearchOutput : DeployOutputBase
     {
