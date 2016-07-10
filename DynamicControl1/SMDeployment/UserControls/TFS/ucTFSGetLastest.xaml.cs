@@ -31,7 +31,7 @@ namespace SMDeployment.UserControls.TFS
             set;
         }
 
-        private TFSGetLastest _TFSTransporter
+        private TfsGetLastest _TFSTransporter
         {
             get;
             set;
@@ -87,7 +87,7 @@ namespace SMDeployment.UserControls.TFS
             {
                 return;
             }
-            _TFSTransporter = DeployToolFactory.GetProcess<TFSGetLastest>(ConfigFolder.TFS, item.ToDeployEnvironment());
+            _TFSTransporter = DeployToolFactory.GetProcess<TfsGetLastest>(ConfigFolder.TFS, item.ToDeployEnvironment());
             _ConfigInfor.ConfigPath = _TFSTransporter.ConfigurationFile;
             _ConfigInfor.ProjectPath = _TFSTransporter.GetProjectPath();
             this.txtFolderPath.Text = _ConfigInfor.ProjectPath;

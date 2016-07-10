@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SMTools.TFSTransporter
 {
-    public class GetLastestOutput : StepOutput
+    public class GetLastestOutput : DeployOutputBase
     {
         public List<Failure> Failures
         {

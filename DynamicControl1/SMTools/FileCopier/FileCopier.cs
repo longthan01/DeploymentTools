@@ -1,25 +1,26 @@
 ﻿using SMTools.Deployment.Utility;
-using SMTools.Deployment.Base;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Collections.Specialized;
+using SMTools.Deployment.Base;
+using SMTools.Deployment.FileCopier;
+using SMTools.FileCopier.Output;
 
 namespace SMTools.FileCopier
 {
     /// <summary>
     /// Copy a folder to another folder in accordance with the structure of destination folder
     /// </summary>
-    public class FileCopier : ProcessBase, IDeployment
+    public class FileCopier : ProcessBase
     {
         #region fields, properties
         private const string _SEPERATOR = "__";
         private StringCollection _BackupFolders;
-        private List<FileCopierOutputItem> _CopierOutputs;
+        private FileCopierOutput _Output;
 
-        public bool NeedBackup { get; set; }
         /// <summary>
         /// The path to backup folder
         /// </summary>
@@ -27,14 +28,14 @@ namespace SMTools.FileCopier
         /// <summary>
         /// Destination folder which process will copy file to
         /// </summary>
-        public StringCollection DestinationFolders
+        public List<DestinationFolder> DestinationFolders
         {
             get; set;
         }
         /// <summary>
         /// Exclude one or many folder configured in xml
         /// </summary>
-        public List<string> DestinationExcludedFolders { get; set; }
+        public List<DestinationFolder> DestinationExcludedFolders { get; set; }
         /// <summary>
         /// Source folder to copy, can not be empty
         /// </summary>
@@ -46,15 +47,19 @@ namespace SMTools.FileCopier
         #endregion
 
         #region constructor
-        public FileCopier(string configPath)
-            : base(configPath)
-        {
-
-        }
-        public FileCopier(string configPath, string sourceFolder)
-            : base(configPath)
+        public FileCopier(string sourceFolder, IDeployConfigurator configurator)
+            : base(configurator)
         {
             this.SourceFolder = sourceFolder;
+        }
+        public FileCopier(string sourceFolder)
+            : base()
+        {
+            this.SourceFolder = sourceFolder;
+        }
+        public FileCopier(IDeployConfigurator configurator)
+            : base(configurator)
+        {
         }
         #endregion
 
@@ -133,65 +138,38 @@ namespace SMTools.FileCopier
 
         #endregion
 
-        #region public methods
-
-        /// <summary>
-        /// Exclude destination folder copied
-        /// </summary>
-        /// <param name="dests"></param>
-        public void ExcludeDestination(params string[] dests)
-        {
-            DestinationExcludedFolders = new List<string>();
-            foreach (string folder in dests)
-            {
-                ConfigItem item = this
-                    .ConfigurationItems
-                    .FirstOrDefault(x => x.Name.Equals(folder, StringComparison.OrdinalIgnoreCase));
-                if (item != null)
-                {
-                    this.DestinationExcludedFolders.Add(item.Value);
-                }
-            }
-        }
-
-        public string GetFolderPath(string folder)
-        {
-            return this.GetConfigItem(folder).Value;
-        }
-        #endregion
-
         #region IDeployment Members
 
-        public void Run()
+        public override void Run()
         {
             if (this.SourceFolder == null)
             {
                 throw new ArgumentNullException("SourceFolder", "Source folder is null, nothing is copied");
             }
-            foreach (string folder in DestinationFolders)
+            if (this.Configurator != null)
             {
-                ConfigItem att = item.Attributes.FirstOrDefault(x => x.Name == _BACKUP_ATTRIBUTE);
-                if (att != null && att.Value == "true")
+                this.Configurator.ApplyConfig(this); // to update user input 
+            }
+            foreach (var folder in DestinationFolders)
+            {
+                if (folder.NeedBackup)
                 {
-                    CopyBackup(item.Value); // copy backup
+                    CopyBackup(folder.Path); // copy backup
                 }
                 // copy from source to dest folder
-                _CopierOutputs.Add(Copy(this.SourceFolder, item.Value));
+                _Output.OutputItems.Add(Copy(this.SourceFolder, folder.Path));
             }
         }
 
-        public StepOutput GetOutput()
+        public override DeployOutputBase GetOutput()
         {
-            FileCopierOutput o = new FileCopierOutput();
-            o.OutputItems = _CopierOutputs;
-            return o;
+            return _Output;
         }
 
-        public void ApplyConfiguration()
+        public override void ApplyConfiguration()
         {
-            _BackupFolders = new List<string>();
-            _CopierOutputs = new List<FileCopierOutputItem>();
-            DestinationFolders = this.ConfigurationItems.FindAll(x => !this.DestinationExcludedFolders.Contains(x.Value));
+            _BackupFolders = new StringCollection();
+            _Output = new FileCopierOutput();
         }
         #endregion
     }

@@ -1,8 +1,5 @@
-﻿using SMTools.Deployment.Base;
+﻿using SMTools.DeploymentBase.DeploymentBase;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SMTools.Deployment.Base
@@ -18,12 +15,12 @@ namespace SMTools.Deployment.Base
         /// </summary>
         public event ProcessCompletedEventHandler OnProcessCompleted;
 
-        public IDeployment DeploymentProcess
+        public IDeployProcess DeploymentProcess
         {
             get;
             set;
         }
-        public ProcessBuilder(IDeployment process)
+        public ProcessBuilder(IDeployProcess process)
         {
             this.DeploymentProcess = process;
         }

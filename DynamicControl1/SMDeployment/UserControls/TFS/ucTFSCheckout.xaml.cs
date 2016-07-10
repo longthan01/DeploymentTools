@@ -30,7 +30,7 @@ namespace SMDeployment.UserControls.TFS
             get;
             set;
         }
-        private TFSCheckOut TFSTransporter
+        private TfsCheckOut TFSTransporter
         {
             get;
             set;
@@ -100,7 +100,7 @@ namespace SMDeployment.UserControls.TFS
             {
                 return;
             }
-            TFSTransporter = DeployToolFactory.GetProcess<TFSCheckOut>(ConfigFolder.TFS, item.ToDeployEnvironment());
+            TFSTransporter = DeployToolFactory.GetProcess<TfsCheckOut>(ConfigFolder.TFS, item.ToDeployEnvironment());
             ConfigInfor.ConfigPath = TFSTransporter.ConfigurationFile;
             ConfigInfor.ProjectPath = TFSTransporter.GetProjectPath();
             UIHelper.AddChild(

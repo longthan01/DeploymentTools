@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMTools.DeploymentBase
+namespace SMTools.Deployment.Base
 {
-    public interface IDeployConfiguration
+    public interface IDeployConfigurator
     {
         void ApplyConfig(ProcessBase process);
+        void SaveConfiguration(ProcessBase process);
     }
 }

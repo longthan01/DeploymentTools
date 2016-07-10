@@ -1,11 +1,11 @@
 ﻿using SMTools.Deployment.Base;
 
-namespace SMTools.DeploymentBase.DeploymentBase
+namespace SMTools.Deployment.Base
 {
     public interface IDeployProcess
     {
         void ApplyConfiguration();
         void Run();
-        StepOutput GetOutput();
+        DeployOutputBase GetOutput();
     }
 }

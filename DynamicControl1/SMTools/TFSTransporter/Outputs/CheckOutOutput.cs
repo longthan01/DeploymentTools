@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SMTools.TFSTransporter
 {
-    public class CheckOutOutput : StepOutput
+    public class CheckOutOutput : DeployOutputBase
     {
         public FileInforCollection AffectedFiles
         {

@@ -12,7 +12,7 @@ namespace SMTools.TFSTransporter
     /// <summary>
     /// Hold an instance of TfsTeamProjectCollection
     /// </summary>
-    public static class TFSInstance
+    public static class TfsInstance
     {
         private static string _ServerUrl = string.Empty;
         private static TfsTeamProjectCollection _TfsTeamProject;

@@ -27,7 +27,7 @@ namespace SMTools.Deployment.Base
             }
         }
 
-        private static XmlElement GetRoot(string fileName)
+        public static XmlElement GetRoot(string fileName)
         {
             XmlDocument doc = GetDocument(fileName);
             return doc.DocumentElement;
@@ -35,11 +35,12 @@ namespace SMTools.Deployment.Base
         #endregion
 
         #region public methods
-        public static ConfigItemCollection GetConfig(string fileName)
+        public static ConfigItemCollection GetConfig(string fileName, string processName)
         {
             ConfigItemCollection collection = new ConfigItemCollection();
             XmlElement root = GetRoot(fileName);
-            XmlNodeList configs = root.SelectNodes("config");
+            XmlNode section = root.SelectSingleNode(processName);
+            XmlNodeList configs = section.SelectNodes("config");
             foreach (XmlNode node in configs)
             {
                 XmlNode name = node.SelectSingleNode("name");
@@ -69,7 +70,7 @@ namespace SMTools.Deployment.Base
             return collection;
         }
 
-        public static void Save(ConfigItemCollection configItemsCollection, string fileName)
+        public static void Save(string fileName,ConfigItemCollection configItemsCollection,string processName)
         {
             XmlDocument doc = new XmlDocument();
             XmlNode root = doc.CreateElement("configurations");
@@ -102,23 +103,6 @@ namespace SMTools.Deployment.Base
             }
             doc.AppendChild(root);
             SaveConfig(doc, fileName);
-        }
-        /// <summary>
-        /// Get inner text of nodeName in xml file
-        /// </summary>
-        /// <param name="nodeName">Node name</param>
-        /// <param name="xmlFile">The path to xml file</param>
-        /// <returns></returns>
-        public static string GetValue(string nodeName, string xmlFile)
-        {
-            XmlElement root = GetRoot(xmlFile);
-            XmlNode node = root.SelectSingleNode(nodeName);
-            string res = null;
-            if (node != null)
-            {
-                res = node.InnerText;
-            }
-            return res;
         }
 
         public static string GetValueIteration(string nodeName, string xmlFile)

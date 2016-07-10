@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMTools.FileCopier
+namespace SMTools.Build
 {
-    public class FileCopierOutput : StepOutput
+    public class BuildOutput : DeployOutputBase
     {
-        public List<FileCopierOutputItem> OutputItems
+        public string BuildOutMessage
         {
             get;
             set;

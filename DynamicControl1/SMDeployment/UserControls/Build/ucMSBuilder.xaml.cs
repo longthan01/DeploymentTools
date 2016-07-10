@@ -24,7 +24,7 @@ namespace SMDeployment.UserControls.Build
     /// </summary>
     public partial class ucMSBuilder : UserControl
     {
-        private MSBuilder MSBuilder
+        private BuildProcess MSBuilder
         {
             get;
             set;
@@ -73,7 +73,7 @@ namespace SMDeployment.UserControls.Build
         private void lstViewSolutions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = this.lstViewSolutions.SelectedItem as ListViewItem;
-            MSBuilder = DeployToolFactory.GetProcess<MSBuilder>(ConfigFolder.MSBuild, item.Content.ToDeployEnvironment());
+            MSBuilder = DeployToolFactory.GetProcess<BuildProcess>(ConfigFolder.MSBuild, item.Content.ToDeployEnvironment());
             grdBuildInfor.ItemsSource = CollectionHelper.GetList(new BuildConfigInfor()
             {
                 SolutionPath = MSBuilder.GetSolutionPath(),

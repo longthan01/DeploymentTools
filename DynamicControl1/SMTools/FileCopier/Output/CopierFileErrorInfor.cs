@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMTools.FileCopier
+namespace SMTools.FileCopier.Output
 {
     public class CopierFileErrorInfor : FileInfor
     {

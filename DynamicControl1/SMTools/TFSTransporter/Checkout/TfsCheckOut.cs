@@ -8,9 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SMTools.Extensions;
-namespace SMTools.TFSTransporter
+using SMTools.DeploymentBase.TFSTransporter;
+
+namespace SMTools.TFSTransporter.Checkout
 {
-    public class TFSCheckOut : TFSTransporterBase, IDeployment
+    public class TfsCheckOut : TfsTransporter
     {
         private CheckOutOutput _Output = new CheckOutOutput();
         public string SourceFolder
@@ -19,12 +21,13 @@ namespace SMTools.TFSTransporter
             set;
         }
         #region constructors
-        public TFSCheckOut(string configFile)
-            : base(configFile)
+        public TfsCheckOut()
+            : base()
         {
+            this.Configurator = new TfsConfigurator();
         }
-        public TFSCheckOut(string configFile, string sourceFolder)
-            : base(configFile)
+        public TfsCheckOut(IDeployConfigurator configurator, string sourceFolder)
+            : base(configurator)
         {
             this.SourceFolder = sourceFolder;
         }
@@ -32,7 +35,7 @@ namespace SMTools.TFSTransporter
 
         #region IDeployment Members
 
-        public void Run()
+        public override void Run()
         {
             if (VersionControlServer != null)
             {
@@ -61,13 +64,13 @@ namespace SMTools.TFSTransporter
                         else
                         {
                             ItemSpec iSpec = new ItemSpec(destFile, RecursionType.None);
-                            PendingSet[] pendingSets = VersionControlServer.QueryPendingSets(new ItemSpec[]{iSpec}, wpInfo.Name, this._UserName, false);
+                            PendingSet[] pendingSets = VersionControlServer.QueryPendingSets(new ItemSpec[]{iSpec}, wpInfo.Name, this.UserName, false);
                             foreach (PendingSet pset in pendingSets)
                             {
                                 foreach (PendingChange pc in pset.PendingChanges)
                                 {
                                     if (pc.ChangeType == ChangeType.Edit 
-                                        && pc.VersionControlServer.AuthorizedUser.SuperEquals(this._UserName))
+                                        && pc.VersionControlServer.AuthorizedUser.SuperEquals(this.UserName))
                                     {
                                         alreadyCheckedOut = true;
                                         break;
@@ -84,16 +87,10 @@ namespace SMTools.TFSTransporter
             }
         }
 
-        public StepOutput GetOutput()
+        public override DeployOutputBase GetOutput()
         {
             return _Output;
         }
-
-        public void ApplyConfiguration()
-        {
-           
-        }
-
         #endregion
     }
 }

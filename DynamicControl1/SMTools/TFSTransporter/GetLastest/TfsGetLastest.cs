@@ -4,20 +4,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace SMTools.TFSTransporter
+namespace SMTools.TFSTransporter.GetLastest
 {
-    public class TFSGetLastest : TFSTransporterBase, IDeployment
+    public class TfsGetLastest : TfsTransporter
     {
         private GetLastestOutput _Output = new GetLastestOutput();
         
-        public TFSGetLastest(string configFile) : base(configFile)
+        public TfsGetLastest(IDeployConfigurator configurator) : base(configurator)
         {
             _Output.Failures = new List<Failure>();
         }
 
         #region IDeployment Members
 
-        public void Run()
+        public override void Run()
         {
             Workspace wp = this.VersionControlServer.GetWorkspace(WorkspaceMapping);
             if (wp != null)
@@ -29,13 +29,9 @@ namespace SMTools.TFSTransporter
             }
         }
 
-        public StepOutput GetOutput()
+        public override DeployOutputBase GetOutput()
         {
             return this._Output;
-        }
-        public void ApplyConfiguration()
-        {
-
         }
         #endregion
     }
