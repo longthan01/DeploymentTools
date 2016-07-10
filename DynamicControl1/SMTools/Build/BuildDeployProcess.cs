@@ -13,8 +13,6 @@ namespace SMTools.Build.Base
     {
         public string LogFile { get; set; }
 
-        public string ProjectPath { get; set; }
-
         public StringBuilder BuildCommand
         {
             get;

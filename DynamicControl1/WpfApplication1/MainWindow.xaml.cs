@@ -1,4 +1,7 @@
-﻿using SMTools.FileCopier;
+﻿using SMTools.Build.Base;
+using SMTools.Build.Build;
+using SMTools.Deployment.Base;
+using SMTools.FileCopier;
 using System.Windows;
 
 namespace WpfApplication1
@@ -33,7 +36,7 @@ namespace WpfApplication1
     /// </summary>
     public partial class MainWindow : Window
     {
-        public void Test (Base b)
+        public void Test(Base b)
         {
             Child c = b as Child;
             c.S = "Access child";
@@ -41,9 +44,16 @@ namespace WpfApplication1
         public MainWindow()
         {
             InitializeComponent();
-            FileCopierConfigurator configurator = new FileCopierConfigurator("ProcessConfig.xml", "filecopier");
-            FileCopier copier = new FileCopier(configurator);
-            datagrid.ItemsSource = configurator.DestinationFolders;
+            BuildConfigurator configurator = new BuildConfigurator("ProcessConfig.xml", "build");
+            Builder builder = new Builder(configurator);
+            ProcessBuilder processBuilder = new ProcessBuilder(builder);
+            processBuilder.OnProcessCompleted += (o, ev) =>
+            {
+                var output = ev.ProcessOutput as BuildDeployOutput;
+                this.Dispatcher.Invoke(delegate { MessageBox.Show(output.BuildOutMessage); });
+            };
+            processBuilder.Start();
+
         }
     }
 }
