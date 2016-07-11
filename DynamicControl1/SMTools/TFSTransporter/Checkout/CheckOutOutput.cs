@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMTools.Tfs
+namespace SMTools.Tfs.Checkout
 {
     public class CheckOutOutput : DeployOutputBase
     {

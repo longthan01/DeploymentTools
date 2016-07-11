@@ -41,15 +41,23 @@ namespace SMTools.FileCopier
         #endregion
 
         #region constructor
+        public FileCopier(IDeployConfigurator configurator, string sourceFolder, List<DestinationFolder> destinationFolder)
+            : base(configurator)
+        {
+            this.SourceFolder = sourceFolder;
+            this.DestinationFolders = destinationFolder;
+        }
         public FileCopier(IDeployConfigurator configurator, string sourceFolder)
             : base(configurator)
         {
             this.SourceFolder = sourceFolder;
+            DestinationFolders = new List<DestinationFolder>();
         }
-        
+
         public FileCopier(IDeployConfigurator configurator)
             : base(configurator)
         {
+            DestinationFolders = new List<DestinationFolder>();
         }
         #endregion
 

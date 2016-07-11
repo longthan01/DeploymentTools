@@ -14,10 +14,10 @@ namespace SMTools.Deployment.Configurator
 
         public ConfigItemCollection ConfigItems { get; set; }
 
-        public ConfiguratorBase(string configFile, string configType)
+        public ConfiguratorBase(string configFile, string configSection)
         {
             this.ConfigurationFile = configFile;
-            this.ConfigType = configType;
+            this.ConfigType = configSection;
             ConfigItems = XmlLoader.GetConfig(this.ConfigurationFile, this.ConfigType);
         }
 

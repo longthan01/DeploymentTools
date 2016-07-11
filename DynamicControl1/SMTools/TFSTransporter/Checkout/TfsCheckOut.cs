@@ -65,7 +65,7 @@ namespace SMTools.Tfs.Checkout
                                 foreach (PendingChange pc in pset.PendingChanges)
                                 {
                                     if (pc.ChangeType == ChangeType.Edit 
-                                        && pc.VersionControlServer.AuthorizedUser.SuperEquals(this.UserName))
+                                        && pc.VersionControlServer.AuthorizedUser.SuperEquals(UserName))
                                     {
                                         alreadyCheckedOut = true;
                                         break;

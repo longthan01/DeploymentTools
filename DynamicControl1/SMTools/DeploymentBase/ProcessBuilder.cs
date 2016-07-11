@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace SMTools.Deployment.Base
 {
+    /// <summary>
+    /// The class Deployment process builder, to handle starting and stopping process
+    /// </summary>
     public class ProcessBuilder
     {
         /// <summary>
@@ -40,17 +43,7 @@ namespace SMTools.Deployment.Base
 
         public async Task StartAsync()
         {
-            this.DeploymentProcess.ApplyConfiguration();
-            if (OnProcessBegining != null)
-            {
-                OnProcessBegining(this, null);
-            }
-            Action ac = new Action(DeploymentProcess.Run);
-            await Task.Run(ac);
-            if (OnProcessCompleted != null)
-            {
-                OnProcessCompleted(this, new ProcessCompletedEventArgs(this.DeploymentProcess.GetOutput()));
-            }
+           await Task.Run(delegate { this.Start(); });
         }
     }
 }

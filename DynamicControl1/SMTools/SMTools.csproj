@@ -88,10 +88,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TfsTransporter\Checkout\TfsCheckOut.cs" />
     <Compile Include="TfsTransporter\GetLastest\TfsGetLastest.cs" />
-    <Compile Include="TfsTransporter\Outputs\CheckOutOutput.cs" />
-    <Compile Include="TfsTransporter\Outputs\GetLastestOutput.cs" />
+    <Compile Include="TfsTransporter\Checkout\CheckOutOutput.cs" />
+    <Compile Include="TfsTransporter\GetLastest\GetLastestOutput.cs" />
     <Compile Include="TfsTransporter\Searcher\ISearchFilter.cs" />
-    <Compile Include="TfsTransporter\Searcher\SearchResult.cs" />
+    <Compile Include="TfsTransporter\Searcher\TfsSearchOutput.cs" />
     <Compile Include="TfsTransporter\Searcher\TfsSearcher.cs" />
     <Compile Include="TfsTransporter\TfsConfigurator.cs" />
     <Compile Include="TfsTransporter\TfsTeamProjectInstance.cs" />

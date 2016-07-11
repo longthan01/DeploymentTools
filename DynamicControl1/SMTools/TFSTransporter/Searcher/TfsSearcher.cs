@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SMTools.Tfs.Searcher
 {
-    public class TfsSearcher : TfsTransporter, IDeployment
+    public class TfsSearcher : TfsTransporter
     {
         public ISearchFilter Filter
         {
@@ -28,7 +28,7 @@ namespace SMTools.Tfs.Searcher
         public TfsSearcher(ISearchFilter filter, IDeployConfigurator configurator)
             : base(configurator)
         {
-            this.Filter = filter;
+            Filter = filter;
         }
         private VersionSpec ParseVersionSpec(DateTime date)
         {
@@ -76,7 +76,7 @@ namespace SMTools.Tfs.Searcher
             {
                 if (Filter.IsMatch(cs))
                 {
-                    _Result.Items.AddRange(SearchItemOutput.Parse(cs, wpInfo));
+                    _Result.AddIfNotExists(TfsSearchOutputItem.Parse(cs, wpInfo));
                 }
             }
         }

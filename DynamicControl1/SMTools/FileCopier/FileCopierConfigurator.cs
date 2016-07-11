@@ -15,7 +15,7 @@ namespace SMTools.FileCopier
 
         public List<string> ExcludeFolders { get; set; }
         public List<DestinationFolder> DestinationFolders { get; set; }
-        public FileCopierConfigurator(string configFile, string configType) : base(configFile, configType)
+        public FileCopierConfigurator(string configFile, string configSection) : base(configFile, configSection)
         {
             ExcludeFolders = new List<string>();
             DestinationFolders = new List<SMTools.FileCopier.DestinationFolder>();

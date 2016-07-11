@@ -5,8 +5,6 @@ namespace SMTools.Build.Build
 {
     public class Builder : BuildDeployProcess
     {
-        protected const string _DeployOnBuild = "/p:DeployOnBuild=";
-
         public Builder(IDeployConfigurator configurator)
         {
             this.Configurator = configurator;

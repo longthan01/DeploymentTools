@@ -1,12 +1,8 @@
 ﻿using Microsoft.TeamFoundation.VersionControl.Client;
 using SMTools.Deployment.Base;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SMTools.Tfs
+namespace SMTools.Tfs.GetLastest
 {
     public class GetLastestOutput : DeployOutputBase
     {

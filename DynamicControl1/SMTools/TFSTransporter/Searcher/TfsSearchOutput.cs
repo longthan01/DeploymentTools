@@ -3,24 +3,32 @@ using SMTools.Deployment.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using SMTools.Extensions;
 namespace SMTools.Tfs.Searcher
 {
     public class TfsSearchOutput : DeployOutputBase
     {
-        public List<SearchItemOutput> Items
+        public List<TfsSearchOutputItem> Items
         {
             get;
             set;
         }
         public TfsSearchOutput()
         {
-            this.Items = new List<SearchItemOutput>();
+            this.Items = new List<TfsSearchOutputItem>();
+        }
+        public void AddIfNotExists(List<TfsSearchOutputItem> items)
+        {
+            foreach (var item in items)
+            {
+                if (!Items.Any(x => x.LocalPath.SuperEquals(item.LocalPath)))
+                {
+                    this.Items.Add(item);
+                }
+            }
         }
     }
-    public class SearchItemOutput
+    public class TfsSearchOutputItem
     {
         public string Commiter
         {
@@ -57,12 +65,18 @@ namespace SMTools.Tfs.Searcher
             get;
             set;
         }
-        public static List<SearchItemOutput> Parse(Changeset changeset, Workspace wpInfor)
+        /// <summary>
+        /// Parse all item appeard in changeset to a List of TfsSearchOutputItem
+        /// </summary>
+        /// <param name="changeset">Source control changeset</param>
+        /// <param name="wpInfor">Current workspace</param>
+        /// <returns>A List of TfsSearchOutputItem</returns>
+        public static List<TfsSearchOutputItem> Parse(Changeset changeset, Workspace wpInfor)
         {
-            List<SearchItemOutput> res = new List<SearchItemOutput>();
+            List<TfsSearchOutputItem> res = new List<TfsSearchOutputItem>();
             foreach (Change change in changeset.Changes)
             {
-                SearchItemOutput result = new SearchItemOutput();
+                TfsSearchOutputItem result = new TfsSearchOutputItem();
                 result.ChangeSetId = changeset.ChangesetId;
                 result.Commiter = changeset.Committer;
                 result.Comment = changeset.Comment;

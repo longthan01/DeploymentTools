@@ -16,6 +16,14 @@ namespace SMTools.Tfs
     {
         private static string _ServerUrl = string.Empty;
         private static TfsTeamProjectCollection _TfsTeamProject;
+        /// <summary>
+        /// Get TfsTeamProjectCollection object based on Server url
+        /// </summary>
+        /// <param name="serverUrl">Tfs server url</param>
+        /// <param name="credentials">User credential</param>
+        /// <returns>If current connection url is the same as the previous connection url, return the same object TfsTeamProjectCollection
+        /// otherwise return new TfsTeamProjectCollection with url and credential
+        /// </returns>
         public static TfsTeamProjectCollection GetTfsTeamProjectCollection(string serverUrl, ICredentials credentials)
         {
             if (_TfsTeamProject == null || (!_ServerUrl.SuperEquals(serverUrl)))
