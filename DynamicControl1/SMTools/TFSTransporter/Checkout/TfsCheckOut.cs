@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SMTools.Extensions;
-using SMTools.DeploymentBase.TFSTransporter;
+using SMTools.TFSTransporter;
 
 namespace SMTools.Tfs.Checkout
 {

@@ -65,6 +65,9 @@ namespace SMTools.Tfs.Searcher
             get;
             set;
         }
+        public TfsSearchOutputItem()
+        {
+        }
         /// <summary>
         /// Parse all item appeard in changeset to a List of TfsSearchOutputItem
         /// </summary>

@@ -1,5 +1,4 @@
-﻿using SMTools.Deployment.Utility;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,18 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SMDeployment.UserControls.TFS
+namespace SMDeployment.UserControls
 {
     /// <summary>
-    /// Interaction logic for ucTFSCheckoutResult.xaml
+    /// Interaction logic for ucLoading.xaml
     /// </summary>
-    public partial class ucTFSCheckoutResult : UserControl
+    public partial class ucLoading : UserControl
     {
-        public ucTFSCheckoutResult(List<FileInfor> affectedFiles, List<FileInfor> errorFiles)
+        public ucLoading()
         {
             InitializeComponent();
-            this.dgrAffectedFiles.ItemsSource = affectedFiles;
-            this.dgrErrorFiles.ItemsSource = errorFiles;
         }
     }
 }

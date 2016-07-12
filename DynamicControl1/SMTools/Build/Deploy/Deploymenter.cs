@@ -1,7 +1,7 @@
 ﻿using SMTools.Deployment.Base;
 using SMTools.Build.Base;
 
-namespace SMTools.Build.Deployment
+namespace SMTools.Build.Deploy
 {
     public class Deploymenter : BuildDeployProcess, IDeployment
     {

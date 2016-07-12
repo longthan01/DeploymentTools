@@ -1,4 +1,5 @@
 ﻿using SMTools.Deployment.Base;
+using SMTools.Deployment.Utility;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMTools.Deployment.Utility
+namespace SMTools.Utility
 {
     public class FileInforCollection : List<FileInfor>
     {

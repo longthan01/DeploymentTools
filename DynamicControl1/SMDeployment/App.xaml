@@ -3,14 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <Style TargetType="ComboBox">
+            <Setter Property="Background"
+                    Value="Transparent"></Setter>
+            <Setter Property="FontSize"
+                    Value="15"></Setter>
+        </Style>
+        
         <Style TargetType="TextBox">
             <Setter Property="Background"
                     Value="Transparent"></Setter>
         </Style>
+        
         <Style TargetType="DatePicker">
             <Setter Property="FontSize"
                     Value="18"></Setter>
         </Style>
+        
         <Style TargetType="Grid">
             <Setter Property="Background">
                 <Setter.Value>
@@ -28,8 +37,11 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="GridSplitter">
-            <Setter Property="Background" Value="Black"></Setter>
+        
+        <Style TargetType="GridSplitter" x:Key="gridSpliterHorizontal">
+            <Setter Property="ResizeDirection"
+                    Value="Columns"></Setter>
+                <Setter Property="Background" Value="Black"></Setter>
             <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
             <Setter Property="VerticalContentAlignment"
                     Value="Center"></Setter>
@@ -40,6 +52,25 @@
             <Setter Property="HorizontalAlignment"
                     Value="Stretch" />
         </Style>
+        
+        <Style TargetType="GridSplitter"
+               x:Key="gridSpliterVertical">
+            <Setter Property="ResizeDirection"
+                    Value="Rows"></Setter>
+            <Setter Property="Background"
+                    Value="Black"></Setter>
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Center"></Setter>
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"></Setter>
+            <Setter Property="ResizeBehavior"
+                    Value="PreviousAndNext"></Setter>
+            <Setter Property="VerticalAlignment"
+                    Value="Stretch" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Stretch" />
+        </Style>
+        
         <Style TargetType="DataGrid">
             <Setter Property="FontSize"
                     Value="15"></Setter>
@@ -48,6 +79,7 @@
             <Setter Property="CanUserAddRows"
                     Value="False"></Setter>
         </Style>
+        
         <Style TargetType="DockPanel">
             <Setter Property="Background">
                 <Setter.Value>
@@ -59,6 +91,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <Style TargetType="Menu">
             <Setter Property="Background">
                 <Setter.Value>
@@ -70,6 +103,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <Style TargetType="MenuItem">
             <Setter Property="Background">
                 <Setter.Value>
@@ -81,6 +115,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <Style x:Key="placeholder"
                TargetType="{x:Type TextBox}"
                BasedOn="{StaticResource {x:Type TextBox}}">
@@ -117,6 +152,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <Style TargetType="Button">
             <Setter Property="FontWeight"
                     Value="Bold"></Setter>
@@ -135,6 +171,22 @@
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Margin"
+                    Value="5,0,5,0"></Setter>
+        </Style>
+
+        <Style x:Key="rotate"
+               TargetType="DataGridRowHeader">
+            <Setter Property="LayoutTransform">
+                <Setter.Value>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"></RotateTransform>
+                        <MatrixTransform Matrix="01,0,0,1,0,0"></MatrixTransform>
+                    </TransformGroup>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="TextOptions.TextFormattingMode"
+                    Value="Display"></Setter>
         </Style>
     </Application.Resources>
 </Application>

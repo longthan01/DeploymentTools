@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SMTools.Deployment.Base
+namespace SMTools.Utility
 {
     public class ConfigItem
     {

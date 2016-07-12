@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using SMTools.Extensions;
 
-namespace SMTools.Deployment.Base
+namespace SMTools.Utility
 {
     public class ConfigItemCollection : List<ConfigItem>
     {

@@ -12,5 +12,16 @@ namespace SMDeployment.AppCodes
         {
             return new List<object>(items);
         }
+
+        public static List<string> GetEnumList(Type type)
+        {
+            List<string> res = new List<string>();
+            var arr = Enum.GetValues(type);
+            foreach (var item in arr)
+            {
+                res.Add(item.ToString());
+            }
+            return res;
+        }
     }
 }

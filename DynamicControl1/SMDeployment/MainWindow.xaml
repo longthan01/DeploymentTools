@@ -4,7 +4,6 @@
         Title="MainWindow"
         Height="350"
         Width="525">
-
     <Grid x:Name="grdMain">
         <DockPanel>
             <Menu Height="30"
@@ -16,10 +15,14 @@
                         <Setter Property="FontSize"
                                 Value="18" />
                     </Style>
-                    
                 </Menu.Resources>
+                <MenuItem Header="Boarding" Background="GreenYellow"
+                          Click="MenuItemBoarding_Click">
+                </MenuItem>
                 <MenuItem Header="Build"
                           Click="MenuItemBuild_Click"></MenuItem>
+                <MenuItem Header="Deploy"
+                          Click="MenuItemDeploy_Click"></MenuItem>
                 <MenuItem Header="File Copier"
                           Click="MenuItemFC_Click"></MenuItem>
                 <MenuItem Header="Get lastest code"

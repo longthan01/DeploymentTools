@@ -1,31 +1,25 @@
-﻿<UserControl x:Class="SMDeployment.UserControls.Build.ucMSBuilder"
+﻿<UserControl x:Class="SMDeployment.UserControls.Build.ucDeploy"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:SMDeployment.UserControls"
-             mc:Ignorable="d"
-             d:DesignHeight="300"
-             d:DesignWidth="300">
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
     <Grid Name="grdMain">
-        <local:ucLoading x:Name="imgLoading"
-                         Panel.ZIndex="10"
-                         Visibility="Hidden"></local:ucLoading>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.3*" />
                 <RowDefinition Height="3" />
                 <RowDefinition />
-                <RowDefinition Height="3" />
+                <RowDefinition Height="3"/>
                 <RowDefinition Height="0.2*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <GridSplitter Style="{StaticResource gridSpliterVertical}"
-                          Grid.Row="1"></GridSplitter>
-            <Grid Name="grdConfig"
-                  Grid.Row="0">
+            <GridSplitter Grid.Row="1"
+                          Style="{StaticResource gridSpliterVertical}"></GridSplitter>
+            <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                     <RowDefinition Height="3" />
@@ -47,24 +41,20 @@
                       Name="grdProjectSelection"></Grid>
                 <Grid Grid.Row="0"
                       Grid.Column="2">
-                    <Button Content="Build"
+                    <Button Content="Deploy"
                             Name="btnRun"
                             Click="btnRun_Click"></Button>
                 </Grid>
-                <ScrollViewer Grid.Row="2"
-                              x:Name="scrollViewerProjectInfor"
+                <ScrollViewer Grid.Row="2" x:Name="scrollViewerProjectInfor"
                               FlowDirection="LeftToRight"
                               HorizontalScrollBarVisibility="Visible"
                               Grid.ColumnSpan="3">
-
+                    
                 </ScrollViewer>
             </Grid>
-            <Grid x:Name="grdOutput"
-                  Grid.Row="2"></Grid>
-            <GridSplitter Style="{StaticResource gridSpliterVertical}"
-                          Grid.Row="3"></GridSplitter>
-            <Grid x:Name="grdLog"
-                  Grid.Row="4"></Grid>
+            <Grid x:Name="grdOutput" Grid.Row="2"></Grid>
+            <GridSplitter Style="{StaticResource gridSpliterVertical}" Grid.Row="3"></GridSplitter>
+            <Grid Grid.Row="4" x:Name="grdLog"></Grid>
         </Grid>
     </Grid>
 </UserControl>

@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SMDeployment</RootNamespace>
-    <AssemblyName>SMDeployment</AssemblyName>
+    <AssemblyName>SMDeploymentv2</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -34,15 +34,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Dragon.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.TeamFoundation.VersionControl.Client">
-      <HintPath>libraries\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
+      <HintPath>C:\Users\GuyFawkes\Desktop\dll cho lang quang\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Client">
+      <HintPath>C:\Users\GuyFawkes\Desktop\dll cho lang quang\Microsoft.TeamFoundation.WorkItemTracking.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -61,39 +66,30 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppCodes\CollectionHelper.cs" />
-    <Compile Include="AppCodes\FileConfigManager.cs" />
-    <Compile Include="AppCodes\DeployToolFactory.cs" />
+    <Compile Include="AppCodes\ConfiguratorFactory.cs" />
     <Compile Include="AppCodes\Enum.cs" />
+    <Compile Include="AppCodes\Extensions.cs" />
+    <Compile Include="AppCodes\SessionManager.cs" />
     <Compile Include="AppCodes\TFS\SearchFilter.cs" />
-    <Compile Include="AppCodes\UIConfigManager.cs" />
     <Compile Include="AppCodes\UIHelper.cs" />
     <Compile Include="AppCodes\UIThreadHelper.cs" />
-    <Compile Include="AppCodes\Extensions.cs" />
-    <Compile Include="UIModels\MSBuilder\BuildConfigInfor.cs" />
-    <Compile Include="UIModels\TFSTransport\ProjectConfigInfor.cs" />
+    <Compile Include="UIModels\BuildDeploy\BuildConfigInfor.cs" />
+    <Compile Include="UIModels\TfsTransport\ProjectConfigInfor.cs" />
+    <Compile Include="UIModels\TfsTransport\TfsSearchResultItemUI.cs" />
+    <Compile Include="UserControls\Build\ucDeploy.xaml.cs">
+      <DependentUpon>ucDeploy.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Build\ucMSBuilder.xaml.cs">
       <DependentUpon>ucMSBuilder.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\FileCopier\ucFileCopier.xaml.cs">
-      <DependentUpon>ucFileCopier.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\FileCopier\ucFileDiff.xaml.cs">
-      <DependentUpon>ucFileDiff.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\TFS\ucSearchFilter.xaml.cs">
+    <Compile Include="UserControls\Tfs\ucSearchFilter.xaml.cs">
       <DependentUpon>ucSearchFilter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\TFS\ucTFSCheckout.xaml.cs">
-      <DependentUpon>ucTFSCheckout.xaml</DependentUpon>
+    <Compile Include="UserControls\Tfs\ucTfsSearcher.xaml.cs">
+      <DependentUpon>ucTfsSearcher.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\TFS\ucTFSCheckoutResult.xaml.cs">
-      <DependentUpon>ucTFSCheckoutResult.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\TFS\ucTFSGetLastest.xaml.cs">
-      <DependentUpon>ucTFSGetLastest.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\TFS\ucTFSSearcher.xaml.cs">
-      <DependentUpon>ucTFSSearcher.xaml</DependentUpon>
+    <Compile Include="UserControls\ucLoading.xaml.cs">
+      <DependentUpon>ucLoading.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -107,35 +103,23 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\Build\ucDeploy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Build\ucMSBuilder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\FileCopier\ucFileCopier.xaml">
+    <Page Include="UserControls\Tfs\ucSearchFilter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Tfs\ucTfsSearcher.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\FileCopier\ucFileDiff.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\TFS\ucSearchFilter.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\TFS\ucTFSCheckout.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\TFS\ucTFSCheckoutResult.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\TFS\ucTFSGetLastest.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\TFS\ucTFSSearcher.xaml">
+    <Page Include="UserControls\ucLoading.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -158,7 +142,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="bin\Debug\App_Data\MSBuild\Sm.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -170,12 +153,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="bin\Debug\App_Data\TFS\Dev.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="bin\Debug\App_Data\FileCopier\FileCopier.xml" />
+    <Folder Include="UIConfigs\" />
+    <Folder Include="UserControls\FileCopier\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SMTools\SMTools.csproj">
@@ -184,25 +163,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="bin\Debug\App_Data\TFS\QA.xml" />
+    <Resource Include="bin\Debug\ProcessConfig.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="bin\Debug\App_Data\TFS\US.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="bin\Debug\App_Data\MSBuild\Dev.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="bin\Debug\App_Data\TFS\Boarding_Dev.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Dragon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="UIConfigs\TfsSeachConfig.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="bin\Debug\App_Data\ProcessConfig.xml" />
+    <Resource Include="bin\Debug\UserConfig.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

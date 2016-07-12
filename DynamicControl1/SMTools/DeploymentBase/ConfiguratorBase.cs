@@ -1,6 +1,7 @@
 ﻿using System;
 using SMTools.Deployment.Base;
 using System.Xml;
+using SMTools.Utility;
 
 namespace SMTools.Deployment.Configurator
 {
@@ -13,7 +14,9 @@ namespace SMTools.Deployment.Configurator
         public string ConfigType { get; set; }
 
         public ConfigItemCollection ConfigItems { get; set; }
-
+        public ConfiguratorBase()
+        {
+        }
         public ConfiguratorBase(string configFile, string configSection)
         {
             this.ConfigurationFile = configFile;

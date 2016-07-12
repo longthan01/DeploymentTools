@@ -1,7 +1,5 @@
-﻿using SMDeployment.UserControls.FileCopier;
-using SMTools.Extensions;
+﻿using SMTools.Extensions;
 using SMTools.FileCopier;
-using SMTools.TFSTransporter;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,10 +16,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SMDeployment.AppCodes;
-using SMTools.MSBuilder;
 using SMDeployment.UserControls.Build;
 using Microsoft.TeamFoundation.VersionControl.Client;
-using SMDeployment.UserControls.TFS;
+using SMDeployment.UserControls.Tfs;
 
 namespace SMDeployment
 {
@@ -34,57 +31,40 @@ namespace SMDeployment
         {
             InitializeComponent();
         }
-
-        private void AddFileCopier()
+        private void AddUserControl(UserControl control)
         {
             docPnlMain.Children.Clear();
-            docPnlMain.Children.Add(new ucFileCopier());
+            this.docPnlMain.Children.Add(control);
         }
-        private void AddMSBuilder()
-        {
-            docPnlMain.Children.Clear();
-            docPnlMain.Children.Add(new ucMSBuilder());
-        }
-        private void AddTFSTransport()
-        {
-            docPnlMain.Children.Clear();
-            docPnlMain.Children.Add(new ucTFSTransport());
-        }
-        private void AddTFSCheckout()
-        {
-            docPnlMain.Children.Clear();
-            docPnlMain.Children.Add(new ucTFSCheckout());
-        }
-        private void AddSearch()
-        {
-            docPnlMain.Children.Clear();
-            docPnlMain.Children.Add(new ucTFSSearcher());
-        }
-
         private void MenuItemBuild_Click(object sender, RoutedEventArgs e)
         {
-            AddMSBuilder();
+            AddUserControl(new ucMSBuilder());
         }
 
         private void MenuItemFC_Click(object sender, RoutedEventArgs e)
         {
-            AddFileCopier();
+          
         }
 
         private void MenuItemGL_Click(object sender, RoutedEventArgs e)
         {
-            AddTFSTransport();
         }
 
         private void MenuItemCheckout_Click(object sender, RoutedEventArgs e)
         {
-            // checkout
-            AddTFSCheckout();
         }
 
         private void itemSearch_Click(object sender, RoutedEventArgs e)
         {
-            AddSearch();
+            AddUserControl(new ucTfsSearcher());
+        }
+        private void MenuItemBoarding_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void MenuItemDeploy_Click(object sender, RoutedEventArgs e)
+        {
+            AddUserControl(new ucDeploy());
         }
     }
 }

@@ -31,24 +31,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.TeamFoundation.Client">
-      <HintPath>..\SMDeployment\libraries\Microsoft.TeamFoundation.Client.dll</HintPath>
+      <HintPath>C:\Users\GuyFawkes\Desktop\dll cho lang quang\Microsoft.TeamFoundation.Client.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.TeamFoundation.Common">
-      <HintPath>..\SMDeployment\libraries\Microsoft.TeamFoundation.Common.dll</HintPath>
+      <HintPath>C:\Users\GuyFawkes\Desktop\dll cho lang quang\Microsoft.TeamFoundation.Common.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.TeamFoundation.VersionControl.Client">
-      <HintPath>..\SMDeployment\libraries\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
+      <HintPath>C:\Users\GuyFawkes\Desktop\dll cho lang quang\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.TeamFoundation.VersionControl.Common">
-      <HintPath>..\SMDeployment\libraries\Microsoft.TeamFoundation.VersionControl.Common.dll</HintPath>
+      <HintPath>C:\Users\GuyFawkes\Desktop\dll cho lang quang\Microsoft.TeamFoundation.VersionControl.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,10 +55,9 @@
     <Compile Include="Build\BuildDeployConfigurator.cs" />
     <Compile Include="Build\BuildDeployOutput.cs" />
     <Compile Include="Build\BuildDeployProcess.cs" />
-    <Compile Include="Build\Builder\BuildConfigurator.cs" />
     <Compile Include="Build\Builder\Builder.cs" />
-    <Compile Include="Build\Deploy\DeployConfigurator.cs" />
     <Compile Include="Build\Deploy\Deploymenter.cs" />
+    <Compile Include="ConfigurationModels\DeploymentPath.cs" />
     <Compile Include="Delegates\ProcessCompletedEventArgs.cs" />
     <Compile Include="Delegates\ProcessCompletedEventHandler.cs" />
     <Compile Include="DeploymentBase\ConfiguratorBase.cs" />
@@ -82,15 +77,15 @@
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
-    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TfsTransporter\Checkout\TfsCheckOut.cs" />
+    <Compile Include="TfsTransporter\DownloadFile\TfsDownloadFile.cs" />
+    <Compile Include="TfsTransporter\DownloadFile\TfsDownloadFileConfigurator.cs" />
     <Compile Include="TfsTransporter\GetLastest\TfsGetLastest.cs" />
     <Compile Include="TfsTransporter\Checkout\CheckOutOutput.cs" />
     <Compile Include="TfsTransporter\GetLastest\GetLastestOutput.cs" />
     <Compile Include="TfsTransporter\Searcher\ISearchFilter.cs" />
+    <Compile Include="TfsTransporter\Searcher\TfsSearchConfigurator.cs" />
     <Compile Include="TfsTransporter\Searcher\TfsSearchOutput.cs" />
     <Compile Include="TfsTransporter\Searcher\TfsSearcher.cs" />
     <Compile Include="TfsTransporter\TfsConfigurator.cs" />
@@ -98,6 +93,7 @@
     <Compile Include="TfsTransporter\TfsTransporter.cs" />
     <Compile Include="Utility\ConfigItem.cs" />
     <Compile Include="Utility\ConfigItemsCollection.cs" />
+    <Compile Include="Utility\ConfigSection.cs" />
     <Compile Include="Utility\DeploymentUtility.cs" />
     <Compile Include="Utility\DirInfor.cs" />
     <Compile Include="Utility\FileInfor.cs" />
@@ -109,17 +105,11 @@
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
     <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="obj\Debug\SMTools.csprojResolveAssemblyReference.cache" />
-    <None Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="obj\Release\SMTools.csprojResolveAssemblyReference.cache" />
-    <None Include="SMDeploymentPattern.cd" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="obj\Debug\SMTools.csproj.FileListAbsolute.txt" />
     <Content Include="obj\Debug\SMTools.dll" />
     <Content Include="obj\Debug\SMTools.pdb" />
-    <Content Include="obj\Release\SMTools.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Release\SMTools.dll" />
-    <Content Include="obj\Release\SMTools.pdb" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="obj\Debug\TempPE\" />

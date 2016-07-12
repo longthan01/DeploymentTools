@@ -6,6 +6,7 @@ using System.Threading;
 using System.Collections.Specialized;
 using SMTools.Deployment.Base;
 using SMTools.FileCopier.Output;
+using SMTools.Utility;
 
 namespace SMTools.FileCopier
 {
@@ -136,7 +137,7 @@ namespace SMTools.FileCopier
 
         #endregion
 
-        #region IDeployment Members
+        #region override
 
         public override void Run()
         {

@@ -5,10 +5,22 @@ using System.Text;
 using System.Xml;
 using SMTools.Extensions;
 
-namespace SMTools.Deployment.Base
+namespace SMTools.Utility
 {
     public static class XmlLoader
     {
+        private static List<ConfigSection> _xmlConfigs;
+        public static List<ConfigSection> XmlConfigs
+        {
+            get
+            {
+                return _xmlConfigs;
+            }
+        }
+        public static void Load(string configFile)
+        {
+            _xmlConfigs = XmlLoader.GetConfig(configFile);
+        }
         #region private methods
         private static XmlDocument GetDocument(string fileName)
         {
@@ -35,42 +47,57 @@ namespace SMTools.Deployment.Base
         #endregion
 
         #region public methods
-        public static ConfigItemCollection GetConfig(string fileName, string processName)
+        public static List<ConfigSection> GetConfig(string fileName)
         {
-            ConfigItemCollection collection = new ConfigItemCollection();
+            List<ConfigSection> res = new List<ConfigSection>();
             XmlElement root = GetRoot(fileName);
-            XmlNode section = root.SelectSingleNode(processName);
-            XmlNodeList configs = section.SelectNodes("config");
-            foreach (XmlNode node in configs)
+            foreach (XmlNode child in root.ChildNodes)
             {
-                XmlNode name = node.SelectSingleNode("name");
-                XmlNode value = node.SelectSingleNode("value");
-                ConfigItem item = new ConfigItem()
+                ConfigSection section = new ConfigSection();
+                section.SectionName = child.Name;
+
+                XmlNodeList configs = child.SelectNodes("config");
+                foreach (XmlNode node in configs)
                 {
-                    Name = name.InnerText,
-                    Value = value.InnerText
-                };
-                XmlNodeList attrs = node.SelectNodes("attributes");
-                if (attrs != null)
-                {
-                    foreach (XmlNode att in attrs)
+                    XmlNode name = node.SelectSingleNode("name");
+                    XmlNode value = node.SelectSingleNode("value");
+                    ConfigItem item = new ConfigItem()
                     {
-                        XmlNode an = att.SelectSingleNode("name");
-                        XmlNode av = att.SelectSingleNode("value");
-                        ConfigItem attributeItem = new ConfigItem()
+                        Name = name.InnerText,
+                        Value = value.InnerText
+                    };
+                    XmlNodeList attrs = node.SelectNodes("attributes");
+                    if (attrs != null)
+                    {
+                        foreach (XmlNode att in attrs)
                         {
-                            Name = an.InnerText,
-                            Value = av.InnerText
-                        };
-                        item.Attributes.Add(attributeItem);
+                            XmlNode an = att.SelectSingleNode("name");
+                            XmlNode av = att.SelectSingleNode("value");
+                            ConfigItem attributeItem = new ConfigItem()
+                            {
+                                Name = an.InnerText,
+                                Value = av.InnerText
+                            };
+                            item.Attributes.Add(attributeItem);
+                        }
                     }
+                    section.Items.Add(item);
                 }
-                collection.Add(item);
             }
-            return collection;
+            return res;
         }
 
-        public static void Save(string fileName,ConfigItemCollection configItemsCollection,string processName)
+        public static ConfigItemCollection GetConfig(string fileName, string sectionName)
+        {
+            if (_xmlConfigs == null)
+            {
+                _xmlConfigs = GetConfig(fileName);
+            }
+            var section = XmlConfigs.FirstOrDefault(x => x.SectionName.SuperEquals(sectionName));
+            return section == null ? null : section.Items;
+        }
+
+        public static void Save(string fileName, ConfigItemCollection configItemsCollection, string processName)
         {
             XmlDocument doc = new XmlDocument();
             XmlNode root = doc.CreateElement("configurations");

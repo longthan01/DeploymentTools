@@ -9,10 +9,20 @@ namespace SMTools.Build.Base
 {
     public class BuildDeployOutput : DeployOutputBase
     {
+        
         public string BuildOutMessage
         {
             get;
             set;
+        }
+        public string LogFile
+        {
+            get;
+            set;
+        }
+        public BuildDeployOutput(string logFile)
+        {
+            this.LogFile = logFile;
         }
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMDeployment.UIModels.MSBuilder
+namespace SMDeployment.UIModels.BuildDeploy
 {
-    public class BuildConfigInfor
+    public class BuildDeployConfigInfor
     {
         public string ProjectPath
         {

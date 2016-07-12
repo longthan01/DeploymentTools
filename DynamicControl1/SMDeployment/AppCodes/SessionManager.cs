@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SMTools.Deployment.Base;
+using SMTools.Utility;
+
 namespace SMDeployment.AppCodes
 {
-    public class UIConfigManager
+    public static class SessionManager
     {
-        //public ConfigItemsCollection Get()
-        //{
-        //}
     }
 }

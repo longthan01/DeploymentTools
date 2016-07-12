@@ -1,6 +1,6 @@
 ﻿using Microsoft.TeamFoundation.VersionControl.Client;
 using SMTools.Deployment.Base;
-using SMTools.DeploymentBase.TFSTransporter;
+using SMTools.TFSTransporter;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -52,9 +52,9 @@ namespace SMTools.Tfs.Searcher
                 VersionSpec.Latest,
                 0,
                 RecursionType.Full,
-                null, null, null,
-                //ParseVersionSpec(Filter.GetFromDate()),
-                //ParseVersionSpec(Filter.GetToDate()),
+                null,
+                ParseVersionSpec(Filter.GetFromDate()),
+                ParseVersionSpec(Filter.GetToDate()),
                 int.MaxValue,
                 true,
                 false,

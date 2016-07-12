@@ -1,10 +1,10 @@
-﻿using SMTools.TFSTransporter.Searcher;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SMTools.Extensions;
+using SMTools.Tfs.Searcher;
 
 namespace SMDeployment.AppCodes.TFS
 {

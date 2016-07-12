@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMDeployment.UIModels.TFSTransport
+namespace SMDeployment.UIModels.TfsTransport
 {
     public class ProjectConfigInfor
     {
-        public string ProjectPath
+        public string LocalSolution
         {
             get;
             set;
         }
-        public string ConfigPath
+        public string ServerUrl
         {
             get;
             set;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SMTools.Deployment.Utility
+namespace SMTools.Utility
 {
     /// <summary>
     /// Directory information

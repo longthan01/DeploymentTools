@@ -10,14 +10,6 @@ using System.Threading.Tasks;
 
 namespace SMTools.Tfs
 {
-    public enum TFSType
-    {
-        Unknown,
-        Checkout,
-        Checkin,
-        GetLastest
-    }
-
     public abstract class TfsTransporter : ProcessBase
     {
         #region properties, fields
@@ -32,22 +24,17 @@ namespace SMTools.Tfs
             set;
         }
         public bool NeedAuthenticate { get; set; }
-        public TFSType Type
+      
+        protected TfsTeamProjectCollection TeamProjectCollection
         {
             get;
             set;
         }
-        public TfsTeamProjectCollection TeamProjectCollection
+        protected VersionControlServer VersionControlServer
         {
             get;
             set;
         }
-        public VersionControlServer VersionControlServer
-        {
-            get;
-            set;
-        }
-
 
         #endregion
 
@@ -68,7 +55,7 @@ namespace SMTools.Tfs
             }
             else
             {
-                this.TeamProjectCollection = new TfsTeamProjectCollection(new Uri(ServerUrl));
+                TeamProjectCollection = new TfsTeamProjectCollection(new Uri(ServerUrl));
             }
             VersionControlServer = (VersionControlServer)TeamProjectCollection.GetService(typeof(VersionControlServer));
         }

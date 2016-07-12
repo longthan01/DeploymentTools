@@ -21,6 +21,7 @@ namespace SMTools.Build.Base
 
         public BuildDeployProcess() : base()
         {
+            BuildCommand = new StringBuilder();
         }
 
         public BuildDeployProcess(IDeployConfigurator configurator) : base (configurator) { }
@@ -46,7 +47,7 @@ namespace SMTools.Build.Base
 
         public override DeployOutputBase GetOutput()
         {
-            BuildDeployOutput o = new BuildDeployOutput();
+            BuildDeployOutput o = new BuildDeployOutput(LogFile);
             StreamReader stream = new StreamReader(LogFile);
             o.BuildOutMessage = stream.ReadToEnd();
             stream.Close();
