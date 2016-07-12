@@ -1,23 +1,10 @@
 ﻿using SMDeployment.AppCodes;
 using SMDeployment.UIModels.BuildDeploy;
 using SMTools.Build.Base;
-using SMTools.Build.Build;
 using SMTools.Deployment.Base;
 using SMTools.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SMDeployment.UserControls.Build
 {
@@ -26,7 +13,7 @@ namespace SMDeployment.UserControls.Build
     /// </summary>
     public partial class ucMSBuilder : UserControl
     {
-        private BuildConfigurator _Configurator;
+        private BuildDeployConfigurator _Configurator;
 
         public ucMSBuilder()
         {
@@ -41,12 +28,10 @@ namespace SMDeployment.UserControls.Build
             var cbx = e.OriginalSource as ComboBox;
             var item = cbx.SelectedItem.ToString();
             _Configurator = ConfiguratorFactory
-                .GetConfigurator<BuildConfigurator>(ConfigSection.Build, item.ToProject());
+                .GetConfigurator<BuildDeployConfigurator>(AppCodes.Section.Build, item.ToProject());
             var grid = UIHelper.CreateRotateVerticalGrid(
                     new BuildDeployConfigInfor()
                     {
-                        ProjectPath = _Configurator.GetProjectPath(),
-                        SolutionPath = _Configurator.GetSolutionPath(),
                     }
                 );
             this.scrollViewerProjectInfor.Content = grid;

@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="SMDeployment.UserControls.Tfs.ucTfsSearcher"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:SMDeployment.UserControls.Tfs"
+             xmlns:loading="clr-namespace:SMDeployment.UserControls"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="300">
+    <Grid Name="grdMain">
+        <loading:ucLoading x:Name="imgLoading"
+                           Panel.ZIndex="10"
+                           Visibility="Hidden"></loading:ucLoading>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="300" />
+                <RowDefinition Height="3" />
+                <RowDefinition />
+                <RowDefinition Height="3" />
+                <RowDefinition Height="0.2*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <GridSplitter Grid.Row="1"
+                          Style="{StaticResource gridSpliterVertical}"></GridSplitter>
+            <Grid Name="grdConfig"
+                  Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="3" />
+                    <RowDefinition Height="100" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition Width="3" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <GridSplitter Grid.Row="1"
+                              Grid.ColumnSpan="3"
+                              Grid.Column="0"
+                              Style="{StaticResource gridSpliterVertical}"></GridSplitter>
+                <Grid Grid.Row="0"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="3" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*" />
+                        <ColumnDefinition Width="3" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <GridSplitter Grid.Column="1"
+                                  Style="{StaticResource gridSpliterHorizontal}"></GridSplitter>
+                    <Grid  Name="grdProjectSelection"
+                           Grid.Row="0"
+                           Grid.Column="0"></Grid>
+                    <Grid Grid.Row="0"
+                          Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="3" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <local:ucSearchFilter x:Name="ucSearchFilter"
+                                              Grid.Column="0"
+                                              Grid.ColumnSpan="3"></local:ucSearchFilter>
+                    </Grid>
+                    <GridSplitter Grid.Row="1"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="3"
+                                  Style="{StaticResource gridSpliterVertical}"></GridSplitter>
+                    <Grid Name="grdButtons"
+                          Grid.Row="2"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Button Content="Output Folder"
+                                Grid.Column="2"
+                                Name="btnChooseFolder" Click="btnChooseFolder_Click"
+                                Grid.Row="2"></Button>
+                        <Button Content="Search"
+                                Grid.Column="3"
+                                Name="btnSearch"
+                                Grid.Row="0"
+                                Click="btnSearch_Click"></Button>
+                        <Button Content="Clear"
+                                Name="btnClear"
+                                Grid.Column="3"
+                                Grid.Row="1"></Button>
+                        <TextBox x:Name="txtDownloadOutputFolder" FontSize="18"
+                                 Grid.Row="2"
+                                 Grid.Column="0"
+                                 Grid.ColumnSpan="2"></TextBox>
+                        <Button Content="Get files"
+                                Name="btnGetFiles"
+                                Grid.Column="3"
+                                Click="btnGetFiles_Click"
+                                Grid.Row="2"></Button>
+                    </Grid>
+                </Grid>
+                <ScrollViewer x:Name="scrollViewerProjectInfor"
+                              Grid.Row="2"
+                              FlowDirection="LeftToRight"
+                              HorizontalScrollBarVisibility="Visible"
+                              Grid.ColumnSpan="3">
+                </ScrollViewer>
+            </Grid>
+            <Grid x:Name="grdOutput"
+                  Grid.Row="2"></Grid>
+            <GridSplitter Style="{StaticResource gridSpliterVertical}"
+                          Grid.Row="3"></GridSplitter>
+            <Grid  x:Name="grdLog"
+                   Grid.Row="4"></Grid>
+        </Grid>
+    </Grid>
+</UserControl>

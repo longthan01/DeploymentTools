@@ -25,7 +25,7 @@ namespace SMDeployment.UserControls.Build
     /// </summary>
     public partial class ucDeploy : UserControl
     {
-        private DeployConfigurator _Configurator;
+        private BuildDeployConfigurator _Configurator;
 
         public ucDeploy()
         {
@@ -40,12 +40,10 @@ namespace SMDeployment.UserControls.Build
             var cbx = e.OriginalSource as ComboBox;
             var item = cbx.SelectedItem.ToString();
             _Configurator = ConfiguratorFactory
-                .GetConfigurator<DeployConfigurator>(AppCodes.Section.Deploy, item.ToProject());
+                .GetConfigurator<BuildDeployConfigurator>(AppCodes.Section.Deploy, item.ToProject());
             var grid = UIHelper.CreateRotateVerticalGrid(
                     new BuildDeployConfigInfor()
                     {
-                        ProjectPath = _Configurator.GetProjectPath(),
-                        SolutionPath = _Configurator.GetSolutionPath(),
                         DeploymentOutputFolder = _Configurator.GetDeployOutFolder()
                     }
                 );

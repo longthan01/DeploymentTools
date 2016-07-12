@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="SMDeployment.UserControls.Tfs.ucSearchFilter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="100"
+             Width="Auto"
+             d:DesignWidth="300">
+    <Grid x:Name="grdMain">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Name="gridDates" Grid.Row="0" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Viewbox Grid.Column="1">
+                <DatePicker FontSize="18" Name="dpickerFrom"></DatePicker>
+            </Viewbox>
+            <Viewbox Grid.Column="3">
+                <DatePicker FontSize="18" Name="dpickerTo" Grid.Column="0"></DatePicker>
+            </Viewbox>
+            <Label HorizontalContentAlignment="Left" Grid.Column="0" Content="From"></Label>
+            <Label HorizontalContentAlignment="Left" Grid.Column="2" Content="To"></Label>
+        </Grid>
+        <Label Content="Commiter"
+                   Grid.Row="1"
+                   FontSize="15"
+                   Grid.Column="0"></Label>
+        <Label Content="Comment" FontSize="15"
+                   Grid.Row="2"
+                   Grid.Column="0"></Label>
+        <TextBox Name="txtCommiter"
+                     Grid.Row="1"
+                     FontSize="18"
+                     Grid.Column="1"></TextBox>
+        <TextBox Name="txtComment"
+                     Grid.Row="2"
+                     FontSize="18"
+                     Grid.Column="1">
+        </TextBox>
+    </Grid>
+</UserControl>
