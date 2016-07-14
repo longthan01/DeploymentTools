@@ -31,19 +31,44 @@ namespace SMDeployment
         {
             InitializeComponent();
         }
-        private void AddUserControl(UserControl control)
+
+
+        private void AddUserControl<T>() where T : UserControl, new()
         {
-            docPnlMain.Children.Clear();
-            this.docPnlMain.Children.Add(control);
+            if (this.docPnlMain.Children.Count > 0)
+            {
+                UIElement current = null;
+                foreach (UIElement elem in this.docPnlMain.Children)
+                {
+                    if (elem.GetType() != typeof(T))
+                    {
+                        elem.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        current = elem;
+                    }
+                }
+                if (current != null)
+                {
+                    current.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                T c = new T();
+                this.docPnlMain.Children.Add(c);
+            }
         }
+
         private void MenuItemBuild_Click(object sender, RoutedEventArgs e)
         {
-            AddUserControl(new ucMSBuilder());
+            AddUserControl<ucMSBuilder>();
         }
 
         private void MenuItemFC_Click(object sender, RoutedEventArgs e)
         {
-          
+
         }
 
         private void MenuItemGL_Click(object sender, RoutedEventArgs e)
@@ -56,15 +81,17 @@ namespace SMDeployment
 
         private void itemSearch_Click(object sender, RoutedEventArgs e)
         {
-            AddUserControl(new ucTfsSearcher());
+            AddUserControl<ucTfsSearcher>();
         }
+
         private void MenuItemBoarding_Click(object sender, RoutedEventArgs e)
         {
 
         }
+
         private void MenuItemDeploy_Click(object sender, RoutedEventArgs e)
         {
-            AddUserControl(new ucDeploy());
+            AddUserControl<ucDeploy>();
         }
     }
 }

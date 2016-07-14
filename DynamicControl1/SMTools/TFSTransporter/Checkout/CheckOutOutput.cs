@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SMTools.Tfs.Checkout
 {
-    public class CheckOutOutput : DeployOutputBase
+    public class CheckOutOutput : ProcessOutputBase
     {
         public FileInforCollection AffectedFiles
         {

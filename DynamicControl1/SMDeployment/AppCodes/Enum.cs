@@ -6,14 +6,20 @@ using System.Threading.Tasks;
 
 namespace SMDeployment.AppCodes
 {
-    public enum Section
+    public enum Tfs
+    {
+        Tfs_US,
+        Tfs_VN
+    }
+    public enum XmlConfigSection
     {
         Build,
         Deploy,
-        Tfs,
-        FileCopier
+        Tfs_US,
+        Tfs_VN,
+        FileCopy
     }
-    public enum Project
+    public enum ProjectPath
     {
         Boarding_Dev,
         Boarding_QA,

@@ -5,77 +5,80 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SMTools.Extensions;
+using SMTools.Utility;
+using SMTools.TFSTransporter;
+using SMTools.FileCopier;
+using SMTools.Build.Base;
 namespace SMDeployment.AppCodes
 {
-    public class ConfiguratorSetting
-    {
-        public IDeployConfigurator Configurator
-        {
-            get;
-            set;
-        }
-        public Section Section
-        {
-            get;
-            set;
-        }
-        public Project Project
-        {
-            get;
-            set;
-        }
-    }
     public static class ConfiguratorFactory
     {
-        private static List<ConfiguratorSetting> _Cache
+        
+        private static List<IDeployConfigurator> _Cache
         {
             get;
             set;
         }
-        static ConfiguratorFactory()
+
+        private static void AddCache(IDeployConfigurator configurator)
         {
-            _Cache = new List<ConfiguratorSetting>();
-        }
-        public static T GetConfigurator<T>(string section, string project = "") where T : IDeployConfigurator
-        {
-            var cacheItem = _Cache.FirstOrDefault(x => x.Section.ToString().SuperEquals(section));
-            IDeployConfigurator res = null;
-            if (cacheItem != null)
+            if (_Cache == null)
             {
-                res = cacheItem.Configurator;
+                _Cache = new List<IDeployConfigurator>();
+                _Cache.Add(configurator);
             }
             else
             {
-                res = (T)Activator.CreateInstance(typeof(T), "ProcessConfig.xml", section + project);
-                _Cache.Add(new ConfiguratorSetting()
+                var item = _Cache.FirstOrDefault(x => x.GetType() == configurator.GetType());
+                if (item == null)
                 {
-                    Configurator = res,
-                    Section = (Section)Enum.Parse(typeof(Section), section),
-                    Project = (Project)Enum.Parse(typeof(Project), project)
-                });
+                    _Cache.Add(configurator);
+                }
+            }
+        }
+
+        private static bool IsOrInheritFrom(Type src, Type dest)
+        {
+            if (src == null)
+            {
+                return false;
+            }
+            if (src == dest)
+            {
+                return true;
+            }
+            else
+            {
+                return IsOrInheritFrom(src.BaseType, dest);
+            }
+        }
+
+        public static T GetConfigurator<T>()
+            where T : IDeployConfigurator
+        {
+            ConfigItemCollection deployItems = null;
+            Type tType = typeof(T);
+            IDeployConfigurator res = null;
+            if (IsOrInheritFrom(tType, typeof(TfsConfigurator)))
+            {
+                res = GetConfigurator<T>((XmlConfigSection)Enum.Parse(typeof(XmlConfigSection), SessionManager.WorkingTfs));
+            }
+            if (IsOrInheritFrom(tType, typeof(FileCopierConfigurator)))
+            {
+                res = GetConfigurator<T>(XmlConfigSection.FileCopy);
             }
             return (T)res;
         }
-        public static T GetConfigurator<T>(Section section, Project project) where T : IDeployConfigurator
+
+        public static T GetConfigurator<T>(XmlConfigSection section) where T : IDeployConfigurator
         {
-            return GetConfigurator<T>(section.ToString(), project.ToString());
-        }
-        public static T GetConfigurator<T>(Section section) where T : IDeployConfigurator
-        {
-            return GetConfigurator<T>(section.ToString());
-        }
-        private static IDeployConfigurator AddCache(IDeployConfigurator config, Section section, Project project)
-        {
-            if (!_Cache.Any(x => x.Configurator == config))
+            IDeployConfigurator res = null;
+            var deployItems = XmlLoader.GetConfig(section.ToString());
+            if (deployItems != null)
             {
-                _Cache.Add(new ConfiguratorSetting()
-                {
-                    Configurator = config,
-                    Project = project,
-                    Section = section
-                });
+                res = (T)Activator.CreateInstance(typeof(T), deployItems);
             }
-            return config;
+            return (T)res;
         }
     }
 }

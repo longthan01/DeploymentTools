@@ -1,60 +1,50 @@
 ﻿using SMTools.Deployment.Base;
-using SMTools.Deployment.ConfigurationModels;
 using SMTools.Deployment.Configurator;
 using System;
+using System.Linq;
 using SMTools.Extensions;
 using SMTools.Utility;
+using SMTools.Deployment.Base;
+using SMTools.Models;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace SMTools.Build.Base
 {
     public class BuildDeployConfigurator : ConfiguratorBase
     {
-        protected const string _PublishProfile = "/p:PublishProfile=";
-        protected const string _BuildLogFile = "/flp:LogFile=";
-        protected const string _PublishUrl = "publishUrl";
-        protected const string _BuildPath = "BuildPath";
+        protected string BuildPath;
 
-        public DeploymentPath BuildPath { get; set; }
-
-        public BuildDeployConfigurator(string configFile, string configSection) : base(configFile, configSection) { }
-
-        public string GetDeployOutFolder()
+        public BuildDeployConfigurator(ConfigItemCollection itemsCollection)
+            : base(itemsCollection)
         {
-            return XmlLoader.GetValueIteration(_PublishUrl, this.ConfigItems.GetConfigItemValue(_PublishProfile).Trim('"'));
+
+        }
+
+        public BuildDeployConfigurator SetBuildPath(string path)
+        {
+            BuildPath = path;
+            this.ConfigItems.Insert(1, new ConfigItem()
+            {
+                Name = string.Empty,
+                Value = path
+            });
+            return this;
         }
 
         public override void ApplyConfig(ProcessBase process)
         {
+            base.ApplyConfig(process);
+            if (this.BuildPath == null)
+            {
+                throw new ArgumentNullException("BuildPath", "Build path is empty, cannot start build process");
+            }
             BuildDeployProcess buildProcess = process as BuildDeployProcess;
             foreach (var item in ConfigItems)
             {
-                if (item.Name.SuperEquals(_BuildPath))
-                {
-                    if (BuildPath != null) // if user override build path
-                    {
-                        buildProcess.BuildCommand
-                            .Append(string.Format("\"{0}\"", BuildPath.Path))
-                            .Append(" ");
-                    }
-                    else // use default in config file
-                    { 
-                        buildProcess.BuildCommand
-                            .Append(string.Format("\"{0}\"", item.Value))
-                            .Append(" ");
-                    }
-                }
-                else
-                {
-                    buildProcess.BuildCommand.Append(item.Name + item.Value);
-                    buildProcess.BuildCommand.Append(" "); // seperate each parameter
-                }
+                buildProcess.BuildCommand.Append(item.GetName()).Append(" ").Append(item.GetValue());
             }
-            buildProcess.LogFile = ConfigItems.GetConfigItemValue(_BuildLogFile);
-        }
-
-        public override void SaveConfiguration(ProcessBase process)
-        {
-            throw new NotImplementedException();
+            buildProcess.LogFile = ConfigItems[ConstantString.BUILD_BuildLogFile];
         }
     }
 }

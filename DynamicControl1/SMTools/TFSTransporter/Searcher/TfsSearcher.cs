@@ -17,8 +17,6 @@ namespace SMTools.Tfs.Searcher
             get;
             set;
         }
-
-        private TfsSearchOutput _Result;
        
         public TfsSearcher(IDeployConfigurator configurator)
             : base(configurator)
@@ -46,7 +44,7 @@ namespace SMTools.Tfs.Searcher
 
         private IEnumerable<Changeset> GetHistory(Workspace wp)
         {
-            var path = wp.GetServerItemForLocalItem(Path.GetDirectoryName(this.WorkspaceMapping));
+            var path = wp.GetServerItemForLocalItem(Path.GetDirectoryName(TfsInfor.WorkspaceMapping));
             var history = this.VersionControlServer.QueryHistory(
                 path,
                 VersionSpec.Latest,
@@ -63,27 +61,21 @@ namespace SMTools.Tfs.Searcher
         }
         #region IDeployment Members
 
-        public override void ApplyConfiguration()
-        {
-            _Result = new TfsSearchOutput();
-        }
-
         public override void Run()
         {
-            Workspace wpInfo = VersionControlServer.GetWorkspace(WorkspaceMapping);
+            TfsSearchOutput Result = new TfsSearchOutput();
+            if (this.Filter == null)
+                throw new ArgumentNullException("Filter", "Filter is null, cannot query TFS history");
+            Workspace wpInfo = VersionControlServer.GetWorkspace(TfsInfor.WorkspaceMapping);
             var history = GetHistory(wpInfo);
             foreach (Changeset cs in history)
             {
                 if (Filter.IsMatch(cs))
                 {
-                    _Result.AddIfNotExists(TfsSearchOutputItem.Parse(cs, wpInfo));
+                    Result.AddIfNotExists(TfsSearchOutputItem.Parse(cs, wpInfo));
                 }
             }
-        }
-
-        public override DeployOutputBase GetOutput()
-        {
-            return _Result;
+            ProcessOutput = Result;
         }
 
         #endregion

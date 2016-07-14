@@ -19,19 +19,9 @@ namespace SMTools.Build.Base
             set;
         }
 
-        public BuildDeployProcess() : base()
+        public BuildDeployProcess(IDeployConfigurator configurator) : base(configurator)
         {
             BuildCommand = new StringBuilder();
-        }
-
-        public BuildDeployProcess(IDeployConfigurator configurator) : base (configurator) { }
-
-        public override void ApplyConfiguration()
-        {
-            if (this.Configurator != null)
-            {
-                Configurator.ApplyConfig(this);
-            }
         }
 
         public override void Run()
@@ -45,7 +35,7 @@ namespace SMTools.Build.Base
             p.WaitForExit();
         }
 
-        public override DeployOutputBase GetOutput()
+        public override ProcessOutputBase GetOutput()
         {
             BuildDeployOutput o = new BuildDeployOutput(LogFile);
             StreamReader stream = new StreamReader(LogFile);

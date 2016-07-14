@@ -2,42 +2,39 @@
 using SMTools.Deployment.Base;
 using System.Xml;
 using SMTools.Utility;
+using System.Collections.Generic;
+using SMTools.Deployment.Base;
 
 namespace SMTools.Deployment.Configurator
 {
     public abstract class ConfiguratorBase : IDeployConfigurator
     {
-        public string ConfigurationFile { get; set; }
-        /// <summary>
-        /// Type of config, can be TfsDev, TfsQA, BuildDev, BuildQA..., matching section in config file
-        /// </summary>
-        public string ConfigType { get; set; }
-
         public ConfigItemCollection ConfigItems { get; set; }
+       
         public ConfiguratorBase()
         {
+
         }
-        public ConfiguratorBase(string configFile, string configSection)
+        /// <summary>
+        /// Initialize new instance using multiple config item
+        /// </summary>
+        /// <param name="collection">The collection of config item</param>
+        public ConfiguratorBase(ConfigItemCollection collection)
         {
-            this.ConfigurationFile = configFile;
-            this.ConfigType = configSection;
-            ConfigItems = XmlLoader.GetConfig(this.ConfigurationFile, this.ConfigType);
+            this.ConfigItems = collection;
         }
 
-        /// <summary>
-        /// Root node in config file
-        /// </summary>
-        public XmlElement XmlRoot { get; set; }
-        
-       
         public virtual void ApplyConfig(ProcessBase process)
         {
-            XmlRoot = XmlLoader.GetRoot(this.ConfigurationFile);
+            if (this.ConfigItems == null)
+            {
+                throw new ArgumentNullException("ConfigItems", "ConfigItems must be initialized first");
+            }
         }
 
         public virtual void SaveConfiguration(ProcessBase process)
         {
-           
+            
         }
     }
 }

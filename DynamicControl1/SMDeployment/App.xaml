@@ -188,5 +188,9 @@
             <Setter Property="TextOptions.TextFormattingMode"
                     Value="Display"></Setter>
         </Style>
+
+        <Style TargetType="ListView">
+            <Setter Property="Background" Value="Transparent"></Setter>
+        </Style>
     </Application.Resources>
 </Application>

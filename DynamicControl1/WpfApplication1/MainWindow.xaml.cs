@@ -2,6 +2,7 @@
 using SMTools.Build.Build;
 using SMTools.Deployment.Base;
 using SMTools.FileCopier;
+using System.IO;
 using System.Windows;
 
 namespace WpfApplication1
@@ -44,15 +45,7 @@ namespace WpfApplication1
         public MainWindow()
         {
             InitializeComponent();
-            BuildConfigurator configurator = new BuildConfigurator("ProcessConfig.xml", "build");
-            Builder builder = new Builder(configurator);
-            ProcessBuilder processBuilder = new ProcessBuilder(builder);
-            processBuilder.OnProcessCompleted += (o, ev) =>
-            {
-                var output = ev.ProcessOutput as BuildDeployOutput;
-                this.Dispatcher.Invoke(delegate { MessageBox.Show(output.BuildOutMessage); });
-            };
-            processBuilder.Start();
+            MessageBox.Show(Directory.GetFiles(@"C:\Users\namhuynh\Desktop\Temp\DeploymentTools-upgrade\DynamicControl1\SMTools", "*.cs", SearchOption.AllDirectories).Length.ToString());            ;
 
         }
     }

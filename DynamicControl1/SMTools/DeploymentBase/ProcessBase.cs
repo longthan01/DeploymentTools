@@ -8,10 +8,15 @@ namespace SMTools.Deployment.Base
     {
         #region properties, fields
         /// <summary>
-        ///  Extension configuration
+        ///  External configuration
         /// </summary>
         public IDeployConfigurator Configurator { get; set; }
 
+        protected ProcessOutputBase ProcessOutput
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region constructors
@@ -25,24 +30,14 @@ namespace SMTools.Deployment.Base
         }
         #endregion
 
-        #region public methods
-        /// <summary>
-        /// Manually load configuration
-        /// </summary>
-        /// <summary>
-        /// Save configuration back to xml
-        /// </summary>
-        public void SaveConfiguration()
-        {
-            Configurator.SaveConfiguration(this);
-        }
-        #endregion
-
         #region IDeployment members
 
         public virtual void ApplyConfiguration()
         {
-            throw new NotImplementedException();
+            if (this.Configurator != null)
+            {
+                this.Configurator.ApplyConfig(this);
+            }
         }
 
         public virtual void Run()
@@ -50,9 +45,9 @@ namespace SMTools.Deployment.Base
             throw new NotImplementedException();
         }
 
-        public virtual DeployOutputBase GetOutput()
+        public virtual ProcessOutputBase GetOutput()
         {
-            throw new NotImplementedException();
+            return ProcessOutput;
         }
         #endregion
     }

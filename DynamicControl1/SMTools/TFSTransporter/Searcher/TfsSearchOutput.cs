@@ -6,7 +6,7 @@ using System.Linq;
 using SMTools.Extensions;
 namespace SMTools.Tfs.Searcher
 {
-    public class TfsSearchOutput : DeployOutputBase
+    public class TfsSearchOutput : ProcessOutputBase
     {
         public List<TfsSearchOutputItem> Items
         {
@@ -30,12 +30,17 @@ namespace SMTools.Tfs.Searcher
     }
     public class TfsSearchOutputItem
     {
-        public string Commiter
+        public string LocalPath
         {
             get;
             set;
         }
         public string Comment
+        {
+            get;
+            set;
+        }
+        public string Commiter
         {
             get;
             set;
@@ -51,11 +56,6 @@ namespace SMTools.Tfs.Searcher
             set;
         }
         public int ChangeSetId
-        {
-            get;
-            set;
-        }
-        public string LocalPath
         {
             get;
             set;

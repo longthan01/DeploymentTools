@@ -10,17 +10,25 @@ namespace SMTools.Utility
     public static class XmlLoader
     {
         private static List<ConfigSection> _xmlConfigs;
-        public static List<ConfigSection> XmlConfigs
+        private static List<ConfigSection> XmlConfigs
         {
             get
             {
+                if (_xmlConfigs == null)
+                    throw new ArgumentNullException("XmlConfigs", "Must call Load method before access this Property");
                 return _xmlConfigs;
             }
         }
-        public static void Load(string configFile)
+        /// <summary>
+        /// Load and cache configuration from xml file
+        /// </summary>
+        /// <param name="configFile">The path to configuration file</param>
+        public static string ConfigurationFile
         {
-            _xmlConfigs = XmlLoader.GetConfig(configFile);
+            get;
+            set;
         }
+
         #region private methods
         private static XmlDocument GetDocument(string fileName)
         {
@@ -47,10 +55,10 @@ namespace SMTools.Utility
         #endregion
 
         #region public methods
-        public static List<ConfigSection> GetConfig(string fileName)
+        public static void Load(string configFile)
         {
-            List<ConfigSection> res = new List<ConfigSection>();
-            XmlElement root = GetRoot(fileName);
+            _xmlConfigs = new List<ConfigSection>();
+            XmlElement root = GetRoot(configFile);
             foreach (XmlNode child in root.ChildNodes)
             {
                 ConfigSection section = new ConfigSection();
@@ -83,50 +91,55 @@ namespace SMTools.Utility
                     }
                     section.Items.Add(item);
                 }
+                _xmlConfigs.Add(section);
             }
-            return res;
+        }
+
+        public static ConfigItemCollection GetConfig(string sectionName)
+        {
+            return GetConfig(ConfigurationFile, sectionName);
         }
 
         public static ConfigItemCollection GetConfig(string fileName, string sectionName)
         {
-            if (_xmlConfigs == null)
-            {
-                _xmlConfigs = GetConfig(fileName);
-            }
             var section = XmlConfigs.FirstOrDefault(x => x.SectionName.SuperEquals(sectionName));
             return section == null ? null : section.Items;
         }
 
-        public static void Save(string fileName, ConfigItemCollection configItemsCollection, string processName)
+        public static void Save(string fileName)
         {
             XmlDocument doc = new XmlDocument();
             XmlNode root = doc.CreateElement("configurations");
-            foreach (ConfigItem item in configItemsCollection)
+            foreach (ConfigSection section in XmlConfigs)
             {
-                XmlElement configItem = doc.CreateElement("config");
-
-                XmlElement name = doc.CreateElement("name");
-                name.InnerText = item.Name;
-                XmlElement value = doc.CreateElement("value");
-                value.InnerText = item.Value;
-
-                if (item.Attributes != null && item.Attributes.Count > 0)
+                XmlElement sc = doc.CreateElement(section.SectionName);
+                foreach (ConfigItem item in section.Items) // save each section to xml
                 {
-                    XmlElement attribute = doc.CreateElement("attributes");
-                    foreach (ConfigItem att in item.Attributes)
+                    XmlElement configItem = doc.CreateElement("config");
+                    XmlElement name = doc.CreateElement("name");
+                    name.InnerText = item.Name;
+                    XmlElement value = doc.CreateElement("value");
+                    value.InnerText = item.Value;
+
+                    if (item.Attributes != null && item.Attributes.Count > 0)
                     {
-                        XmlElement attNodeName = doc.CreateElement("name");
-                        attNodeName.InnerText = att.Name;
-                        XmlElement attNodeValue = doc.CreateElement("value");
-                        attNodeValue.InnerText = att.Value;
-                        attribute.AppendChild(attNodeName);
-                        attribute.AppendChild(attNodeValue);
+                        XmlElement attribute = doc.CreateElement("attributes");
+                        foreach (ConfigItem att in item.Attributes)
+                        {
+                            XmlElement attNodeName = doc.CreateElement("name");
+                            attNodeName.InnerText = att.Name;
+                            XmlElement attNodeValue = doc.CreateElement("value");
+                            attNodeValue.InnerText = att.Value;
+                            attribute.AppendChild(attNodeName);
+                            attribute.AppendChild(attNodeValue);
+                        }
+                        configItem.AppendChild(attribute);
                     }
-                    configItem.AppendChild(attribute);
+                    configItem.AppendChild(name);
+                    configItem.AppendChild(value);
+                    sc.AppendChild(configItem);
                 }
-                configItem.AppendChild(name);
-                configItem.AppendChild(value);
-                root.AppendChild(configItem);
+                root.AppendChild(sc);
             }
             doc.AppendChild(root);
             SaveConfig(doc, fileName);

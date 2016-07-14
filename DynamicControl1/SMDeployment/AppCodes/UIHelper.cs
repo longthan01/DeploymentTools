@@ -158,7 +158,7 @@ namespace SMDeployment.AppCodes
         {
             PropertyInfo[] props = model.GetType().GetProperties();
             var grid = CreateGrid(props.Length, 2);
-            for (int i=0; i<props.Length; i++)
+            for (int i = 0; i < props.Length; i++)
             {
                 var prop = props[i];
                 Label lbl = new Label()
@@ -192,6 +192,33 @@ namespace SMDeployment.AppCodes
                 res = fbd.SelectedPath;
             }
             return res;
+        }
+
+        public static T FindControl<T>(DependencyObject obj, string controlName) where T : Control
+        {
+            if (obj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+                    if (child != null && child is T)
+                    {
+                        if (((T)child).Name == controlName)
+                        {
+                            return (T)child;
+                        }
+                    }
+                    else
+                    {
+                        T t = FindControl<T>(child, controlName);
+                        if (t != null)
+                        {
+                            return t;
+                        }
+                    }
+                }
+            }
+            return null;
         }
     }
 }

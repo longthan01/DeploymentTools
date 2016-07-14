@@ -29,8 +29,7 @@ namespace SMTools.Tfs.DownloadFile
         }
         public override void Run()
         {
-            Workspace wpInfo = VersionControlServer.GetWorkspace(WorkspaceMapping);
-            var serverFolder = wpInfo.GetWorkingFolderForLocalItem(System.IO.Path.GetDirectoryName(WorkspaceMapping));
+            var serverFolder = CurrentWorkspace.GetWorkingFolderForLocalItem(System.IO.Path.GetDirectoryName(TfsInfor.WorkspaceMapping));
             var localRootFolder = serverFolder.LocalItem;
             foreach (var f in Files)
             {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SMTools.Tfs.GetLastest
 {
-    public class GetLastestOutput : DeployOutputBase
+    public class GetLastestOutput : ProcessOutputBase
     {
         public List<Failure> Failures
         {

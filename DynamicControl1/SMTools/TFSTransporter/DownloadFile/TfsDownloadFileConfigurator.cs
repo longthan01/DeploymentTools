@@ -1,4 +1,6 @@
-﻿using SMTools.TFSTransporter;
+﻿using SMTools.Tfs.Searcher;
+using SMTools.TFSTransporter;
+using SMTools.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,21 +16,35 @@ namespace SMTools.Tfs.DownloadFile
             get;
             set;
         }
-        public List<string> Files
+        public List<TfsSearchOutputItem> Files
         {
             get;
             set;
         }
-        public TfsDownloadFileConfigurator()
+
+        public TfsDownloadFileConfigurator(ConfigItemCollection configItems) : base(configItems)
         {
 
         }
+
+        public TfsDownloadFileConfigurator SetOutputFolder(string outputFolder)
+        {
+            this.OutputFolder = outputFolder;
+            return this;
+        }
+
+        public TfsDownloadFileConfigurator SetFileToDownload(List<TfsSearchOutputItem> files)
+        {
+            this.Files = files;
+            return this;
+        }
+
         public override void ApplyConfig(Deployment.Base.ProcessBase process)
         {
             base.ApplyConfig(process);
             TfsDownloadFile tfs = process as TfsDownloadFile;
             tfs.OutputFolder = this.OutputFolder;
-            tfs.Files = this.Files;
+            tfs.Files = this.Files.Select(x => x.LocalPath).ToList();
         }
     }
 }

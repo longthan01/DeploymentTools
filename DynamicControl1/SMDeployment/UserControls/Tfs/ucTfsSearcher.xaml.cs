@@ -25,30 +25,32 @@ namespace SMDeployment.UserControls.Tfs
     /// <summary>
     /// Interaction logic for ucTfsSearcher.xaml
     /// </summary>
-    public partial class ucTfsSearcher : UserControl
+    public partial class ucTfsSearcher : UserControlBase
     {
         private TfsSearchConfigurator _SearchConfigurator;
         private TfsDownloadFileConfigurator _DownloadConfigurator;
         private List<TfsSearchOutputItem> _SearchOutputItems;
+
         public ucTfsSearcher()
         {
             InitializeComponent();
+
             this.grdProjectSelection.Children.Add(
                     UIHelper.CreateProjectSelectionGrid(
-                        CollectionHelper.GetEnumList(typeof(Project)), OnProjectSelection));
+                        CollectionHelper.GetEnumList(typeof(ProjectPath)), OnProjectSelection));
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
             if (_SearchConfigurator == null)
             {
+                this.Log("Must choose 1 project first.");
                 return;
             }
-            imgLoading.Visibility = System.Windows.Visibility.Visible;
             var filter = this.ucSearchFilter.GetFilter();
-            this._SearchConfigurator.Filter = filter;
-            ProcessBuilder builder = new ProcessBuilder(new TfsSearcher(_SearchConfigurator));
-            builder.OnProcessCompleted += (obj, ev) =>
+            _SearchConfigurator.Filter = filter;
+            Builder.SetProcess(new TfsSearcher(_SearchConfigurator));
+            Builder.OnProcessCompleted += (obj, ev) =>
             {
                 var output = ev.ProcessOutput as TfsSearchOutput;
                 _SearchOutputItems = output.Items;
@@ -56,24 +58,27 @@ namespace SMDeployment.UserControls.Tfs
                 {
                     UIHelper.AddChild(this.grdOutput.Children,
                             UIHelper.CreateScrollDataGrid(
-                            output.Items.Convert<TfsSearchOutputItem, TfsSearchResultItemUI>()
+                              output.Items.Convert<TfsSearchOutputItem, TfsSearchResultItemUI>()
                             ));
-                    imgLoading.Visibility = System.Windows.Visibility.Hidden;
                 }));
             };
-            builder.StartAsync();
+            Builder.StartAsync();
         }
 
         private void OnProjectSelection(object sender, SelectionChangedEventArgs e)
         {
             var cbx = e.OriginalSource as ComboBox;
-            var item = cbx.SelectedItem.ToString();
+            var item = cbx.SelectedItem.ToStringWithSolution();
             _SearchConfigurator = ConfiguratorFactory
-                .GetConfigurator<TfsSearchConfigurator>(AppCodes.Section.Tfs, item.ToProject());
+                .GetConfigurator<TfsSearchConfigurator>()
+                .SetWorkspaceMapping(SessionManager.PathCollection[item])
+                as TfsSearchConfigurator;
+
             var grid = UIHelper.CreateRotateVerticalGrid(
                     new ProjectConfigInfor()
                     {
-                        ServerUrl = _SearchConfigurator.GetServerUrl()
+                        ServerUrl = _SearchConfigurator.GetServerUrl(),
+                        WorkspaceMapping = _SearchConfigurator.GetWorkspaceMapping()
                     }
                 );
             this.scrollViewerProjectInfor.Content = grid;
@@ -81,26 +86,11 @@ namespace SMDeployment.UserControls.Tfs
 
         private void btnGetFiles_Click(object sender, RoutedEventArgs e)
         {
-            if (_SearchOutputItems == null ||
-                string.IsNullOrEmpty(this.txtDownloadOutputFolder.Text))
-            {
-                return;
-            }
-            imgLoading.Visibility = System.Windows.Visibility.Visible;
-            _DownloadConfigurator = new TfsDownloadFileConfigurator()
-            {
-                OutputFolder = this.txtDownloadOutputFolder.Text,
-                Files = _SearchOutputItems.Select(x => x.LocalPath).ToList()
-            };
-            ProcessBuilder builder = new ProcessBuilder(new TfsDownloadFile(_DownloadConfigurator));
-            builder.OnProcessCompleted += (obj, ev) =>
-            {
-                UIThreadHelper.RunWorker(this, delegate
-                {
-                    imgLoading.Visibility = System.Windows.Visibility.Hidden;
-                });
-            };
-            builder.StartAsync();
+            _DownloadConfigurator = ConfiguratorFactory.GetConfigurator<TfsDownloadFileConfigurator>()
+                .SetOutputFolder(this.txtDownloadOutputFolder.Text)
+                .SetFileToDownload(_SearchOutputItems);
+            Builder.SetProcess(new TfsDownloadFile(_DownloadConfigurator));
+            Builder.StartAsync();
         }
 
         private void btnChooseFolder_Click(object sender, RoutedEventArgs e)

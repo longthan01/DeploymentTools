@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SMDeployment.UIModels.BuildDeploy
 {
-    public class BuildDeployConfigInfor
+    public class BuildConfigInfor
     {
         public string ProjectPath
         {

@@ -17,27 +17,51 @@ namespace SMTools.Deployment.Base
         /// Raise when process is completed.
         /// </summary>
         public event ProcessCompletedEventHandler OnProcessCompleted;
-
+        /// <summary>
+        /// Raise when process failed.
+        /// </summary>
+        public event ProcessFailedEventHandler OnProcessFailed;
         public IDeployProcess DeploymentProcess
         {
             get;
             set;
         }
+        public ProcessBuilder()
+        {
+        }
         public ProcessBuilder(IDeployProcess process)
         {
             this.DeploymentProcess = process;
         }
+        public ProcessBuilder SetProcess(IDeployProcess process)
+        {
+            this.DeploymentProcess = process;
+            return this;
+        }
         public void Start()
         {
-            this.DeploymentProcess.ApplyConfiguration();
-            if (OnProcessBegining != null)
+            try
             {
-                OnProcessBegining(this, null);
+                if (OnProcessBegining != null)
+                {
+                    OnProcessBegining(this, null);
+                }
+                this.DeploymentProcess.ApplyConfiguration();
+                this.DeploymentProcess.Run();
+                if (OnProcessCompleted != null)
+                {
+                    OnProcessCompleted(this, new ProcessCompletedEventArgs(this.DeploymentProcess.GetOutput()));
+                }
             }
-            this.DeploymentProcess.Run();
-            if (OnProcessCompleted != null)
+            catch (Exception ex)
             {
-                OnProcessCompleted(this, new ProcessCompletedEventArgs(this.DeploymentProcess.GetOutput()));
+                if (OnProcessFailed != null)
+                {
+                    OnProcessFailed(this, new ProcessFailedEventArgs(new Models.ProcessError()
+                    {
+                        ErrorMessage = ex.Message
+                    }));
+                }
             }
         }
 

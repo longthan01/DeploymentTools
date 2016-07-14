@@ -1,4 +1,5 @@
-﻿<UserControl x:Class="SMDeployment.UserControls.Build.ucDeploy"
+﻿<uc:UserControlBase xmlns:uc="clr-namespace:SMDeployment.UserControls"
+    x:Class="SMDeployment.UserControls.Build.ucDeploy"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -57,4 +58,4 @@
             <Grid Grid.Row="4" x:Name="grdLog"></Grid>
         </Grid>
     </Grid>
-</UserControl>
+</uc:UserControlBase>

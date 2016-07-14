@@ -6,42 +6,56 @@ using System.Text;
 using System.Threading.Tasks;
 using SMTools.Deployment.Base;
 using SMTools.Tfs;
-using SMTools.Deployment.ConfigurationModels;
+using SMTools.Utility;
+using SMTools.Build.Base;
+using SMTools.Models;
 
 namespace SMTools.TFSTransporter
 {
     public class TfsConfigurator : ConfiguratorBase
     {
-        protected const string _USERNAME = "username";
-        protected const string _PASSWORD = "password";
-        protected const string _SERVERURL = "ServerUrl";
-        protected const string _DOMAIN = "domain";
-        protected const string _NEED_AUTHENTICATE = "NeedAuthenticate";
-
-        public DeploymentPath SolutionPath { get; set; }
-
-        public TfsConfigurator()
+        
+        public TfsConfigurator(ConfigItemCollection configItems)
+            : base(configItems)
         {
-            
         }
-
-        public TfsConfigurator(string configFile, string configType) : base(configFile, configType) { }
-
         public string GetServerUrl()
         {
-            return this.ConfigItems.GetConfigItemValue(_SERVERURL);
+            return this.ConfigItems[ConstantString.TFS_SERVERURL];
+        }
+        public string GetWorkspaceMapping()
+        {
+            return this.ConfigItems[ConstantString.TFS_WORKSPACE_MAPPING];
+        }
+        public TfsConfigurator SetWorkspaceMapping(string workspace)
+        {
+            if (this.ConfigItems.GetConfigItem(ConstantString.TFS_WORKSPACE_MAPPING) != null)
+            {
+                this.ConfigItems[ConstantString.TFS_WORKSPACE_MAPPING] = workspace;
+            }
+            else
+            {
+                this.ConfigItems.Add(new ConfigItem()
+                {
+                    Name = ConstantString.TFS_WORKSPACE_MAPPING,
+                    Value = workspace
+                });
+            }
+            return this;
         }
 
         public override void ApplyConfig(ProcessBase process)
         {
-            if (SolutionPath == null) throw new ArgumentNullException("SolutionPath", "SolutionPath is null, cannot create Tfs instance");
+            base.ApplyConfig(process);
+            if (string.IsNullOrEmpty(this.GetWorkspaceMapping()))
+                throw new ArgumentNullException("WorkspaceMapping", "WorkspaceMapping is null, cannot create Tfs instance");
             TfsTransporter tfs = process as TfsTransporter;
-            tfs.WorkspaceMapping = this.SolutionPath.Path;
-            tfs.UserName = this.ConfigItems.GetConfigItemValue(_USERNAME);
-            tfs.Password = this.ConfigItems.GetConfigItemValue(_PASSWORD);
-            tfs.ServerUrl = this.ConfigItems.GetConfigItemValue(_SERVERURL);
-            tfs.Domain = this.ConfigItems.GetConfigItemValue(_DOMAIN);
-            tfs.NeedAuthenticate = this.ConfigItems.GetConfigItemValue(_NEED_AUTHENTICATE) == "true";
+            tfs.TfsInfor.WorkspaceMapping = GetWorkspaceMapping();
+            tfs.TfsInfor.UserName = this.ConfigItems[ConstantString.TFS_USERNAME];
+            tfs.TfsInfor.Password = this.ConfigItems[ConstantString.TFS_PASSWORD];
+            tfs.TfsInfor.ServerUrl = this.ConfigItems[ConstantString.TFS_SERVERURL];
+            tfs.TfsInfor.Domain = this.ConfigItems[ConstantString.TFS_DOMAIN];
+            tfs.TfsInfor.NeedAuthenticate = this.ConfigItems[ConstantString.TFS_NEED_AUTHENTICATE] == "true";
         }
     }
 }

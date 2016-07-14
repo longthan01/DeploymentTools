@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SMTools.Build.Base
 {
-    public class BuildDeployOutput : DeployOutputBase
+    public class BuildDeployOutput : ProcessOutputBase
     {
         
         public string BuildOutMessage

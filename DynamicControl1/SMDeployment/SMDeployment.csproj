@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SMDeployment</RootNamespace>
-    <AssemblyName>SMDeploymentv2</AssemblyName>
+    <AssemblyName>SMDeployment</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -47,6 +47,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -91,6 +92,7 @@
     <Compile Include="UserControls\ucLoading.xaml.cs">
       <DependentUpon>ucLoading.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UserControlBase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -112,8 +114,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Tfs\ucSearchFilter.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\Tfs\ucTfsSearcher.xaml">
       <SubType>Designer</SubType>
@@ -153,7 +155,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="UIConfigs\" />
     <Folder Include="UserControls\FileCopier\" />
   </ItemGroup>
   <ItemGroup>
@@ -164,9 +165,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="bin\Debug\ProcessConfig.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="bin\Debug\UserConfig.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -8,7 +8,7 @@ namespace SMDeployment.UIModels.TfsTransport
 {
     public class ProjectConfigInfor
     {
-        public string LocalSolution
+        public string WorkspaceMapping
         {
             get;
             set;

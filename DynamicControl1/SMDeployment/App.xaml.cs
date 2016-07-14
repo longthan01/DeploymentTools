@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SMTools.Utility;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,10 @@ namespace SMDeployment
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            XmlLoader.Load("ProcessConfig.xml");
+            base.OnStartup(e);
+        }
     }
 }

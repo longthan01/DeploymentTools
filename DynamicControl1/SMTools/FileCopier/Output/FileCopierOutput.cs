@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SMTools.FileCopier.Output
 {
-    public class FileCopierOutput : DeployOutputBase
+    public class FileCopierOutput : ProcessOutputBase
     {
         public FileCopierOutput() { this.OutputItems = new List<FileCopierOutputItem>(); }
 

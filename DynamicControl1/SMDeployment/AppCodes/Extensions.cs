@@ -9,13 +9,13 @@ namespace SMDeployment.AppCodes
     public static class Extensions
     {
         /// <summary>
-        /// Convert an object to enum <see cref="SMDeployment.AppCodes.Project"/>
+        /// Convert an object to enum <see cref="SMDeployment.AppCodes.ProjectPath"/>
         /// </summary>
         /// <param name="item">Object item</param>
-        /// <returns>An object of <see cref="SMDeployment.AppCodes.Project"/></returns>
-        public static Project ToProject(this object item)
+        /// <returns>An object of <see cref="SMDeployment.AppCodes.ProjectPath"/></returns>
+        public static ProjectPath ToProject(this object item)
         {
-            return (Project)Enum.Parse(typeof(Project), item.ToString());
+            return (ProjectPath)Enum.Parse(typeof(ProjectPath), item.ToString());
         }
 
         /// <summary>
@@ -25,8 +25,9 @@ namespace SMDeployment.AppCodes
         /// <typeparam name="inheritance">Inheritance list object</typeparam>
         /// <param name="list">A list of child object which is inherited from T</param>
         /// <returns></returns>
-        public static List<inheritance> Convert<parent, inheritance>(this List<parent> list) where parent : new()
-                                                       where inheritance : new()
+        public static List<inheritance> Convert<parent, inheritance>(this List<parent> list)
+            where parent : new()
+            where inheritance : new()
         {
             List<inheritance> res = new List<inheritance>();
             var vProps = typeof(inheritance).GetProperties();
@@ -45,6 +46,33 @@ namespace SMDeployment.AppCodes
                 res.Add(v);
             }
             return res;
+        }
+        /// <summary>
+        /// Add "_Solution" in returned string
+        /// </summary>
+        /// <param name="src">Source string object</param>
+        /// <returns>A string following as format: source_Solution</returns>
+        public static string ToStringWithSolution(this object src)
+        {
+            return src.ToString() + "_Solution";
+        }
+        /// <summary>
+        /// Add "_Project" in returned string
+        /// </summary>
+        /// <param name="src">Source string object</param>
+        /// <returns>A string following as format: source_Project</returns>
+        public static string ToStringWithProject(this object src)
+        {
+            return src.ToString() + "_Project";
+        }
+        /// <summary>
+        /// Check if an object string is empty
+        /// </summary>
+        /// <param name="src"></param>
+        /// <returns></returns>
+        public static bool IsEmpty(this object src)
+        {
+            return string.IsNullOrEmpty(src.ToString());
         }
     }
 }

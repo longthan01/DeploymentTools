@@ -1,5 +1,6 @@
 ﻿using SMDeployment.AppCodes;
 using SMDeployment.UIModels.BuildDeploy;
+using SMTools.Build;
 using SMTools.Build.Base;
 using SMTools.Deployment.Base;
 using SMTools.Utility;
@@ -13,25 +14,27 @@ namespace SMDeployment.UserControls.Build
     /// </summary>
     public partial class ucMSBuilder : UserControl
     {
-        private BuildDeployConfigurator _Configurator;
+        private BuildConfigurator _Configurator;
 
         public ucMSBuilder()
         {
             InitializeComponent();
             this.grdProjectSelection.Children.Add(
                     UIHelper.CreateProjectSelectionGrid(
-                        CollectionHelper.GetEnumList(typeof(Project)), OnProjectSelection));
+                        CollectionHelper.GetEnumList(typeof(ProjectPath)), OnProjectSelection));
                             
         }
         private void OnProjectSelection(object sender, SelectionChangedEventArgs e)
         {
             var cbx = e.OriginalSource as ComboBox;
             var item = cbx.SelectedItem.ToString();
+            
             _Configurator = ConfiguratorFactory
-                .GetConfigurator<BuildDeployConfigurator>(AppCodes.Section.Build, item.ToProject());
+                .GetConfigurator<BuildConfigurator>(XmlConfigSection.Build);
             var grid = UIHelper.CreateRotateVerticalGrid(
-                    new BuildDeployConfigInfor()
+                    new BuildConfigInfor()
                     {
+                        SolutionPath = _Configurator.GetSolutionPath()
                     }
                 );
             this.scrollViewerProjectInfor.Content = grid;
@@ -44,7 +47,7 @@ namespace SMDeployment.UserControls.Build
                 return;
             }
             imgLoading.Visibility = System.Windows.Visibility.Visible;
-            ProcessBuilder builder = new ProcessBuilder(new SMTools.Build.Build.Builder(_Configurator));
+            ProcessBuilder builder = new ProcessBuilder(new BuildDeployProcess(_Configurator));
             builder.OnProcessCompleted += (obj, ev) =>
             {
                 ProcessUtility.StartExplorer(((BuildDeployOutput)ev.ProcessOutput).LogFile);

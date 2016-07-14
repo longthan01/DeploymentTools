@@ -6,6 +6,6 @@ namespace SMTools.Deployment.Base
     {
         void ApplyConfiguration();
         void Run();
-        DeployOutputBase GetOutput();
+        ProcessOutputBase GetOutput();
     }
 }
