@@ -12,7 +12,7 @@ namespace SMDeployment.UserControls.Build
     /// <summary>
     /// Interaction logic for ucMSBuilder.xaml
     /// </summary>
-    public partial class ucMSBuilder : UserControl
+    public partial class ucMSBuilder : UserControlBase
     {
         private BuildConfigurator _Configurator;
 
@@ -20,21 +20,26 @@ namespace SMDeployment.UserControls.Build
         {
             InitializeComponent();
             this.grdProjectSelection.Children.Add(
-                    UIHelper.CreateProjectSelectionGrid(
-                        CollectionHelper.GetEnumList(typeof(ProjectPath)), OnProjectSelection));
-                            
+                   UIHelper.CreateSelectionGrid(
+                       "Select project:",
+                       CollectionHelper.GetEnumList(typeof(ProjectPath)),
+                       null,
+                       null,
+                       OnProjectSelection));
+
         }
         private void OnProjectSelection(object sender, SelectionChangedEventArgs e)
         {
             var cbx = e.OriginalSource as ComboBox;
-            var item = cbx.SelectedItem.ToString();
-            
+            var item = cbx.SelectedItem.ToStringWithSolution();
             _Configurator = ConfiguratorFactory
-                .GetConfigurator<BuildConfigurator>(XmlConfigSection.Build);
+                .GetConfigurator<BuildConfigurator>()
+                .SetBuildPath(SessionManager.PathCollection[item]) as BuildConfigurator;
             var grid = UIHelper.CreateRotateVerticalGrid(
                     new BuildConfigInfor()
                     {
-                        SolutionPath = _Configurator.GetSolutionPath()
+                        SolutionPath = _Configurator.GetSolutionPath(),
+                        LogFile = _Configurator.GetLogFile()
                     }
                 );
             this.scrollViewerProjectInfor.Content = grid;
@@ -42,19 +47,10 @@ namespace SMDeployment.UserControls.Build
 
         private void btnRun_Click(object sender, RoutedEventArgs e)
         {
-            if (_Configurator == null)
-            {
-                return;
-            }
-            imgLoading.Visibility = System.Windows.Visibility.Visible;
-            ProcessBuilder builder = new ProcessBuilder(new BuildDeployProcess(_Configurator));
+            var builder = this.CreateBuilder(new BuildDeployProcess(_Configurator));
             builder.OnProcessCompleted += (obj, ev) =>
             {
                 ProcessUtility.StartExplorer(((BuildDeployOutput)ev.ProcessOutput).LogFile);
-                UIThreadHelper.RunWorker(this, delegate
-                {
-                    imgLoading.Visibility = Visibility.Hidden;
-                });
             };
             builder.StartAsync();
         }

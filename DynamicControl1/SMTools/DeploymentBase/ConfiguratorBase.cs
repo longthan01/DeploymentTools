@@ -28,7 +28,7 @@ namespace SMTools.Deployment.Configurator
         {
             if (this.ConfigItems == null)
             {
-                throw new ArgumentNullException("ConfigItems", "ConfigItems must be initialized first");
+                ThrowException("ConfigItems property must be initialized first");
             }
         }
 
@@ -36,5 +36,14 @@ namespace SMTools.Deployment.Configurator
         {
             
         }
+
+        #region IExceptionHandled Members
+
+        public virtual void ThrowException(string message)
+        {
+            throw new Exception(this.GetType().Name + " - " + message);
+        }
+
+        #endregion
     }
 }

@@ -21,6 +21,10 @@ namespace SMTools.Build.Base
 
         public BuildDeployProcess(IDeployConfigurator configurator) : base(configurator)
         {
+        }
+
+        public override void ConstructProperty()
+        {
             BuildCommand = new StringBuilder();
         }
 
@@ -37,6 +41,10 @@ namespace SMTools.Build.Base
 
         public override ProcessOutputBase GetOutput()
         {
+            if (string.IsNullOrEmpty(LogFile) || !File.Exists(LogFile))
+            {
+                this.ThrowException("Command is failed: " + Environment.NewLine + this.BuildCommand.ToString());
+            }
             BuildDeployOutput o = new BuildDeployOutput(LogFile);
             StreamReader stream = new StreamReader(LogFile);
             o.BuildOutMessage = stream.ReadToEnd();

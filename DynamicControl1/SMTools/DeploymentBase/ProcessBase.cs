@@ -19,19 +19,28 @@ namespace SMTools.Deployment.Base
         }
         #endregion
 
+        protected virtual void ThrowException(string message)
+        {
+            throw new Exception(this.GetType().Name + " - " + message);
+        }
+
         #region constructors
         public ProcessBase(IDeployConfigurator configurator)
         {
             this.Configurator = configurator;
+            this.ConstructProperty();
         }
 
         public ProcessBase()
         {
+            this.ConstructProperty();
         }
         #endregion
 
         #region IDeployment members
-
+        public virtual void ConstructProperty()
+        {
+        }
         public virtual void ApplyConfiguration()
         {
             if (this.Configurator != null)
@@ -39,16 +48,12 @@ namespace SMTools.Deployment.Base
                 this.Configurator.ApplyConfig(this);
             }
         }
-
-        public virtual void Run()
-        {
-            throw new NotImplementedException();
-        }
-
+        public abstract void Run();
         public virtual ProcessOutputBase GetOutput()
         {
-            return ProcessOutput;
+            return this.ProcessOutput;
         }
+        
         #endregion
     }
 }

@@ -59,7 +59,8 @@ namespace SMTools.Deployment.Base
                 {
                     OnProcessFailed(this, new ProcessFailedEventArgs(new Models.ProcessError()
                     {
-                        ErrorMessage = ex.Message
+                        ErrorMessage = ex.Message,
+                        Exception = ex
                     }));
                 }
             }

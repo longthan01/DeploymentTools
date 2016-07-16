@@ -8,12 +8,20 @@ namespace SMDeployment.UIModels.BuildDeploy
 {
     public class BuildConfigInfor
     {
-        public string ProjectPath
+        public string SolutionPath
         {
             get;
             set;
         }
-        public string SolutionPath
+        public string LogFile
+        {
+            get;
+            set;
+        }
+    }
+    public class DeployConfigInfor
+    {
+        public string ProjectPath
         {
             get;
             set;
@@ -22,6 +30,11 @@ namespace SMDeployment.UIModels.BuildDeploy
         /// Path to deployment output folder.
         /// </summary>
         public string DeploymentOutputFolder
+        {
+            get;
+            set;
+        }
+        public string LogFile
         {
             get;
             set;

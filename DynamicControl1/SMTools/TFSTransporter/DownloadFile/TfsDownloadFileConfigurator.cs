@@ -42,6 +42,8 @@ namespace SMTools.Tfs.DownloadFile
         public override void ApplyConfig(Deployment.Base.ProcessBase process)
         {
             base.ApplyConfig(process);
+            if (Files == null)
+                this.ThrowException("Source files is null, cannot run download process");
             TfsDownloadFile tfs = process as TfsDownloadFile;
             tfs.OutputFolder = this.OutputFolder;
             tfs.Files = this.Files.Select(x => x.LocalPath).ToList();

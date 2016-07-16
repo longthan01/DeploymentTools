@@ -1,4 +1,5 @@
-﻿<UserControl x:Class="SMDeployment.UserControls.Build.ucMSBuilder"
+﻿<uc:UserControlBase xmlns:uc="clr-namespace:SMDeployment.UserControls"
+    x:Class="SMDeployment.UserControls.Build.ucMSBuilder"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -64,7 +65,9 @@
             <GridSplitter Style="{StaticResource gridSpliterVertical}"
                           Grid.Row="3"></GridSplitter>
             <Grid x:Name="grdLog"
-                  Grid.Row="4"></Grid>
+                  Grid.Row="4">
+                <ListView Name="lstLog"></ListView>
+            </Grid>
         </Grid>
     </Grid>
-</UserControl>
+</uc:UserControlBase>

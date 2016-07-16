@@ -19,7 +19,7 @@ namespace SMTools.Build
         public string GetDeployOutputFolder()
         {
             return XmlLoader
-                .GetValueIteration(ConstantString.DEPLOY_PublishUrl, this.ConfigItems[ConstantString.DEPLOY_PublishProfile].Trim('"'));
+                .GetValue(ConstantString.DEPLOY_PublishUrl, this.ConfigItems[ConstantString.DEPLOY_PublishProfile].Trim('"'));
         }
         public string GetProjectPath()
         {

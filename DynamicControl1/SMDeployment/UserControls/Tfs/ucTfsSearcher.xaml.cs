@@ -34,10 +34,13 @@ namespace SMDeployment.UserControls.Tfs
         public ucTfsSearcher()
         {
             InitializeComponent();
-
             this.grdProjectSelection.Children.Add(
-                    UIHelper.CreateProjectSelectionGrid(
-                        CollectionHelper.GetEnumList(typeof(ProjectPath)), OnProjectSelection));
+                   UIHelper.CreateSelectionGrid(
+                       "Select project:",
+                       CollectionHelper.GetEnumList(typeof(ProjectPath)),
+                       null,
+                       null,
+                       OnProjectSelection));
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
@@ -49,8 +52,8 @@ namespace SMDeployment.UserControls.Tfs
             }
             var filter = this.ucSearchFilter.GetFilter();
             _SearchConfigurator.Filter = filter;
-            Builder.SetProcess(new TfsSearcher(_SearchConfigurator));
-            Builder.OnProcessCompleted += (obj, ev) =>
+            var builder = this.CreateBuilder(new TfsSearcher(_SearchConfigurator));
+            builder.OnProcessCompleted += (obj, ev) =>
             {
                 var output = ev.ProcessOutput as TfsSearchOutput;
                 _SearchOutputItems = output.Items;
@@ -62,7 +65,7 @@ namespace SMDeployment.UserControls.Tfs
                             ));
                 }));
             };
-            Builder.StartAsync();
+            builder.StartAsync();
         }
 
         private void OnProjectSelection(object sender, SelectionChangedEventArgs e)
@@ -89,8 +92,7 @@ namespace SMDeployment.UserControls.Tfs
             _DownloadConfigurator = ConfiguratorFactory.GetConfigurator<TfsDownloadFileConfigurator>()
                 .SetOutputFolder(this.txtDownloadOutputFolder.Text)
                 .SetFileToDownload(_SearchOutputItems);
-            Builder.SetProcess(new TfsDownloadFile(_DownloadConfigurator));
-            Builder.StartAsync();
+            this.CreateBuilder(new TfsDownloadFile(_DownloadConfigurator)).StartAsync();
         }
 
         private void btnChooseFolder_Click(object sender, RoutedEventArgs e)

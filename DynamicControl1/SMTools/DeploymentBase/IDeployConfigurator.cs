@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SMTools.Deployment.Base
 {
-    public interface IDeployConfigurator
+    public interface IDeployConfigurator : IExceptionHandled
     {
         void ApplyConfig(ProcessBase process);
         void SaveConfiguration(ProcessBase process);

@@ -41,9 +41,6 @@
     <Reference Include="Microsoft.TeamFoundation.VersionControl.Client">
       <HintPath>C:\Users\GuyFawkes\Desktop\dll cho lang quang\Microsoft.TeamFoundation.VersionControl.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Client">
-      <HintPath>C:\Users\GuyFawkes\Desktop\dll cho lang quang\Microsoft.TeamFoundation.WorkItemTracking.Client.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -75,6 +72,7 @@
     <Compile Include="AppCodes\UIHelper.cs" />
     <Compile Include="AppCodes\UIThreadHelper.cs" />
     <Compile Include="UIModels\BuildDeploy\BuildConfigInfor.cs" />
+    <Compile Include="UIModels\FileCopier\DestinationFolderUI.cs" />
     <Compile Include="UIModels\TfsTransport\ProjectConfigInfor.cs" />
     <Compile Include="UIModels\TfsTransport\TfsSearchResultItemUI.cs" />
     <Compile Include="UserControls\Build\ucDeploy.xaml.cs">
@@ -83,8 +81,14 @@
     <Compile Include="UserControls\Build\ucMSBuilder.xaml.cs">
       <DependentUpon>ucMSBuilder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\FileCopier\ucFileCopier.xaml.cs">
+      <DependentUpon>ucFileCopier.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Tfs\ucSearchFilter.xaml.cs">
       <DependentUpon>ucSearchFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Tfs\ucTfsCheckout.xaml.cs">
+      <DependentUpon>ucTfsCheckout.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Tfs\ucTfsSearcher.xaml.cs">
       <DependentUpon>ucTfsSearcher.xaml</DependentUpon>
@@ -113,9 +117,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\FileCopier\ucFileCopier.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Tfs\ucSearchFilter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Tfs\ucTfsCheckout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Tfs\ucTfsSearcher.xaml">
       <SubType>Designer</SubType>
@@ -144,6 +156,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -151,11 +164,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="UserControls\FileCopier\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SMTools\SMTools.csproj">

@@ -13,6 +13,7 @@ namespace SMTools.Tfs.GetLastest
         {
            
         }
+
         #region IDeployment Members
 
         public override void Run()

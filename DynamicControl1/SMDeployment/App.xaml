@@ -3,23 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <Style TargetType="Control">
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="BorderBrush" Value="Transparent"></Setter>
+        </Style>
+        
         <Style TargetType="ComboBox">
             <Setter Property="Background"
                     Value="Transparent"></Setter>
             <Setter Property="FontSize"
                     Value="15"></Setter>
         </Style>
-        
+
         <Style TargetType="TextBox">
             <Setter Property="Background"
                     Value="Transparent"></Setter>
         </Style>
-        
+
         <Style TargetType="DatePicker">
             <Setter Property="FontSize"
                     Value="18"></Setter>
         </Style>
-        
+
         <Style TargetType="Grid">
             <Setter Property="Background">
                 <Setter.Value>
@@ -37,11 +42,11 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Style TargetType="GridSplitter" x:Key="gridSpliterHorizontal">
             <Setter Property="ResizeDirection"
                     Value="Columns"></Setter>
-                <Setter Property="Background" Value="Black"></Setter>
+            <Setter Property="Background" Value="#00b300"></Setter>
             <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
             <Setter Property="VerticalContentAlignment"
                     Value="Center"></Setter>
@@ -52,13 +57,13 @@
             <Setter Property="HorizontalAlignment"
                     Value="Stretch" />
         </Style>
-        
+
         <Style TargetType="GridSplitter"
                x:Key="gridSpliterVertical">
             <Setter Property="ResizeDirection"
                     Value="Rows"></Setter>
             <Setter Property="Background"
-                    Value="Black"></Setter>
+                    Value="#00b300"></Setter>
             <Setter Property="HorizontalContentAlignment"
                     Value="Center"></Setter>
             <Setter Property="VerticalContentAlignment"
@@ -70,7 +75,7 @@
             <Setter Property="HorizontalAlignment"
                     Value="Stretch" />
         </Style>
-        
+
         <Style TargetType="DataGrid">
             <Setter Property="FontSize"
                     Value="15"></Setter>
@@ -78,6 +83,14 @@
                     Value="Transparent"></Setter>
             <Setter Property="CanUserAddRows"
                     Value="False"></Setter>
+            <Setter Property="ColumnHeaderStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
         </Style>
         
         <Style TargetType="DockPanel">
@@ -91,7 +104,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Style TargetType="Menu">
             <Setter Property="Background">
                 <Setter.Value>
@@ -103,7 +116,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Style TargetType="MenuItem">
             <Setter Property="Background">
                 <Setter.Value>
@@ -115,7 +128,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Style x:Key="placeholder"
                TargetType="{x:Type TextBox}"
                BasedOn="{StaticResource {x:Type TextBox}}">
@@ -141,7 +154,7 @@
                                             <DataTrigger Binding="{Binding Path=Text, Source={x:Reference textSource}}"
                                                          Value="">
                                                 <Setter Property="Foreground"
-                                                        Value="#33CCCC" />
+                                                        Value="Gray" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -152,7 +165,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Style TargetType="Button">
             <Setter Property="FontWeight"
                     Value="Bold"></Setter>
@@ -189,8 +202,23 @@
                     Value="Display"></Setter>
         </Style>
 
+        <Style TargetType="TabControl">
+            <Setter Property="Background"
+                    Value="Transparent"></Setter>
+        </Style>
+
+        <Style TargetType="TabItem">
+            <Setter Property="Background"
+                    Value="LightBlue"></Setter>
+            <Setter Property="FontWeight"
+                    Value="500"></Setter>
+            <Setter Property="FontSize"
+                    Value="16"></Setter>
+        </Style>
+
         <Style TargetType="ListView">
-            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="Background"
+                    Value="Transparent"></Setter>
         </Style>
     </Application.Resources>
 </Application>

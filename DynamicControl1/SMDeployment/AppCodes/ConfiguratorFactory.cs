@@ -9,6 +9,7 @@ using SMTools.Utility;
 using SMTools.TFSTransporter;
 using SMTools.FileCopier;
 using SMTools.Build.Base;
+using SMTools.Build;
 namespace SMDeployment.AppCodes
 {
     public static class ConfiguratorFactory
@@ -56,7 +57,6 @@ namespace SMDeployment.AppCodes
         public static T GetConfigurator<T>()
             where T : IDeployConfigurator
         {
-            ConfigItemCollection deployItems = null;
             Type tType = typeof(T);
             IDeployConfigurator res = null;
             if (IsOrInheritFrom(tType, typeof(TfsConfigurator)))
@@ -66,6 +66,14 @@ namespace SMDeployment.AppCodes
             if (IsOrInheritFrom(tType, typeof(FileCopierConfigurator)))
             {
                 res = GetConfigurator<T>(XmlConfigSection.FileCopy);
+            }
+            if (IsOrInheritFrom(tType, typeof(DeployConfigurator)))
+            {
+                res = GetConfigurator<T>(XmlConfigSection.Deploy);
+            }
+            if (IsOrInheritFrom(tType, typeof(BuildConfigurator)))
+            {
+                res = GetConfigurator<T>(XmlConfigSection.Build);
             }
             return (T)res;
         }

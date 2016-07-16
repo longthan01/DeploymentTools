@@ -1,18 +1,19 @@
 ﻿<uc:UserControlBase xmlns:uc="clr-namespace:SMDeployment.UserControls"
-    x:Class="SMDeployment.UserControls.Build.ucDeploy"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+                    x:Class="SMDeployment.UserControls.Build.ucDeploy"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    mc:Ignorable="d"
+                    d:DesignHeight="300"
+                    d:DesignWidth="300">
     <Grid Name="grdMain">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.3*" />
                 <RowDefinition Height="3" />
                 <RowDefinition />
-                <RowDefinition Height="3"/>
+                <RowDefinition Height="3" />
                 <RowDefinition Height="0.2*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -46,16 +47,22 @@
                             Name="btnRun"
                             Click="btnRun_Click"></Button>
                 </Grid>
-                <ScrollViewer Grid.Row="2" x:Name="scrollViewerProjectInfor"
+                <ScrollViewer Grid.Row="2"
+                              x:Name="scrollViewerProjectInfor"
                               FlowDirection="LeftToRight"
                               HorizontalScrollBarVisibility="Visible"
                               Grid.ColumnSpan="3">
-                    
+
                 </ScrollViewer>
             </Grid>
-            <Grid x:Name="grdOutput" Grid.Row="2"></Grid>
-            <GridSplitter Style="{StaticResource gridSpliterVertical}" Grid.Row="3"></GridSplitter>
-            <Grid Grid.Row="4" x:Name="grdLog"></Grid>
+            <Grid x:Name="grdOutput"
+                  Grid.Row="2"></Grid>
+            <GridSplitter Style="{StaticResource gridSpliterVertical}"
+                          Grid.Row="3"></GridSplitter>
+            <Grid Grid.Row="4"
+                  x:Name="grdLog">
+                <ListView Name="lstLog"></ListView>
+            </Grid>
         </Grid>
     </Grid>
 </uc:UserControlBase>

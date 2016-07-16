@@ -1,6 +1,7 @@
 ﻿using Microsoft.TeamFoundation.VersionControl.Client;
 using SMTools.Deployment.Base;
 using SMTools.Tfs;
+using SMTools.TFSTransporter.DownloadFile;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace SMTools.Tfs.DownloadFile
         }
         public override void Run()
         {
+            TfsDownloadFileOutput op = new TfsDownloadFileOutput();
             var serverFolder = CurrentWorkspace.GetWorkingFolderForLocalItem(System.IO.Path.GetDirectoryName(TfsInfor.WorkspaceMapping));
             var localRootFolder = serverFolder.LocalItem;
             foreach (var f in Files)
@@ -36,7 +38,9 @@ namespace SMTools.Tfs.DownloadFile
                 var item = this.VersionControlServer.GetItem(f, VersionSpec.Latest);
                 string destFile = f.Replace(localRootFolder, OutputFolder);
                 item.DownloadFile(destFile);
+                op.FilesDownloaded++;
             }
+            this.ProcessOutput = op;
         }
         #endregion
     }

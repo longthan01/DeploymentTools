@@ -19,20 +19,27 @@ namespace SMDeployment.UserControls.Build
         {
             InitializeComponent();
             this.grdProjectSelection.Children.Add(
-                    UIHelper.CreateProjectSelectionGrid(
-                        CollectionHelper.GetEnumList(typeof(ProjectPath)), OnProjectSelection));
+                    UIHelper.CreateSelectionGrid(
+                        "Select project:",
+                        CollectionHelper.GetEnumList(typeof(ProjectPath)),
+                        null,
+                        null,
+                        OnProjectSelection));
 
         }
+
         private void OnProjectSelection(object sender, SelectionChangedEventArgs e)
         {
             var cbx = e.OriginalSource as ComboBox;
             var item = cbx.SelectedItem.ToString();
-            _Configurator = ConfiguratorFactory.GetConfigurator<DeployConfigurator>(XmlConfigSection.Deploy);
+            _Configurator = ConfiguratorFactory.GetConfigurator<DeployConfigurator>()
+                .SetBuildPath(SessionManager.PathCollection[item.ToStringWithProject()]) as DeployConfigurator;
             var grid = UIHelper.CreateRotateVerticalGrid(
-                    new BuildConfigInfor()
+                    new DeployConfigInfor()
                     {
                         ProjectPath = _Configurator.GetProjectPath(),
-                        DeploymentOutputFolder = _Configurator.GetDeployOutputFolder()
+                        DeploymentOutputFolder = _Configurator.GetDeployOutputFolder(),
+                        LogFile = _Configurator.GetLogFile()
                     }
                 );
             this.scrollViewerProjectInfor.Content = grid;
@@ -44,8 +51,8 @@ namespace SMDeployment.UserControls.Build
             {
                 return;
             }
-           this.Builder.SetProcess(new BuildDeployProcess(_Configurator));
-            Builder.OnProcessCompleted += (obj, ev) =>
+           var builder = this.CreateBuilder(new BuildDeployProcess(_Configurator));
+            builder.OnProcessCompleted += (obj, ev) =>
             {
                 UIThreadHelper.RunWorker(this, delegate
                 {
@@ -57,7 +64,7 @@ namespace SMDeployment.UserControls.Build
                                 }));
                 });
             };
-            Builder.StartAsync();
+            builder.StartAsync();
         }
     }
 }

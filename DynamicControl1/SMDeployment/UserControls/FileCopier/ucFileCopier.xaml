@@ -1,0 +1,115 @@
+﻿<uc:UserControlBase xmlns:uc="clr-namespace:SMDeployment.UserControls"
+                    x:Class="SMDeployment.UserControls.FileCopier.ucFileCopier"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SMDeployment.UserControls.FileCopier"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Name="grdMain">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.3*" />
+                <RowDefinition Height="3" />
+                <RowDefinition />
+                <RowDefinition Height="3" />
+                <RowDefinition Height="0.2*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <GridSplitter Grid.Row="1"
+                          Style="{StaticResource gridSpliterVertical}"></GridSplitter>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="3" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="3" />
+                    <ColumnDefinition Width="200" />
+                </Grid.ColumnDefinitions>
+                <GridSplitter Grid.Column="1"
+                              Style="{StaticResource gridSpliterHorizontal}"></GridSplitter>
+                <GridSplitter Grid.Row="1"
+                              Grid.ColumnSpan="3"
+                              Grid.Column="0"
+                              Style="{StaticResource gridSpliterVertical}"></GridSplitter>
+                <Grid Grid.Row="0"
+                      Grid.Column="0"
+                      Name="grdProjectSelection">
+                    <TextBox Style="{StaticResource placeholder}" Tag="Path to source folder"></TextBox>
+                </Grid>
+                <Grid Grid.Row="0"
+                      Grid.Column="2">
+                    <Button Content="Copy" Click="btnRun_Click" Margin="0,0,0,0"
+                            Name="btnRun"></Button>
+                </Grid>
+                <ScrollViewer Grid.Row="2"
+                              x:Name="scrollViewerPathConfig"
+                              FlowDirection="LeftToRight"
+                              Grid.ColumnSpan="3">
+                    <DataGrid Name="dgrDestinationPaths"
+                              
+                              AutoGenerateColumns="False" ColumnWidth="*">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Selected">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Name="chkNeedBackup" IsChecked="{Binding Selected}"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  Checked="chkNeedBackup_Checked"
+                                                  Unchecked="chkNeedBackup_Checked"
+                                                  ></CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Name">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding FolderName}" Name="lblFolderName"
+                                               VerticalContentAlignment="Center"
+                                                HorizontalContentAlignment="Center"
+                                               ></Label>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Destination Path">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox  Text="{Binding Path}"
+                                                  VerticalContentAlignment="Center"
+                                                  HorizontalContentAlignment="Center"
+                                                 ></TextBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Need backup">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Name="chkNeedBackup" IsChecked="{Binding NeedBackup}"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"
+                                                  ></CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+            </Grid>
+            <Grid x:Name="grdOutput"
+                  Grid.Row="2"></Grid>
+            <GridSplitter Style="{StaticResource gridSpliterVertical}"
+                          Grid.Row="3"></GridSplitter>
+            <Grid Grid.Row="4"
+                  x:Name="grdLog">
+                <ListView Name="lstLog"></ListView>
+            </Grid>
+        </Grid>
+    </Grid>
+</uc:UserControlBase>

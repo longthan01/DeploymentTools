@@ -73,12 +73,11 @@ namespace SMDeployment.AppCodes
         {
             ScrollViewer scroll = new ScrollViewer()
             {
-                CanContentScroll = true,
-                HorizontalScrollBarVisibility = ScrollBarVisibility.Visible,
-                VerticalScrollBarVisibility = ScrollBarVisibility.Visible,
-                FlowDirection = FlowDirection.LeftToRight
+                CanContentScroll = false,
             };
-            scroll.Content = content;
+            Grid grid = new Grid();
+            grid.Children.Add((UIElement)content);
+            scroll.Content = grid;
             return scroll;
         }
 
@@ -96,9 +95,28 @@ namespace SMDeployment.AppCodes
         public static ScrollViewer CreateScrollDataGrid(IEnumerable<object> dataSource)
         {
             DataGrid grid = new DataGrid();
-            grid.CanUserAddRows = false;
+            grid.ColumnWidth = new DataGridLength(1, DataGridLengthUnitType.Star);
             grid.ItemsSource = dataSource;
             return CreateScroll(grid);
+        }
+        /// <summary>
+        /// Retrive data grid created by CreateScrollDataGrid method
+        /// </summary>
+        /// <param name="scroll">Scroll viewer owned data grid</param>
+        /// <returns></returns>
+        public static DataGrid GetDataGridFromScrollViewer(ScrollViewer scroll)
+        {
+            var grid = scroll.Content as Grid;
+            var dataGrid = grid.Children[0] as DataGrid;
+            return dataGrid;
+        }
+
+        public static object GetDataGridRowControl(string controlName, DataGrid grid, int row, int column)
+        {
+            DataGridTemplateColumn dgt = grid.Columns[column] as DataGridTemplateColumn;
+            DataGridRow gridRow = grid.ItemContainerGenerator.ContainerFromIndex(row) as DataGridRow;
+            ContentPresenter presenter = dgt.GetCellContent(gridRow) as ContentPresenter;
+            return presenter.ContentTemplate.FindName(controlName, presenter);
         }
 
         /// <summary>
@@ -120,37 +138,8 @@ namespace SMDeployment.AppCodes
             }
             return grid;
         }
-
         /// <summary>
-        /// Create grid 1 row, 2 columns, width dropdown in column 2
-        /// </summary>
-        /// <param name="dropdownItems"></param>
-        /// <returns></returns>
-        public static Grid CreateProjectSelectionGrid(List<string> dropdownItems, SelectionChangedEventHandler onDropdownSelectionChanged)
-        {
-            var grid = CreateGrid(1, 2);
-            ComboBox cbx = new ComboBox()
-            {
-                Height = 30
-            };
-            cbx.SelectionChanged += onDropdownSelectionChanged;
-            cbx.ItemsSource = dropdownItems;
-            Grid.SetColumn(cbx, 1);
-            Grid.SetRow(cbx, 0);
-            Label lbl = new Label()
-            {
-                HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
-                VerticalAlignment = System.Windows.VerticalAlignment.Center,
-                Content = "Select project:",
-            };
-            Grid.SetRow(lbl, 0);
-            Grid.SetColumn(lbl, 0);
-            grid.Children.Add(cbx);
-            grid.Children.Add(lbl);
-            return grid;
-        }
-        /// <summary>
-        /// Create a grid with model vertically
+        /// Create a grid vertically
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -193,7 +182,13 @@ namespace SMDeployment.AppCodes
             }
             return res;
         }
-
+        /// <summary>
+        /// Find control object in Visual Tree
+        /// </summary>
+        /// <typeparam name="T">Type of control</typeparam>
+        /// <param name="obj">The root object of visual tree to find down</param>
+        /// <param name="controlName">Name of control</param>
+        /// <returns></returns>
         public static T FindControl<T>(DependencyObject obj, string controlName) where T : Control
         {
             if (obj != null)
@@ -219,6 +214,50 @@ namespace SMDeployment.AppCodes
                 }
             }
             return null;
+        }
+        /// <summary>
+        /// Create grid with dropdown
+        /// </summary>
+        /// <param name="dropdownLabel">Header's dropdown</param>
+        /// <param name="dropdownItems">Dropdown item source</param>
+        /// <param name="displayMember">Dropdown display member path</param>
+        /// <param name="dataMember">Dropdown data member path</param>
+        /// <param name="onDropdownSelectionChanged">Dropdown selection event handler</param>
+        /// <returns>The Grid object owned dropdown</returns>
+        public static Grid CreateSelectionGrid(
+            string dropdownLabel,
+            IEnumerable<object> dropdownItems, 
+            string displayMember,
+            string dataMember,
+            SelectionChangedEventHandler onDropdownSelectionChanged)
+        {
+            var grid = CreateGrid(1, 2);
+            ComboBox cbx = new ComboBox()
+            {
+                Height = 30,
+                Margin = new Thickness(0, 0, 20, 0)
+            };
+            cbx.SelectionChanged += onDropdownSelectionChanged;
+            cbx.ItemsSource = dropdownItems;
+            if (!string.IsNullOrEmpty(displayMember) && !string.IsNullOrEmpty(dataMember))
+            {
+                cbx.DisplayMemberPath = displayMember;
+                cbx.SelectedValuePath = dataMember;
+            }
+            Grid.SetColumn(cbx, 1);
+            Grid.SetRow(cbx, 0);
+            Label lbl = new Label()
+            {
+                HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
+                VerticalAlignment = System.Windows.VerticalAlignment.Center,
+                Content = dropdownLabel,
+                Margin = new Thickness(20,0,0,0)
+            };
+            Grid.SetRow(lbl, 0);
+            Grid.SetColumn(lbl, 0);
+            grid.Children.Add(cbx);
+            grid.Children.Add(lbl);
+            return grid;
         }
     }
 }

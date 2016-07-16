@@ -42,15 +42,15 @@ namespace SMTools.Tfs
         public TfsTransporter(IDeployConfigurator configurator)
             : base(configurator)
         {
-            this.Configurator = configurator;
+            
         }
-        public virtual void ApplyConfiguration()
+        public override void ConstructProperty()
         {
-            if (Configurator != null)
-            {
-                Configurator.ApplyConfig(this);
-            }
-            TfsInfor = new Models.TfsInfor();
+            this.TfsInfor = new TfsInfor();
+        }
+        public override void ApplyConfiguration()
+        {
+            base.ApplyConfiguration();
             if (TfsInfor.NeedAuthenticate)
             {
                 NetworkCredential cred = new NetworkCredential(TfsInfor.UserName, TfsInfor.Password, TfsInfor.Domain);
@@ -66,6 +66,10 @@ namespace SMTools.Tfs
             }
             VersionControlServer = (VersionControlServer)TeamProjectCollection.GetService(typeof(VersionControlServer));
             CurrentWorkspace = VersionControlServer.GetWorkspace(TfsInfor.WorkspaceMapping);
+        }
+        public override void Run()
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

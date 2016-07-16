@@ -18,16 +18,5 @@ namespace SMDeployment.UIModels.TfsTransport
         {
             Selected = true;
         }
-        public TfsSearchResultItemUI(TfsSearchOutputItem parent)
-        {
-            this.ChangeSetId = parent.ChangeSetId;
-            this.ChangeType = parent.ChangeType;
-            this.CheckInDate = parent.CheckInDate;
-            this.Comment = parent.Comment;
-            this.Commiter = parent.Commiter;
-            this.LocalPath = parent.LocalPath;
-            this.ServerPath = parent.ServerPath;
-            this.Selected = true;
-        }
     }
 }

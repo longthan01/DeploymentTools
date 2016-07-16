@@ -18,7 +18,7 @@ namespace SMTools.FileCopier
         #region fields, properties
         private const string _SEPERATOR = "__";
         private StringCollection _BackupFolders;
-        private FileCopierOutput _Output;
+        
 
         /// <summary>
         /// The path to backup folder
@@ -128,6 +128,7 @@ namespace SMTools.FileCopier
 
         public override void Run()
         {
+            FileCopierOutput _Output = new FileCopierOutput();
             if (this.SourceFolder == null)
             {
                 throw new ArgumentNullException("SourceFolder", "Source folder is null, nothing is copied");
@@ -145,17 +146,12 @@ namespace SMTools.FileCopier
                 // copy from source to dest folder
                 _Output.OutputItems.Add(Copy(this.SourceFolder, folder.Path));
             }
+            ProcessOutput = _Output;
         }
 
-        public override ProcessOutputBase GetOutput()
-        {
-            return _Output;
-        }
-
-        public override void ApplyConfiguration()
+        public override void ConstructProperty()
         {
             _BackupFolders = new StringCollection();
-            _Output = new FileCopierOutput();
         }
         #endregion
     }

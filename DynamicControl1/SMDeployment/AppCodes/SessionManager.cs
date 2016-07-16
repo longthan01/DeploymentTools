@@ -13,7 +13,7 @@ namespace SMDeployment.AppCodes
         private const string _PATH = "Path";
         private const string _USER_SETTINGS = "UserSettings";
         private const string _TFS_DOWNLOAD_FOLDER = "TfsDownloadOutputFolder";
-
+        private const string _FILE_COPY = "FileCopy";
         public static ConfigItemCollection PathCollection
         {
             get
@@ -30,6 +30,13 @@ namespace SMDeployment.AppCodes
             }
         }
 
+        public static ConfigItemCollection FileCopierPathCollection
+        {
+            get {
+                return XmlLoader.GetConfig(_FILE_COPY);
+            }
+        }
+
         public static string WorkingTfs
         {
             get
@@ -42,7 +49,7 @@ namespace SMDeployment.AppCodes
         {
             get
             {
-               return XmlLoader.GetConfig(SessionManager.WorkingTfs)[ConstantString.TFS_USERNAME];
+                return XmlLoader.GetConfig(SessionManager.WorkingTfs)[ConstantString.TFS_USERNAME];
             }
             set
             {

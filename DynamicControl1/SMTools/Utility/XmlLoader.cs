@@ -9,20 +9,14 @@ namespace SMTools.Utility
 {
     public static class XmlLoader
     {
-        private static List<ConfigSection> _xmlConfigs;
         private static List<ConfigSection> XmlConfigs
         {
-            get
-            {
-                if (_xmlConfigs == null)
-                    throw new ArgumentNullException("XmlConfigs", "Must call Load method before access this Property");
-                return _xmlConfigs;
-            }
+            get;
+            set;
         }
         /// <summary>
-        /// Load and cache configuration from xml file
+        /// Get or Set path to configuration file
         /// </summary>
-        /// <param name="configFile">The path to configuration file</param>
         public static string ConfigurationFile
         {
             get;
@@ -47,7 +41,7 @@ namespace SMTools.Utility
             }
         }
 
-        public static XmlElement GetRoot(string fileName)
+        private static XmlElement GetRoot(string fileName)
         {
             XmlDocument doc = GetDocument(fileName);
             return doc.DocumentElement;
@@ -55,9 +49,13 @@ namespace SMTools.Utility
         #endregion
 
         #region public methods
-        public static void Load(string configFile)
+        /// <summary>
+        /// Initialize configuration
+        /// </summary>
+        /// <param name="configFile">Path to configuration file</param>
+        public static void Initialize(string configFile)
         {
-            _xmlConfigs = new List<ConfigSection>();
+            List<ConfigSection> xmlConfigs = new List<ConfigSection>();
             XmlElement root = GetRoot(configFile);
             foreach (XmlNode child in root.ChildNodes)
             {
@@ -74,7 +72,7 @@ namespace SMTools.Utility
                         Name = name.InnerText,
                         Value = value.InnerText
                     };
-                    XmlNodeList attrs = node.SelectNodes("attributes");
+                    XmlNodeList attrs = node.SelectNodes("attribute");
                     if (attrs != null)
                     {
                         foreach (XmlNode att in attrs)
@@ -91,16 +89,16 @@ namespace SMTools.Utility
                     }
                     section.Items.Add(item);
                 }
-                _xmlConfigs.Add(section);
+                xmlConfigs.Add(section);
             }
+            XmlConfigs = xmlConfigs;
         }
-
+        /// <summary>
+        /// Get configuration items by section name
+        /// </summary>
+        /// <param name="sectionName">Section name in config file</param>
+        /// <returns>An object of ConfigItemCollection</returns>
         public static ConfigItemCollection GetConfig(string sectionName)
-        {
-            return GetConfig(ConfigurationFile, sectionName);
-        }
-
-        public static ConfigItemCollection GetConfig(string fileName, string sectionName)
         {
             var section = XmlConfigs.FirstOrDefault(x => x.SectionName.SuperEquals(sectionName));
             return section == null ? null : section.Items;
@@ -144,8 +142,13 @@ namespace SMTools.Utility
             doc.AppendChild(root);
             SaveConfig(doc, fileName);
         }
-
-        public static string GetValueIteration(string nodeName, string xmlFile)
+        /// <summary>
+        /// Get Inner text of a node in xml file
+        /// </summary>
+        /// <param name="nodeName">Node name</param>
+        /// <param name="xmlFile">Path to xml file</param>
+        /// <returns>Inner text of node</returns>
+        public static string GetValue(string nodeName, string xmlFile)
         {
             XmlElement root = GetRoot(xmlFile);
             string res = null;

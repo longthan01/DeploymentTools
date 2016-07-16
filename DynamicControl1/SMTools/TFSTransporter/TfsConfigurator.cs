@@ -14,7 +14,6 @@ namespace SMTools.TFSTransporter
 {
     public class TfsConfigurator : ConfiguratorBase
     {
-        
         public TfsConfigurator(ConfigItemCollection configItems)
             : base(configItems)
         {
@@ -48,7 +47,9 @@ namespace SMTools.TFSTransporter
         {
             base.ApplyConfig(process);
             if (string.IsNullOrEmpty(this.GetWorkspaceMapping()))
-                throw new ArgumentNullException("WorkspaceMapping", "WorkspaceMapping is null, cannot create Tfs instance");
+            {
+                ThrowException("WorkspaceMapping is null, cannot create Tfs instance");
+            }
             TfsTransporter tfs = process as TfsTransporter;
             tfs.TfsInfor.WorkspaceMapping = GetWorkspaceMapping();
             tfs.TfsInfor.UserName = this.ConfigItems[ConstantString.TFS_USERNAME];

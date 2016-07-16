@@ -1,6 +1,9 @@
 ﻿using SMDeployment.AppCodes;
 using SMTools.Deployment.Base;
 using System;
+using System.Linq;
+using System.ComponentModel;
+using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -8,65 +11,90 @@ namespace SMDeployment.UserControls
 {
     public class UserControlBase : System.Windows.Controls.UserControl
     {
-        private ProcessBuilder _Builder = null;
-
-        public ProcessBuilder Builder
+        private ListView _ListLog;
+        private ucLoading _LoadingImg;
+        private void ShowLoading(bool show)
         {
-            get
+            if (_LoadingImg != null)
             {
-                if (_Builder == null)
-                {
-                    _Builder = new ProcessBuilder();
-                }
-                return _Builder;
+                _LoadingImg.Visibility = show ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
             }
         }
-
-        protected override void OnInitialized(EventArgs e)
+        /// <summary>
+        /// Create process builder with default event
+        /// </summary>
+        /// <returns>An object of ProcessBuilder</returns>
+        protected ProcessBuilder CreateBuilder(IDeployProcess process)
         {
-            base.OnInitialized(e);
-            Builder.OnProcessBegining += (obj, ev) =>
+            ProcessBuilder builder = new ProcessBuilder(process);
+            builder.OnProcessBegining += (obj, ev) =>
             {
                 UIThreadHelper.RunWorker(this, delegate
                 {
-                    ucLoading uc = UIHelper.FindControl<ucLoading>(this, "imgLoading");
-                    uc.Visibility = System.Windows.Visibility.Visible;
+                    ShowLoading(true);
                 });
             };
-            Builder.OnProcessCompleted += (obj, ev) =>
+            builder.OnProcessCompleted += (obj, ev) =>
             {
                 UIThreadHelper.RunWorker(this, delegate
                 {
-                    ucLoading uc = UIHelper.FindControl<ucLoading>(this, "imgLoading");
-                    uc.Visibility = System.Windows.Visibility.Hidden;
+                    ShowLoading(false);
                 });
             };
-            Builder.OnProcessFailed += (obj, ev) =>
+            builder.OnProcessFailed += (obj, ev) =>
             {
                 UIThreadHelper.RunWorker(this, delegate
                 {
-                    ucLoading uc = UIHelper.FindControl<ucLoading>(this, "imgLoading");
-                    uc.Visibility = System.Windows.Visibility.Hidden;
-                    ListView lst = UIHelper.FindControl<ListView>(this, "lstLog");
-                    lst.Items.Insert(0,new Label() {
-                        Content = "Error: " +  DateTime.Now.ToString() + " - " +  ev.Error.ErrorMessage,
-                        Foreground = Brushes.Red
-                    });
+                    ShowLoading(false);
+                    AddLog(GetRootExeption(ev.Error.Exception)/* + Environment.NewLine + ev.Error.Exception.StackTrace*/);
                 });
             };
+            return builder;
         }
-
-        public void Log(string message)
+        private void AddLog(string log)
+        {
+            if (_ListLog != null)
+            {
+                _ListLog.Items.Insert(0, new Label()
+                {
+                    Content = "Error: " + DateTime.Now.ToString() + " - " + log,
+                    Margin = new System.Windows.Thickness(10,0,10,0),
+                    Foreground = Brushes.Red
+                });
+            }
+        }
+        private string GetRootExeption(Exception ex)
+        {
+            if (ex == null)
+            {
+                return string.Empty;
+            }
+            if (ex.InnerException == null)
+            {
+                return ex.Message;
+            }
+            else
+            {
+                return GetRootExeption(ex.InnerException);
+            }
+        }
+        protected void Log(string message)
         {
             ListView lst = UIHelper.FindControl<ListView>(this, "lstLog");
             if (lst != null)
             {
-                lst.Items.Insert(0,new Label()
+                lst.Items.Insert(0, new Label()
                 {
                     Content = "Error: " + DateTime.Now.ToString() + " - " + message,
                     Foreground = Brushes.Red
                 });
             }
+        }
+        protected override void OnRender(DrawingContext drawingContext)
+        {
+            base.OnRender(drawingContext);
+            _LoadingImg = UIHelper.FindControl<ucLoading>(this, "imgLoading");
+            _ListLog = UIHelper.FindControl<ListView>(this, "lstLog");
         }
     }
 }

@@ -20,10 +20,10 @@ namespace SMTools.Tfs.Checkout
             set;
         }
         #region constructors
-        public TfsCheckOut(IDeployConfigurator configurator, string sourceFolder)
+        public TfsCheckOut(IDeployConfigurator configurator)
             : base(configurator)
         {
-            this.SourceFolder = sourceFolder;
+            
         }
         #endregion
 

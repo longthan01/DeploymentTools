@@ -16,7 +16,7 @@ namespace SMDeployment
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            XmlLoader.Load("ProcessConfig.xml");
+            XmlLoader.Initialize("ProcessConfig.xml");
             base.OnStartup(e);
         }
     }
