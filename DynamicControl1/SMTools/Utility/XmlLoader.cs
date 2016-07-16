@@ -7,31 +7,47 @@ using SMTools.Extensions;
 
 namespace SMTools.Utility
 {
-    public static class XmlLoader
+    public class XmlLoader
     {
-        private static List<ConfigSection> XmlConfigs
+        private static XmlLoader _XmlLoader;
+        private XmlLoader()
+        {
+
+        }
+        private List<ConfigSection> XmlConfigs
         {
             get;
             set;
         }
         /// <summary>
+        /// Create XmlLoader instance
+        /// </summary>
+        public static XmlLoader GetInstance()
+        {
+            if (_XmlLoader == null)
+            {
+                _XmlLoader = new XmlLoader();
+            }
+            return _XmlLoader;
+        }
+        /// <summary>
         /// Get or Set path to configuration file
         /// </summary>
-        public static string ConfigurationFile
+        public string ConfigurationFile
         {
             get;
             set;
         }
 
         #region private methods
-        private static XmlDocument GetDocument(string fileName)
+        private XmlDocument GetDocument(string fileName)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(fileName);
             return doc;
         }
 
-        private static void SaveConfig(XmlDocument document, string destPath)
+        private void SaveConfig(XmlDocument document, string destPath)
         {
             XmlWriterSettings st = new XmlWriterSettings();
             st.Indent = true;
@@ -41,7 +57,7 @@ namespace SMTools.Utility
             }
         }
 
-        private static XmlElement GetRoot(string fileName)
+        private XmlElement GetRoot(string fileName)
         {
             XmlDocument doc = GetDocument(fileName);
             return doc.DocumentElement;
@@ -53,7 +69,7 @@ namespace SMTools.Utility
         /// Initialize configuration
         /// </summary>
         /// <param name="configFile">Path to configuration file</param>
-        public static void Initialize(string configFile)
+        public void Initialize(string configFile)
         {
             List<ConfigSection> xmlConfigs = new List<ConfigSection>();
             XmlElement root = GetRoot(configFile);
@@ -98,13 +114,13 @@ namespace SMTools.Utility
         /// </summary>
         /// <param name="sectionName">Section name in config file</param>
         /// <returns>An object of ConfigItemCollection</returns>
-        public static ConfigItemCollection GetConfig(string sectionName)
+        public ConfigItemCollection GetConfig(string sectionName)
         {
             var section = XmlConfigs.FirstOrDefault(x => x.SectionName.SuperEquals(sectionName));
             return section == null ? null : section.Items;
         }
 
-        public static void Save(string fileName)
+        public void Save(string fileName)
         {
             XmlDocument doc = new XmlDocument();
             XmlNode root = doc.CreateElement("configurations");
@@ -148,7 +164,7 @@ namespace SMTools.Utility
         /// <param name="nodeName">Node name</param>
         /// <param name="xmlFile">Path to xml file</param>
         /// <returns>Inner text of node</returns>
-        public static string GetValue(string nodeName, string xmlFile)
+        public string GetValue(string nodeName, string xmlFile)
         {
             XmlElement root = GetRoot(xmlFile);
             string res = null;

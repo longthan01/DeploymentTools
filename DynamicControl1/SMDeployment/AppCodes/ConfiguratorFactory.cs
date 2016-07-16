@@ -81,7 +81,7 @@ namespace SMDeployment.AppCodes
         public static T GetConfigurator<T>(XmlConfigSection section) where T : IDeployConfigurator
         {
             IDeployConfigurator res = null;
-            var deployItems = XmlLoader.GetConfig(section.ToString());
+            var deployItems = SessionManager.XmlLoader.GetConfig(section.ToString());
             if (deployItems != null)
             {
                 res = (T)Activator.CreateInstance(typeof(T), deployItems);

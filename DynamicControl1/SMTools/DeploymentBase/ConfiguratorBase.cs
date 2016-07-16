@@ -9,8 +9,16 @@ namespace SMTools.Deployment.Configurator
 {
     public abstract class ConfiguratorBase : IDeployConfigurator
     {
+        protected XmlLoader XmlLoader
+        {
+            get
+            {
+                return XmlLoader.GetInstance();
+            }
+        }
+
         public ConfigItemCollection ConfigItems { get; set; }
-       
+
         public ConfiguratorBase()
         {
 
@@ -34,7 +42,7 @@ namespace SMTools.Deployment.Configurator
 
         public virtual void SaveConfiguration(ProcessBase process)
         {
-            
+
         }
 
         #region IExceptionHandled Members

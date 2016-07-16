@@ -14,6 +14,9 @@ namespace SMDeployment.AppCodes
         private const string _USER_SETTINGS = "UserSettings";
         private const string _TFS_DOWNLOAD_FOLDER = "TfsDownloadOutputFolder";
         private const string _FILE_COPY = "FileCopy";
+
+        public static XmlLoader XmlLoader { get { return XmlLoader.GetInstance(); } }
+
         public static ConfigItemCollection PathCollection
         {
             get
