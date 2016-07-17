@@ -29,4 +29,9 @@ namespace SMDeployment.AppCodes
         FDC_QA, 
         FDC_US
     }
+    public enum BoardingModule
+    {
+        FACS,
+        FDS
+    }
 }

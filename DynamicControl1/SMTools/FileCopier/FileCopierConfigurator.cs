@@ -1,12 +1,10 @@
 ﻿using SMTools.Deployment.Base;
 using SMTools.Deployment.Configurator;
-using System;
 using System.Linq;
 using System.Collections.Generic;
 using SMTools.Extensions;
 using System.Reflection;
 using SMTools.Utility;
-using SMTools.Deployment.Base;
 using System.IO;
 
 namespace SMTools.FileCopier
@@ -19,7 +17,7 @@ namespace SMTools.FileCopier
             _BACKUP_FOLDER);
 
         public string SourceFolder { get; set; }
-        public List<string> ExcludeFolders { get; set; }
+        public List<string> ExcludedFolders { get; set; }
         public List<DestinationFolder> DestinationFolder
         {
             get;
@@ -29,7 +27,7 @@ namespace SMTools.FileCopier
         public FileCopierConfigurator(ConfigItemCollection destinationConfigItems) : base(destinationConfigItems)
         {
             DestinationFolder = new List<DestinationFolder>();
-            ExcludeFolders = new List<string>();
+            ExcludedFolders = new List<string>();
             foreach (var item in this.ConfigItems)
             {
                 var attNB = this.ConfigItems.GetConfigAttribute(item.GetName(), ConstantString.FILECOPY_NEED_BACKUP);
@@ -63,7 +61,7 @@ namespace SMTools.FileCopier
         /// <param name="folderName">Destination folder name</param>
         public void ExcludeDestination(params string[] folderName)
         {
-            this.ExcludeFolders.AddRange(folderName);
+            this.ExcludedFolders.AddRange(folderName);
         }
         /// <summary>
         /// Exclude destinaton folder which will be copied
@@ -71,14 +69,14 @@ namespace SMTools.FileCopier
         /// <param name="folderName">Destination folder name</param>
         public void IncludeDestination(params string[] folderName)
         {
-            if (this.ExcludeFolders != null)
+            if (this.ExcludedFolders != null)
             {
                 foreach (string folder in folderName)
                 {
-                    var item = this.ExcludeFolders.FirstOrDefault(x => x.SuperEquals(folder));
+                    var item = this.ExcludedFolders.FirstOrDefault(x => x.SuperEquals(folder));
                     if (!string.IsNullOrEmpty(item))
                     {
-                        this.ExcludeFolders.Remove(item);
+                        this.ExcludedFolders.Remove(item);
                     }
                 }
             }
@@ -90,8 +88,8 @@ namespace SMTools.FileCopier
             base.ApplyConfig(process);
             FileCopier copier = process as FileCopier;
             copier.SourceFolder = this.SourceFolder;
-            ExcludeFolders = ExcludeFolders.Distinct().ToList();
-            copier.DestinationFolders = DestinationFolder.FindAll(x => !this.ExcludeFolders.Contains(x.FolderName));
+            ExcludedFolders = ExcludedFolders.Distinct().ToList();
+            copier.DestinationFolders = DestinationFolder.FindAll(x => !this.ExcludedFolders.Contains(x.FolderName));
             copier.BackupFolder = BackupFolder;
         }
     }

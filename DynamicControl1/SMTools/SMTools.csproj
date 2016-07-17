@@ -52,11 +52,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Boarding\XsdToClassConfigurator.cs" />
+    <Compile Include="Boarding\XsdToClassGenerator.cs" />
     <Compile Include="Build\Configurators\BuildConfigurator.cs" />
     <Compile Include="Build\Configurators\DeployConfigurator.cs" />
     <Compile Include="Build\Configurators\BuildDeployConfigurator.cs" />
     <Compile Include="Build\BuildDeployOutput.cs" />
-    <Compile Include="Build\BuildDeployProcess.cs" />
+    <Compile Include="Build\CommandLineProcess.cs" />
     <Compile Include="Delegates\ProcessCompletedEventArgs.cs" />
     <Compile Include="Delegates\ProcessCompletedEventHandler.cs" />
     <Compile Include="Delegates\ProcessFailedEventArgs.cs" />

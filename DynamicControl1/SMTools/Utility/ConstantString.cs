@@ -19,5 +19,6 @@ namespace SMTools.Utility
         public const string TFS_NEED_AUTHENTICATE = "NeedAuthenticate";
         public const string TFS_WORKSPACE_MAPPING = "WorkspaceMapping";
         public const string FILECOPY_NEED_BACKUP = "NeedBackup";
+        public const string BOARDING_XSD_LOCATION = "XsdLocation";
     }
 }

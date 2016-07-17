@@ -20,6 +20,8 @@
         </Style>
 
         <Style TargetType="TextBox">
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
             <Setter Property="Background"
                     Value="Transparent"></Setter>
         </Style>

@@ -33,6 +33,8 @@ namespace SMDeployment.AppCodes
             }
         }
 
+        public static 
+
         public static ConfigItemCollection FileCopierPathCollection
         {
             get {

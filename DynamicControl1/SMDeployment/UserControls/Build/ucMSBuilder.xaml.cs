@@ -47,7 +47,7 @@ namespace SMDeployment.UserControls.Build
 
         private void btnRun_Click(object sender, RoutedEventArgs e)
         {
-            var builder = this.CreateBuilder(new BuildDeployProcess(_Configurator));
+            var builder = this.CreateBuilder(new CommandLineProcess(_Configurator));
             builder.OnProcessCompleted += (obj, ev) =>
             {
                 ProcessUtility.StartExplorer(((BuildDeployOutput)ev.ProcessOutput).LogFile);

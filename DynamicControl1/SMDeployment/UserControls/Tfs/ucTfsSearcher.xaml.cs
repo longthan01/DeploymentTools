@@ -89,6 +89,11 @@ namespace SMDeployment.UserControls.Tfs
 
         private void btnGetFiles_Click(object sender, RoutedEventArgs e)
         {
+            if (this.txtDownloadOutputFolder.Text.IsEmpty())
+            {
+                this.LogError("Output folder is empty, cannot start download process");
+                return;
+            }
             _DownloadConfigurator = ConfiguratorFactory.GetConfigurator<TfsDownloadFileConfigurator>()
                 .SetOutputFolder(this.txtDownloadOutputFolder.Text)
                 .SetFileToDownload(_SearchOutputItems);

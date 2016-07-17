@@ -55,16 +55,16 @@ namespace SMTools.Build.Base
             {
                 ThrowException("Build path is empty, cannot start build process");
             }
-            BuildDeployProcess buildProcess = process as BuildDeployProcess;
+            CommandLineProcess buildProcess = process as CommandLineProcess;
             foreach (var item in ConfigItems)
             {
                 if (item.GetName().SuperEquals(ConstantString.BUILDDEPLOY_PATH))
                 {
-                    buildProcess.BuildCommand.Append(" " + item.GetValue()).Append(" ");
+                    buildProcess.Command.Append(" " + item.GetValue()).Append(" ");
                 }
                 else
                 {
-                    buildProcess.BuildCommand.Append(item.GetName() + item.GetValue()).Append(" ");
+                    buildProcess.Command.Append(item.GetName() + item.GetValue()).Append(" ");
                 }
             }
             buildProcess.LogFile = ConfigItems[ConstantString.BUILD_BuildLogFile];

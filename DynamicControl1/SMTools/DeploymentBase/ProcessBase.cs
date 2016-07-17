@@ -40,6 +40,7 @@ namespace SMTools.Deployment.Base
         #region IDeployment members
         public virtual void ConstructProperty()
         {
+            ProcessOutput = new ProcessOutputBase();
         }
         public virtual void ApplyConfiguration()
         {

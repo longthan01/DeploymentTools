@@ -9,23 +9,23 @@ using System.Threading.Tasks;
 
 namespace SMTools.Build.Base
 {
-    public class BuildDeployProcess : ProcessBase
+    public class CommandLineProcess : ProcessBase
     {
         public string LogFile { get; set; }
 
-        public StringBuilder BuildCommand
+        public StringBuilder Command
         {
             get;
             set;
         }
 
-        public BuildDeployProcess(IDeployConfigurator configurator) : base(configurator)
+        public CommandLineProcess(IDeployConfigurator configurator) : base(configurator)
         {
         }
 
         public override void ConstructProperty()
         {
-            BuildCommand = new StringBuilder();
+            Command = new StringBuilder();
         }
 
         public override void Run()
@@ -33,7 +33,7 @@ namespace SMTools.Build.Base
             Process p = new Process();
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.FileName = "cmd.exe";
-            psi.Arguments = this.BuildCommand.ToString();
+            psi.Arguments = this.Command.ToString();
             p.StartInfo = psi;
             p.Start();
             p.WaitForExit();
@@ -43,7 +43,7 @@ namespace SMTools.Build.Base
         {
             if (string.IsNullOrEmpty(LogFile) || !File.Exists(LogFile))
             {
-                this.ThrowException("Command is failed: " + Environment.NewLine + this.BuildCommand.ToString());
+                this.ThrowException("Command is failed: " + Environment.NewLine + this.Command.ToString());
             }
             BuildDeployOutput o = new BuildDeployOutput(LogFile);
             StreamReader stream = new StreamReader(LogFile);

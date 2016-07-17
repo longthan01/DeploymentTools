@@ -51,7 +51,7 @@ namespace SMDeployment.UserControls.Build
             {
                 return;
             }
-           var builder = this.CreateBuilder(new BuildDeployProcess(_Configurator));
+           var builder = this.CreateBuilder(new CommandLineProcess(_Configurator));
             builder.OnProcessCompleted += (obj, ev) =>
             {
                 UIThreadHelper.RunWorker(this, delegate

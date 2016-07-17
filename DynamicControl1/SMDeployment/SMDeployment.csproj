@@ -75,6 +75,9 @@
     <Compile Include="UIModels\FileCopier\DestinationFolderUI.cs" />
     <Compile Include="UIModels\TfsTransport\ProjectConfigInfor.cs" />
     <Compile Include="UIModels\TfsTransport\TfsSearchResultItemUI.cs" />
+    <Compile Include="UserControls\Boarding\ucBoarding.xaml.cs">
+      <DependentUpon>ucBoarding.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Build\ucDeploy.xaml.cs">
       <DependentUpon>ucDeploy.xaml</DependentUpon>
     </Compile>
@@ -115,6 +118,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\Boarding\ucBoarding.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Build\ucDeploy.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
