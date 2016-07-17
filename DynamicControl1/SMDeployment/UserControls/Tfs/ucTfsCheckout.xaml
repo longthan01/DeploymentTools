@@ -7,122 +7,67 @@
                     mc:Ignorable="d"
                     d:DesignHeight="300"
                     d:DesignWidth="300">
-    <Grid Name="grdMain">
-        <uc:ucLoading x:Name="imgLoading"
-                           Panel.ZIndex="10"
-                           Visibility="Hidden"></uc:ucLoading>
+    <Grid x:Name="grdMain">
+        <uc:ucLoading x:Name="imgLoading" />
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="300" />
+                <RowDefinition Height="0.3*" />
                 <RowDefinition Height="3" />
                 <RowDefinition />
                 <RowDefinition Height="3" />
-                <RowDefinition Height="200" />
+                <RowDefinition Height="0.2*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <GridSplitter Grid.Row="1"
-                          Style="{StaticResource gridSpliterVertical}"></GridSplitter>
-            <Grid Name="grdConfig"
-                  Grid.Row="0">
+				Style="{StaticResource gridSpliterVertical}"/>
+            <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="3" />
-                    <RowDefinition Height="100" />
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition />
                     <ColumnDefinition Width="3" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <GridSplitter Grid.Row="1"
-                              Grid.ColumnSpan="3"
-                              Grid.Column="0"
-                              Style="{StaticResource gridSpliterVertical}"></GridSplitter>
+                <GridSplitter Grid.Column="1" Grid.RowSpan="2"
+					Style="{StaticResource gridSpliterHorizontal}"/>
+                <Grid Grid.Column="0" x:Name="grdProjectSelection" Grid.Row="0"/>
+                <ScrollViewer Grid.Row="1"
+					Grid.Column="0"
+					x:Name="scrollViewerProjectInfor"
+					FlowDirection="LeftToRight">
+                    <StackPanel FlowDirection="LeftToRight" x:Name="stckFolderInfor">
+                    </StackPanel>
+                </ScrollViewer>
                 <Grid Grid.Row="0"
-                      Grid.Column="0"
-                      Grid.ColumnSpan="3">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition Height="3" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
+					Grid.Column="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.5*" />
-                        <ColumnDefinition Width="3" />
+                        <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <GridSplitter Grid.Column="1"
-                                  Style="{StaticResource gridSpliterHorizontal}"></GridSplitter>
-                    <Grid  Name="grdProjectSelection"
-                           Grid.Row="0"
-                           Grid.Column="0"></Grid>
-                    <Grid Grid.Row="0"
-                          Grid.Column="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="3" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                    <GridSplitter Grid.Row="1"
-                                  Grid.Column="0"
-                                  Grid.ColumnSpan="3"
-                                  Style="{StaticResource gridSpliterVertical}"></GridSplitter>
-                    <Grid Name="grdButtons"
-                          Grid.Row="2"
-                          Grid.Column="0"
-                          Grid.ColumnSpan="3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="100" />
-                            <ColumnDefinition Width="100" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Button Content="Output Folder"
-                                Grid.Column="2"
-                                Name="btnChooseFolder"
-                                Grid.Row="2"></Button>
-                        <Button Content="Search"
-                                Grid.Column="3"
-                                Name="btnSearch"
-                                Grid.Row="0"
-                                ></Button>
-                        <Button Content="Clear"
-                                Name="btnClear"
-                                Grid.Column="3"
-                                Grid.Row="1"></Button>
-                        <TextBox x:Name="txtDownloadOutputFolder"
-                                 FontSize="14"
-                                 Grid.Row="2"
-                                 Grid.Column="0"
-                                 Grid.ColumnSpan="2"></TextBox>
-                        <Button Content="Get files"
-                                Name="btnGetFiles"
-                                Grid.Column="3"
-                                Grid.Row="2"></Button>
-                    </Grid>
+                    <TextBox x:Name="txtSource" Style="{StaticResource placeholder}"
+                             Tag="Path to source folder"
+                             Grid.Column="0"
+                             KeyDown="TextBox_KeyDown"/>
+                    <Button Content="Checkout" Click="btnRun_Click" Margin="0,0,0,0"
+						x:Name="btnRun" Grid.Column="1"/>
                 </Grid>
-                <ScrollViewer x:Name="scrollViewerProjectInfor"
-                              Grid.Row="2"
-                              FlowDirection="LeftToRight"
-                              HorizontalScrollBarVisibility="Visible"
-                              Grid.ColumnSpan="3">
-                </ScrollViewer>
+                <Grid Grid.Row="1"
+					Grid.Column="2"
+					x:Name="grdFolderInfor"
+                      />
             </Grid>
             <Grid x:Name="grdOutput"
-                  Grid.Row="2"></Grid>
+				Grid.Row="2">
+            </Grid>
             <GridSplitter Style="{StaticResource gridSpliterVertical}"
-                          Grid.Row="3"></GridSplitter>
-            <Grid Grid.Row="4">
-                <ListView Name="lstLog"></ListView>
+				Grid.Row="3"/>
+            <Grid Grid.Row="4"
+				x:Name="grdLog">
+                <ListView x:Name="lstLog"/>
             </Grid>
         </Grid>
     </Grid>

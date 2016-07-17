@@ -51,6 +51,7 @@ namespace SMTools.Deployment.Base
         public abstract void Run();
         public virtual ProcessOutputBase GetOutput()
         {
+            this.ProcessOutput.Message = DateTime.Now.ToString() + " : " + this.GetType() + " completed"; 
             return this.ProcessOutput;
         }
         

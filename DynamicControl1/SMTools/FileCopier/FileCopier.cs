@@ -18,7 +18,7 @@ namespace SMTools.FileCopier
         #region fields, properties
         private const string _SEPERATOR = "__";
         private StringCollection _BackupFolders;
-        
+
 
         /// <summary>
         /// The path to backup folder
@@ -45,7 +45,7 @@ namespace SMTools.FileCopier
         public FileCopier(IDeployConfigurator configurator)
             : base(configurator)
         {
-            
+
         }
         #endregion
 
@@ -71,23 +71,54 @@ namespace SMTools.FileCopier
             return BackupFolder + fol + _SEPERATOR + now; //ex:  ...\\Folder__27_06_2016 01 AM
         }
 
-        private FileCopierOutputItem Copy(DirInfor sourceFolder, string destinationFolder)
+        private FileCopierOutputItem Copy(string srcFolder, DestinationFolder destFolder)
         {
+            // backup folder
+            string backupFolder = string.Empty;
+            if (destFolder.NeedBackup)
+            {
+                backupFolder = GenerateBackupFolder(destFolder.Path);
+                _BackupFolders.Add(backupFolder);
+            }
+            // get source dir infor
+            DirInfor sourceFolder = DeploymentUtility.GetDirInfor(srcFolder);
+            // output information
             FileCopierOutputItem output = new FileCopierOutputItem();
             output.SourceFolder = sourceFolder.RelativeRoot;
-            output.DestinationFolder = destinationFolder;
+            output.DestinationFolder = destFolder.Path;
+            // use stack to reduce memory consuming
             Stack<DirInfor> stack = new Stack<DirInfor>();
             stack.Push(sourceFolder);
+
             while (stack.Count > 0)
             {
                 DirInfor dir = stack.Pop();
-                Directory.CreateDirectory(dir.RelativeRoot);
+                string bkfolder = string.Empty;
+                if (destFolder.NeedBackup)
+                {
+                    string destFol = dir.RelativeRoot.Replace(srcFolder, destFolder.Path);
+                    if (Directory.Exists(destFol)) // check if folder is existed in destination folder
+                    {
+                        bkfolder = dir.RelativeRoot.Replace(srcFolder, backupFolder);
+                        Directory.CreateDirectory(bkfolder); // create backup folder
+                    }
+                }
+                string destPath = dir.RelativeRoot.Replace(srcFolder, destFolder.Path);
+                Directory.CreateDirectory(destPath);
                 foreach (FileInfor file in dir.Files)
                 {
                     try
                     {
-                        string destFile = file.FullPath.Replace(sourceFolder.RelativeRoot, destinationFolder);
-                        File.Copy(file.FullPath, destFile);
+                        string destFile = file.FullPath.Replace(srcFolder, destFolder.Path);
+                        if (destFolder.NeedBackup)
+                        {
+                            if (File.Exists(destFile))
+                            {
+                                string bkFile = destFile.Replace(destFolder.Path, backupFolder);
+                                File.Copy(destFile, bkFile, true); // copy dest file to backup file
+                            }
+                        }
+                        File.Copy(file.FullPath, destFile, true); // copy source file to dest file
                     }
                     catch (Exception ex)
                     {
@@ -102,24 +133,6 @@ namespace SMTools.FileCopier
                 }
             }
             return output;
-        }
-        /// <summary>
-        /// Copy all file from source folder to destination folder
-        /// </summary>
-        /// <param name="folder"></param>
-        private FileCopierOutputItem Copy(string srcFolder, string destFolder)
-        {
-            DirInfor di = DeploymentUtility.GetDirInfor(srcFolder);
-            return Copy(di, destFolder);
-        }
-
-        private void CopyBackup(string currentFolder)
-        {
-            string backupFolder = GenerateBackupFolder(currentFolder);
-            // save backup files
-            Copy(currentFolder, backupFolder);
-            // store list backup folders to retrive output
-            _BackupFolders.Add(backupFolder);
         }
 
         #endregion
@@ -137,14 +150,10 @@ namespace SMTools.FileCopier
             {
                 this.Configurator.ApplyConfig(this); // to update user input 
             }
-            foreach (var folder in DestinationFolders)
+            foreach (var destFolder in DestinationFolders)
             {
-                if (folder.NeedBackup)
-                {
-                    CopyBackup(folder.Path); // copy backup
-                }
                 // copy from source to dest folder
-                _Output.OutputItems.Add(Copy(this.SourceFolder, folder.Path));
+                _Output.OutputItems.Add(Copy(SourceFolder, destFolder));
             }
             ProcessOutput = _Output;
         }
@@ -152,6 +161,7 @@ namespace SMTools.FileCopier
         public override void ConstructProperty()
         {
             _BackupFolders = new StringCollection();
+            ProcessOutput = new ProcessOutputBase();
         }
         #endregion
     }

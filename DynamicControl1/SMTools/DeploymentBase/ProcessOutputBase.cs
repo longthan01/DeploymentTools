@@ -7,6 +7,6 @@ namespace SMTools.Deployment.Base
 {
     public class ProcessOutputBase
     {
-        
+        public string Message { get; set;}
     }
 }

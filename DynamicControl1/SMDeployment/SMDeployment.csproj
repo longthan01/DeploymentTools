@@ -84,11 +84,17 @@
     <Compile Include="UserControls\FileCopier\ucFileCopier.xaml.cs">
       <DependentUpon>ucFileCopier.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\FileCopier\ucFileCopierError.xaml.cs">
+      <DependentUpon>ucFileCopierError.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Tfs\ucSearchFilter.xaml.cs">
       <DependentUpon>ucSearchFilter.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Tfs\ucTfsCheckout.xaml.cs">
       <DependentUpon>ucTfsCheckout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Tfs\ucTfsDownloadFileResult.xaml.cs">
+      <DependentUpon>ucTfsDownloadFileResult.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Tfs\ucTfsSearcher.xaml.cs">
       <DependentUpon>ucTfsSearcher.xaml</DependentUpon>
@@ -121,11 +127,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\FileCopier\ucFileCopierError.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Tfs\ucSearchFilter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\Tfs\ucTfsCheckout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Tfs\ucTfsDownloadFileResult.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

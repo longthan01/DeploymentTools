@@ -17,7 +17,8 @@ namespace SMDeployment.AppCodes
         Deploy,
         Tfs_US,
         Tfs_VN,
-        FileCopy
+        FileCopyBoarding,
+        FileCopyFDC
     }
     public enum ProjectPath
     {

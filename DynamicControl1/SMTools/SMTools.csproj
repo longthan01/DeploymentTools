@@ -74,7 +74,7 @@
     <Compile Include="FileCopier\DestinationFolder.cs" />
     <Compile Include="FileCopier\FileCopier.cs" />
     <Compile Include="FileCopier\FileCopierConfigurator.cs" />
-    <Compile Include="FileCopier\Output\CopierFileErrorInfor.cs" />
+    <Compile Include="FileCopier\Output\FileErrorInfor.cs" />
     <Compile Include="FileCopier\Output\FileCopierOutput.cs" />
     <Compile Include="FileCopier\Output\FileCopierOutputItem.cs" />
     <Compile Include="Models\ProcessError.cs" />

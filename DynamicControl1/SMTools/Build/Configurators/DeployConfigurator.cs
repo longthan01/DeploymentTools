@@ -10,7 +10,6 @@ namespace SMTools.Build
 {
     public class DeployConfigurator : BuildDeployConfigurator
     {
-        
         public DeployConfigurator(ConfigItemCollection itemsCollection)
             : base(itemsCollection)
         {
@@ -18,8 +17,13 @@ namespace SMTools.Build
         }
         public string GetDeployOutputFolder()
         {
-            return XmlLoader
-                .GetValue(ConstantString.DEPLOY_PublishUrl, this.ConfigItems[ConstantString.DEPLOY_PublishProfile].Trim('"'));
+            string publishPath = this.ConfigItems[ConstantString.DEPLOY_PublishProfile].Trim('"');
+            if (System.IO.File.Exists(publishPath))
+            {
+                return XmlLoader
+                    .GetValue(ConstantString.DEPLOY_PublishUrl, publishPath);
+            }
+            return string.Empty;
         }
         public string GetProjectPath()
         {

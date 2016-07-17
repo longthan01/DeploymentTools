@@ -63,10 +63,6 @@ namespace SMDeployment.AppCodes
             {
                 res = GetConfigurator<T>((XmlConfigSection)Enum.Parse(typeof(XmlConfigSection), SessionManager.WorkingTfs));
             }
-            if (IsOrInheritFrom(tType, typeof(FileCopierConfigurator)))
-            {
-                res = GetConfigurator<T>(XmlConfigSection.FileCopy);
-            }
             if (IsOrInheritFrom(tType, typeof(DeployConfigurator)))
             {
                 res = GetConfigurator<T>(XmlConfigSection.Deploy);

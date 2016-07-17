@@ -17,7 +17,23 @@ namespace SMDeployment.UserControls
         {
             if (_LoadingImg != null)
             {
+                Panel.SetZIndex(_LoadingImg, 100);
                 _LoadingImg.Visibility = show ? System.Windows.Visibility.Visible : System.Windows.Visibility.Hidden;
+            }
+        }
+        private string GetRootExeption(Exception ex)
+        {
+            if (ex == null)
+            {
+                return string.Empty;
+            }
+            if (ex.InnerException == null)
+            {
+                return ex.Message;
+            }
+            else
+            {
+                return GetRootExeption(ex.InnerException);
             }
         }
         /// <summary>
@@ -39,6 +55,7 @@ namespace SMDeployment.UserControls
                 UIThreadHelper.RunWorker(this, delegate
                 {
                     ShowLoading(false);
+                    Log(ev.ProcessOutput.Message);
                 });
             };
             builder.OnProcessFailed += (obj, ev) =>
@@ -46,12 +63,12 @@ namespace SMDeployment.UserControls
                 UIThreadHelper.RunWorker(this, delegate
                 {
                     ShowLoading(false);
-                    AddLog(GetRootExeption(ev.Error.Exception)/* + Environment.NewLine + ev.Error.Exception.StackTrace*/);
+                    LogError(GetRootExeption(ev.Error.Exception)/* + Environment.NewLine + ev.Error.Exception.StackTrace*/);
                 });
             };
             return builder;
         }
-        private void AddLog(string log)
+        protected void LogError(string log)
         {
             if (_ListLog != null)
             {
@@ -63,30 +80,15 @@ namespace SMDeployment.UserControls
                 });
             }
         }
-        private string GetRootExeption(Exception ex)
+        protected void Log(string log)
         {
-            if (ex == null)
+            if (_ListLog != null)
             {
-                return string.Empty;
-            }
-            if (ex.InnerException == null)
-            {
-                return ex.Message;
-            }
-            else
-            {
-                return GetRootExeption(ex.InnerException);
-            }
-        }
-        protected void Log(string message)
-        {
-            ListView lst = UIHelper.FindControl<ListView>(this, "lstLog");
-            if (lst != null)
-            {
-                lst.Items.Insert(0, new Label()
+                _ListLog.Items.Insert(0, new Label()
                 {
-                    Content = "Error: " + DateTime.Now.ToString() + " - " + message,
-                    Foreground = Brushes.Red
+                    Content = "Infor: " + DateTime.Now.ToString() + " - " + log,
+                    Margin = new System.Windows.Thickness(10, 0, 10, 0),
+                    Foreground = Brushes.Green
                 });
             }
         }

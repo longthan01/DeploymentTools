@@ -13,9 +13,9 @@ namespace SMDeployment.AppCodes
         public static TreeView CreateTree(DirInfor dir, Brush folderColor, Brush fileColor, int fontSize)
         {
             TreeView tree = new TreeView();
+            tree.Background = Brushes.Transparent;
             TreeViewItem root = new TreeViewItem();
-            root.Header = CreateGrid(dir.RelativeRoot, dir.ModifiedDate);
-            root.Background = folderColor;
+            root.Header = CreateGrid(dir.RelativeRoot, dir.ModifiedDate, folderColor);
             root.FontSize = fontSize;
             foreach (DirInfor df in dir.SubDirectories)
             {
@@ -33,9 +33,13 @@ namespace SMDeployment.AppCodes
             return tree;
         }
 
-        public static Grid CreateGrid(string column1, DateTime column2)
+        public static Grid CreateGrid(string column1, DateTime column2, Brush background = null)
         {
             Grid grid = new Grid();
+            if (background != null)
+            {
+                grid.Background = background;
+            }
             RowDefinition r1 = new RowDefinition();
             ColumnDefinition c1 = new ColumnDefinition()
             {
@@ -83,7 +87,10 @@ namespace SMDeployment.AppCodes
 
         public static void AddChild(UIElementCollection collection, UIElement element, bool clear = true)
         {
-            collection.Clear();
+            if (clear)
+            {
+                collection.Clear();
+            }
             collection.Add(element);
         }
 
@@ -122,7 +129,7 @@ namespace SMDeployment.AppCodes
         /// <summary>
         /// Create empty grid with row and column
         /// </summary>
-        public static Grid CreateGrid(int row, int column)
+        public static Grid CreateGrid(int row, int column, bool withGridSpliter = false)
         {
             Grid grid = new Grid();
             grid.Background = Brushes.Transparent;
@@ -131,22 +138,42 @@ namespace SMDeployment.AppCodes
                 RowDefinition r1 = new RowDefinition();
                 grid.RowDefinitions.Add(r1);
             }
-            for (int i = 0; i < column; i++)
+            for (int i = 0; i < column + (column - 1); i++)
             {
                 ColumnDefinition c1 = new ColumnDefinition();
+                if (i % 2 != 0) // grid spliter column
+                {
+                    if (withGridSpliter)
+                    {
+                        c1.Width = new GridLength(3);
+                    }
+                }
                 grid.ColumnDefinitions.Add(c1);
+            }
+            if (withGridSpliter)
+            {
+                for (int i = 0; i < column + (column - 1); i++)
+                {
+                    if (i % 2 != 0)
+                    {
+                        GridSplitter gs = new GridSplitter() { Style =  (Style)App.Current.FindResource("gridSpliterHorizontal")};
+                        Grid.SetRowSpan(gs, row);
+                        Grid.SetColumn(gs, i);
+                        grid.Children.Add(gs);
+                    }
+                }
             }
             return grid;
         }
         /// <summary>
-        /// Create a grid vertically
+        /// Create a grid vertically with grid spliter column
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         public static Grid CreateRotateVerticalGrid(object model)
         {
             PropertyInfo[] props = model.GetType().GetProperties();
-            var grid = CreateGrid(props.Length, 2);
+            var grid = CreateGrid(props.Length, 2, true);
             for (int i = 0; i < props.Length; i++)
             {
                 var prop = props[i];
@@ -160,7 +187,7 @@ namespace SMDeployment.AppCodes
                 {
                     Text = prop.GetValue(model) == null ? string.Empty : prop.GetValue(model).ToString()
                 };
-                Grid.SetColumn(txt, 1);
+                Grid.SetColumn(txt, i+2);
                 Grid.SetRow(txt, i);
                 grid.Children.Add(lbl);
                 grid.Children.Add(txt);
@@ -226,7 +253,7 @@ namespace SMDeployment.AppCodes
         /// <returns>The Grid object owned dropdown</returns>
         public static Grid CreateSelectionGrid(
             string dropdownLabel,
-            IEnumerable<object> dropdownItems, 
+            IEnumerable<object> dropdownItems,
             string displayMember,
             string dataMember,
             SelectionChangedEventHandler onDropdownSelectionChanged)
@@ -251,7 +278,7 @@ namespace SMDeployment.AppCodes
                 HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
                 VerticalAlignment = System.Windows.VerticalAlignment.Center,
                 Content = dropdownLabel,
-                Margin = new Thickness(20,0,0,0)
+                Margin = new Thickness(20, 0, 0, 0)
             };
             Grid.SetRow(lbl, 0);
             Grid.SetColumn(lbl, 0);

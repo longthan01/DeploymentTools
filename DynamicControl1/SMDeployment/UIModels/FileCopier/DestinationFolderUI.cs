@@ -12,7 +12,7 @@ namespace SMDeployment.UIModels.FileCopier
         public bool Selected { get; set; }
         public DestinationFolderUI()
         {
-            Selected = true;
+            Selected = false;
         }
     }
 }

@@ -17,7 +17,10 @@ namespace SMDeployment.AppCodes
         {
             return (ProjectPath)Enum.Parse(typeof(ProjectPath), item.ToString());
         }
-
+        public static XmlConfigSection ToXmlConfigSection(this object item)
+        {
+            return (XmlConfigSection)Enum.Parse(typeof(XmlConfigSection), item.ToString());
+        }
         /// <summary>
         /// Convert the list of T to list of V which V is inherited from T
         /// </summary>

@@ -47,7 +47,7 @@ namespace SMDeployment.UserControls.Tfs
         {
             if (_SearchConfigurator == null)
             {
-                this.Log("Must choose 1 project first.");
+                this.LogError("Must choose 1 project first.");
                 return;
             }
             var filter = this.ucSearchFilter.GetFilter();

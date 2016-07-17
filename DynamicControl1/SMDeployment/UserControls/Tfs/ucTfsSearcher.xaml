@@ -68,7 +68,6 @@
                             <ColumnDefinition Width="3" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-
                         <local:ucSearchFilter x:Name="ucSearchFilter"
                                               Grid.Column="0"
                                               Grid.ColumnSpan="3"></local:ucSearchFilter>
