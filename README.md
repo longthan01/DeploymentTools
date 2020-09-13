@@ -1,2 +1,3 @@
 # DeploymentTools
-Deployment tools
+# Simple deployment tool used in the previous company.
+# Technologies: TFS sdk
